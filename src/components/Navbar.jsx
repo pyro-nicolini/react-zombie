@@ -1,5 +1,6 @@
 import Button from "./Button";
 import logo from "../images/logo.png";
+import buttonImg from "../images/take.png";
 
 const Navbar = ({ onLogout, auth }) => {
   const total = 25000;
@@ -34,11 +35,12 @@ const Navbar = ({ onLogout, auth }) => {
         )}
       </div>
       <Button
-        buttonText={`🛒 Total: ${total.toLocaleString("es-CL", {
+        buttonText={`Total: ${total.toLocaleString("es-CL", {
           style: "currency",
           currency: "CLP",
         })}`}
         className="total"
+        buttonImg={buttonImg}
       />
     </div>
   );

@@ -34,14 +34,14 @@ function CardPizza({ name, price, ingredients = [], img, desc }) {
           />
         </div>
         <h2 className="cardTitle">{capitalizer(name)}</h2>
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent: "center", alignItems: 'center', paddingBottom: "2rem"}}>
+            <h3 className="cardPrice">${pricer(price)}</h3>
+        <Button buttonText="Añadir 🍕" className="agregar" />
+        </div>
         <h4 className="cardSubTitle">
           {capitalizer(ingredients?.join(", ") || "No disponible")}
         </h4>
         <p className="cardText">{desc}</p>
-        <div style={{display: 'flex', justifyContent: "space-evenly"}}>
-        <h3 className="cardPrice">${pricer(price)}</h3>
-        <Button buttonText="Añadir 🛒" className="bg-danger text-white" />
-        </div>
       </div>
   );
 }

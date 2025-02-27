@@ -7,10 +7,11 @@
   position: fixed !important;
   top: 0;
   width: 100%;
-  padding: 0 1rem;
   background: linear-gradient(#5c5c5c, #000);
   height: 6rem  !important;
   z-index: 2;
+  margin: 0;
+  padding-right: 4rem !important;
 }
 
 .navLogo {
@@ -43,15 +44,25 @@
 .total {
   position: relative;
   top: -1.5rem;
-  font-size: 1.2rem !important;
+  font-size: 1.4rem !important;
   width: fit-content !important;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(#cfc20c, #cf810c) !important;
+  padding: 1rem !important;
+  background: linear-gradient(#cf640c, #5d0ccf) !important;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
   color: #ffffff !important;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0.2);
+  height: 4rem;
 }
 
+.buttonImg {
+  position: relative;
+  height: 6rem;
+  left: 0rem;
+}
 
 .NavLinks{
   position: relative;
@@ -71,6 +82,8 @@
 .navLinks a:hover {
   color: #f76f14;
 }
+
+
 
 
 .bienvenido {
@@ -95,12 +108,11 @@
   border-radius: 1rem !important;
   border: none !important;
   width: 8rem !important;
-  font-size: 1rem !important;
+  font-size: 1rem;
   transition: all 0.1s ease-in-out;
   cursor: pointer !important;
   font-weight: 500;
   box-shadow: 1px 1px 3px #000000;
-  
 }
 
 .button:hover {
@@ -109,17 +121,33 @@
 }
 
 .verMas{
-  margin: 1rem 0;
-  padding: .3rem 0;
+  margin-top: 1rem;
   border-radius: 2rem !important;
+  padding:.2rem 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .ytImage {
-  filter: drop-shadow(1px 1.5px 1px #000000);
-  width: 40px !important;
+  position: relative;
+  width: 50px !important;
   margin-right: 10px;
 }
 
+.ytImage:hover {
+  animation: rotation 1s ease-in-out infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+
+}
 
 .main {
   grid-area: main;
@@ -142,14 +170,15 @@
   display: block;
   height: 12rem;
   width: 100% !important;
-  color: rgb(255, 255, 255);
+  color: rgb(229, 255, 0);
   padding: 3rem;
-  background-position: center 80%;
   background-attachment: fixed;
   background-size: cover !important;
   background-repeat: no-repeat;
   animation: subeYBajar 10s infinite;
-  text-shadow: 3px 3px 10px rgba(76, 0, 252, 1), 1px 1px 20px rgb(230, 43, 255);
+  text-shadow: 10px 10px 20px rgb(40, 0, 134), 1px 1px 10px rgb(225, 0, 255);
+  border-bottom: 1rem solid black;
+  border-top: 1rem solid black;
 }
 
 @keyframes subeYBajar {
@@ -166,12 +195,11 @@
 }
 
 .containerPizza {
-  padding: 1rem;
   width: 100%;
   background-image: url('./images/fondo1.jpg');
-  background-position: center bottom;
+  background-position: 100% 100%;
   background-repeat: no-repeat;
-  background-size: 1400px;
+  background-size: cover;
   background-attachment: fixed;
   background-color: #000000 !important;
   display: grid;
@@ -181,43 +209,43 @@
 
 .pizzas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Ajuste con auto-fit */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  max-width: 1400px;
-  padding: 3rem;
+  padding: 1rem;
+  max-width: 1200px;
 }
-
 
 .cardImg {
   width: 100%;
   height: 40%;
   object-fit: cover;
-  box-shadow: 10px 10px 10px #000000;
-  
+  border: 4px solid white;
 }
 
 .cardBody {
+  border-radius: 2rem;
   height: fit-content;
-  background: white;
-  padding: 15px;
+  background: rgb(255, 255, 255);
+  padding: 5px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between !important;
+  justify-content: space-evenly !important;
   transition: transform 0.3s ease-in-out;
   box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.8) !important;
-
 }
 
 .cardTitle {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
+  margin-top: 10px;
+  color: #7b00ff;
+  text-align: center;
 }
 
 .cardWindows {
   display: flex;
+  border-radius: 1.8rem;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
@@ -225,31 +253,42 @@
   background-image: url('./images/windows.webp');
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 1rem;
+  padding: 1.5rem;
   box-shadow: 3px 3px 3px #000000;
-
+  width: 100%;
 }
 
 .cardSubTitle {
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #666;
-  margin-bottom: 10px;
+  padding: 0 1rem;
 }
 
 .cardPrice {
-  font-size: 2rem;
-  color: #27ae60;
+  font-size: 3rem;
+  color: #8cff45;
   font-weight: bold;
-  text-shadow: 2px 2px 3px #00000083;
-
+  text-shadow: 2px 2px 5px #2a0d86;
 }
 
 .cardText {
   font-size: 0.8rem;
   color: #555;
-  margin-top: 10px;
   text-align: justify;
-  height: 10rem;
+  padding: 0 1.5rem;
+}
+
+.agregar {
+  padding: .5rem 1rem;
+  border-radius: 2rem !important;
+  border: none !important;
+  background-color: #e50505 !important;
+  color: white !important;
+  font-size: 1.2rem;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer !important;
+  font-weight: 500;
+  box-shadow: 1px 1px 3px #000000;
 }
 
 .footer {
@@ -308,9 +347,11 @@
   .bienvenido {
     display: none;
   }
-  
   .pizzas {
-    width: 600px;
+    max-width: none;
+  }
+  .containerPizza {
+    background-size: cover;
   }
 }
 
@@ -358,10 +399,6 @@
 
   .NavLinks {
     top: 0rem;
-  }
-  
-  .pizzas {
-    width: 300px;
   }
 
   .footer p {
