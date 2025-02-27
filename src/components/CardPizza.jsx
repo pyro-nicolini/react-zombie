@@ -1,37 +1,48 @@
 import Button from "./Button";
+import ytImage from "../images/yt.png";
 
-function CardPizza({ name, price, ingredients, img }) {
+function CardPizza({ name, price, ingredients = [], img, desc }) {
+  function capitalizer(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  function pricer(num) {
+    return num.toLocaleString().replace(",", ".");
+  }
+
   return (
-    <>
-      <div
-        className="card shadow btn btn-outline-danger border-black text-white"
-        style={{ maxWidth: "18rem" }}
-      >
-        <img
-          className="card-img-top rounded"
-          src={img}
-          alt={name}
-          style={{ height: "200px", objectFit: "cover" }}
-        />
-        <div className="card-body">
-          <h3 className="card-title">{name}</h3>
-          <h4 className="card-subtitle mb-2 text-warning">
-            ${price.toLocaleString().replace(",", ".")}
-          </h4>
-          <p className="card-text">{ingredients.join(", ")}</p>
+      <div className="cardBody">
+        <div className="cardWindows">
+          <img
+            className="cardImg"
+            src={img}
+            alt={name}
+            style={{ height: "200px", objectFit: "cover" }}
+          />
+          <Button
+            buttonText={
+              <>
+                <img
+                  className="ytImage"
+                  src={ytImage}
+                  alt="YouTube"
+                />
+                <span>Más...</span>
+              </>
+            }
+            className="verMas"
+          />
         </div>
-        <div className="d-flex gap-3 justify-content-center">
-          <Button
-            buttonText={`ver más...`}
-            className={"btn-outline-warning px-4"}
-          />
-          <Button
-            buttonText={`Añadir 🛒`}
-            className={"bg-success2 text-white px-4"}
-          />
+        <h2 className="cardTitle">{capitalizer(name)}</h2>
+        <h4 className="cardSubTitle">
+          {capitalizer(ingredients?.join(", ") || "No disponible")}
+        </h4>
+        <p className="cardText">{desc}</p>
+        <div style={{display: 'flex', justifyContent: "space-evenly"}}>
+        <h3 className="cardPrice">${pricer(price)}</h3>
+        <Button buttonText="Añadir 🛒" className="bg-danger text-white" />
         </div>
       </div>
-    </>
   );
 }
 

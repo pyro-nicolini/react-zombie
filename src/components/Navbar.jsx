@@ -1,34 +1,46 @@
 import Button from "./Button";
+import logo from "../images/logo.png";
 
 const Navbar = ({ onLogout, auth }) => {
   const total = 25000;
   const { autorizado, autenticado } = auth || {};
-  const email = autenticado ? autenticado.email : '';
+  const email = autenticado ? autenticado.email : "";
 
   return (
-    <nav className="gap-1">
-      <div className="d-flex gap-2">
-        <Button buttonText={"🍕 Home"} className="btn-outline-light" />
-        
+    <div className="navbar">
+        <img src={logo} alt="Logo" className="navLogo"/>
+      <div className="NavLinks">
+        {autorizado ? (
+          <div className="bienvenido">
+            <p>{`Bienvenido`}</p>
+            <span>{` ${email}`}</span>
+          </div>
+        ) : null}
+        <Button buttonText={"🍕 Home"} className="navLink" />
         {autorizado ? (
           <>
-            <Button buttonText={`Bienvenido ${email}`} className="btn-warning" />
-            <Button className="btn-outline-light" buttonText={"🔓 Profile"} />
-            <Button onClick={onLogout} className="btn-danger" buttonText={"🔒 Logout"} />
+            <Button className="navLink" buttonText={"👤 Profile"} />
+            <Button
+              onClick={onLogout}
+              className="navLink red"
+              buttonText={"🔒 Logout"}
+            />
           </>
         ) : (
           <>
-            <Button className="btn-outline-light" buttonText={"🔐 Login"} />
-            <Button className="btn-outline-light" buttonText={"🔐 Register"} />
+            <Button className="navLink" buttonText={"🔐 Login"} />
+            <Button className="navLink" buttonText={"📝 Register"} />
           </>
         )}
       </div>
-
       <Button
-        buttonText={`🛒 Total: ${total.toLocaleString("es-CL", { style: "currency", currency: "CLP" })}`}
-        className="btn-outline-success"
+        buttonText={`🛒 Total: ${total.toLocaleString("es-CL", {
+          style: "currency",
+          currency: "CLP",
+        })}`}
+        className="total"
       />
-    </nav>
+    </div>
   );
 };
 

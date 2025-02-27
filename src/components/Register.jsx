@@ -74,7 +74,7 @@ function Register({ onChange, values, auth, setAuth }) {
   return (
     <form
       onSubmit={validarRegistro}
-      className="d-flex flex-column text-white p-3 rounded"
+      className="form"
     >
       <h3 className="mt-3">🔐 Registrar Usuario</h3>
       {error && <p className="alert bg-danger py-1 mt-3">{error}</p>}

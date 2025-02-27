@@ -9,10 +9,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [auth, setAuth] = useState({
-    autorizado: false,
+    autorizado: true,
     users: [{ email: "prueba@prueba.com", pass: "prueba@prueba.com" }],
     input: { email: "", pass: "", pass2: "", exito: "", error: "" },
-    autenticado: null,
+    autenticado: {email: "prueba@prueba.com"},
   });
 
   const controlCambios = (e) => {
@@ -37,17 +37,10 @@ function App() {
   };
 
   return (
-    <div
-      className="bg-dark d-flex"
-      style={{
-        justifyContent: "space-between",
-        height: "100%",
-        flexDirection: "column",
-      }}
-    >
+    <div className="app">
       <Navbar onLogout={cerrarSesion} auth={auth} />
+      <div className="main">
       {auth.autorizado ? <Home /> : null}
-      <div className="d-flex m-3 justify-content-center gap-5">
         {auth.autorizado ? null : (
           <>
             <Register
@@ -65,7 +58,10 @@ function App() {
           </>
         )}
       </div>
-      <Footer footerText="© 2021 - Pizzería Mamma Mia! - Todos los derechos reservados" />
+      <Footer footerTextA={"© 2025 -"}
+      footerLink={' Pizzería Mamma Mia! '}
+      footerTextB={'- Todos los derechos reservados'}
+      />
     </div>
   );
 }

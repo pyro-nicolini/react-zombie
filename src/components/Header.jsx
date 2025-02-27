@@ -1,7 +1,7 @@
-function Header({ title, description, fondo, style }) {
+function Header({title, description, fondo}) {
   return (
     <div>
-      <header style={{ backgroundImage: `url(${fondo})`, ...style, }} className={"w-100 text-white p-4"}>
+      <header style={{backgroundImage: `url(${fondo})`,}} className="header">
         <h1>{title}</h1>
         <p>{description}</p>
       </header>
