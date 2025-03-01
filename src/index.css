@@ -9,7 +9,7 @@
   width: 100%;
   background: linear-gradient(#5c5c5c, #000);
   height: 6rem  !important;
-  z-index: 2;
+  z-index: 1000;
   margin: 0;
   padding-right: 4rem !important;
 }
@@ -129,6 +129,7 @@
   justify-content: start;
 }
 
+
 .ytImage {
   position: relative;
   width: 50px !important;
@@ -177,8 +178,8 @@
   background-repeat: no-repeat;
   animation: subeYBajar 10s infinite;
   text-shadow: 10px 10px 20px rgb(40, 0, 134), 1px 1px 10px rgb(225, 0, 255);
-  border-bottom: 1rem solid black;
-  border-top: 1rem solid black;
+  border-bottom: 1rem solid rgb(171, 0, 213);
+  border-top: 1rem solid rgb(139, 3, 237);
 }
 
 @keyframes subeYBajar {
@@ -195,6 +196,7 @@
 }
 
 .containerPizza {
+  content: "";
   width: 100%;
   background-image: url('./images/fondo1.jpg');
   background-position: 100% 100%;
@@ -205,27 +207,23 @@
   display: grid;
   gap: 1rem;
   justify-content: center;
+  padding: 1rem;
+  padding-bottom: 5rem;
 }
 
 .pizzas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  padding: 1rem;
   max-width: 1200px;
 }
 
-.cardImg {
-  width: 100%;
-  height: 40%;
-  object-fit: cover;
-  border: 4px solid white;
-}
+
 
 .cardBody {
   border-radius: 2rem;
   height: fit-content;
-  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.866);
   padding: 5px;
   text-align: center;
   display: flex;
@@ -233,47 +231,75 @@
   justify-content: space-evenly !important;
   transition: transform 0.3s ease-in-out;
   box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.8) !important;
+
+  
 }
 
 .cardTitle {
   font-size: 2rem;
   font-weight: bold;
   margin-top: 10px;
-  color: #7b00ff;
+  color: #7300ff;
   text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.cardImg2 {
+  position: absolute;
+  width: auto;
+  height: 12rem !important;
+  top: 10rem;
+  left: 70%;
+  z-index: 20;
+}
+
+
+.cardImg {
+  position: relative;
+  width: 100%;
+  height: 17rem !important;
+  object-fit: cover;
+  border: 5px solid rgb(255, 98, 0);
 }
 
 .cardWindows {
   display: flex;
-  border-radius: 1.8rem;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  flex-direction: column;
+  background-color: #4b0778;
+  border-radius: 1.8rem;
   margin-bottom: 10px;
-  background-image: url('./images/windows.webp');
   background-repeat: no-repeat;
-  background-size: cover;
   padding: 1.5rem;
-  box-shadow: 3px 3px 3px #000000;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  height: 23rem;
   width: 100%;
+  position: relative;
+  z-index: 100;
 }
+
 
 .cardSubTitle {
   font-size: 1.2rem;
-  color: #666;
+  color: #000000;
   padding: 0 1rem;
 }
 
 .cardPrice {
   font-size: 3rem;
-  color: #8cff45;
+  color: #0ce54d;
+  background-color: #ffffff;
+  padding: .3rem 1rem;
+  border: 2px solid #e5ab0c;;
+  border-radius: 3rem;
   font-weight: bold;
   text-shadow: 2px 2px 5px #2a0d86;
 }
 
 .cardText {
   font-size: 0.8rem;
-  color: #555;
+  color: #2c2c2c;
   text-align: justify;
   padding: 0 1.5rem;
 }
@@ -302,6 +328,9 @@
   width: 100%;
   position: fixed;
   bottom: 0;
+  padding: 1.2rem;
+  z-index: 1000;
+
 }
 
 .form {

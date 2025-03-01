@@ -21,6 +21,7 @@ function Home() {
                 ingredients={pizza.ingredients}
                 desc={pizza.desc}
                 img={pizza.img}
+                img2={pizza.zombie}
               />
           ))}
         </div>

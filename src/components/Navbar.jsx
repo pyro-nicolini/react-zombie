@@ -20,7 +20,7 @@ const Navbar = ({ onLogout, auth }) => {
         <Button buttonText={"🍕 Home"} className="navLink" />
         {autorizado ? (
           <>
-            <Button className="navLink" buttonText={"👤 Profile"} />
+            <Button className="navLink" buttonText={"👤 Profile"}/>
             <Button
               onClick={onLogout}
               className="navLink red"
