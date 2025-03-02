@@ -7,7 +7,7 @@ function Home() {
   return (
     <div className="home">
       <Header
-        title={"¡Pizzería Mamma Mia!"}
+        title={"¡Pizzas de miedo!"}
         description={"¡Tenemos las mejores pizzas que podrás encontrar!"}
         fondo={fondoPizza}
       />
