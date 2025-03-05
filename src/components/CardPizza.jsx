@@ -16,8 +16,8 @@ function CardPizza({ name, price, ingredients = [], img2, desc, img }) {
 
       <div className="cardWindows">
         <img className="cardImg" src={img} alt={name} />
-        <img className="cardImg2" src={img2} alt={name} />
-        <h3 className="cardPrice">${pricer(price)}</h3>
+        <img className="zombie" src={img2} alt={name} />
+        <p className="cardPrice">${pricer(price)}</p>
       </div>
       <div
         style={{

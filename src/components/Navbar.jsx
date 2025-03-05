@@ -9,7 +9,6 @@ const Navbar = ({ onLogout, auth }) => {
 
   return (
     <div className="navbar">
-        <img src={logo} alt="Logo" className="navLogo"/>
       <div className="NavLinks">
         {autorizado ? (
           <div className="bienvenido">
@@ -20,7 +19,7 @@ const Navbar = ({ onLogout, auth }) => {
         <Button buttonText={"🍕 Home"} className="navLink" />
         {autorizado ? (
           <>
-            <Button className="navLink" buttonText={"👤 Profile"}/>
+            <Button className="navLink" buttonText={"👤 Profile"} />
             <Button
               onClick={onLogout}
               className="navLink red"
@@ -34,6 +33,7 @@ const Navbar = ({ onLogout, auth }) => {
           </>
         )}
       </div>
+        <img src={logo} alt="Logo" className="navLogo" />
       <Button
         buttonText={`Total: ${total.toLocaleString("es-CL", {
           style: "currency",

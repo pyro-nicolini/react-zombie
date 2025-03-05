@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 
 function App() {
   const [auth, setAuth] = useState({
