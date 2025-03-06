@@ -11,8 +11,8 @@ const Navbar = ({ onLogout, auth }) => {
     <div className="navbar">
       <div className="NavLinks">
         {autorizado ? (
-          <div className="bienvenido">
-            <p>{`Bienvenido`}</p>
+          <div className="perfil">
+            <div className="bienvenido"></div>
             <span>{` ${email}`}</span>
           </div>
         ) : null}
@@ -33,7 +33,7 @@ const Navbar = ({ onLogout, auth }) => {
           </>
         )}
       </div>
-        <img src={logo} alt="Logo" className="navLogo" />
+      <img src={logo} alt="Logo" className="navLogo" />
       <Button
         buttonText={`Total: ${total.toLocaleString("es-CL", {
           style: "currency",
