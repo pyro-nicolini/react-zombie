@@ -1,16 +1,17 @@
-function Header({title, description, fondo}) {
+function Header({ title1, description1, fondo }) {
   return (
-    <div>
-      <header style={{backgroundImage: `url(${fondo})`,}} className="header">
-        <img src="src/images/hand.png" alt="" style={{width:'auto', height: '11rem',}}/>
-        <div>
-        <h1>{title}</h1>
-        <p>{description}</p>
+    <div className="header" style={{ backgroundImage: `url(${fondo})` }}>
+        <div className="p1">
+          <strong id="title1">{title1}</strong>
+          <p id="desc1">{description1}</p>
+        <img
+          className="itemHeader"
+          src="src/images/hand.png"
+          alt="Fotografía de mano Plants Vs Zombie"
+        />
         </div>
-      </header>
     </div>
   );
 }
-
 
 export default Header;

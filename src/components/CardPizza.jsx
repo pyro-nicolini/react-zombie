@@ -12,30 +12,36 @@ function CardPizza({ name, price, ingredients = [], img2, desc, img }) {
 
   return (
     <div className="cardBody" style={{ backgroundImage: `url(${img})` }}>
-      <div style={{ display: "flex", flexDirection: "column", justifyContent: 'center', gap: '1rem',}}>
+      <img className="zombie" src={img2} alt={name} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          gap: "1rem",
+        }}
+      >
         <p className="cardPrice">${pricer(price)}</p>
-      <div className="cardWindows">
-        <h2 className="cardTitle">{capitalizer(name)}</h2>
-        <img className="zombie" src={img2} alt={name} />
-        <h4 className="cardSubTitle">
-          {capitalizer(ingredients?.join(", ") || "No disponible")}
-        </h4>
+        <div className="cardWindows">
+          <h2 className="cardTitle">{capitalizer(name)}</h2>
+          <h4 className="cardSubTitle">
+            {capitalizer(ingredients?.join(", ") || "No disponible")}
+          </h4>
 
-        <p className="cardText">{desc}</p>
-      </div>
-        <div style={{ display: "flex", gap: "1rem", justifyContent: 'center', }}>
-
-        <Button buttonText="Añadir 🍕" className="agregar" />
-        <Button
-          buttonText={
-            <>
-              <img className="ytImage" src={ytImage} alt="YouTube" />
-              <span>Ver Más</span>
-            </>
-          }
-          className="verMas"
+          <p className="cardText">{desc}</p>
+        </div>
+        <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+          <Button buttonText="Añadir 🍕" className="add" />
+          <Button
+            buttonText={
+              <>
+                <img className="youtube" src={ytImage} alt="YouTube" />
+                <span>Ver Más</span>
+              </>
+            }
+            className="mas"
           />
-          </div>
+        </div>
       </div>
     </div>
   );
