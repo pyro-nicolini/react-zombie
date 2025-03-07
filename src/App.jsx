@@ -59,7 +59,7 @@ function App() {
         )}
       </div>
       <Footer footerTextA={"© 2025 -"}
-      footerLink={' Pizzería Mamma Mia! '}
+      footerLink={'Zombie Pizza'}
       footerTextB={'- Todos los derechos reservados'}
       />
     </div>
