@@ -9,10 +9,9 @@ function CardPizza({ name, price, ingredients = [], img2, desc, img }) {
   function pricer(num) {
     return num.toLocaleString().replace(",", ".");
   }
-
+  
   return (
     <div className="cardBody" style={{ backgroundImage: `url(${img})` }}>
-      <img className="zombie" src={img2} alt={name} />
       <div
         style={{
           display: "flex",
@@ -21,9 +20,10 @@ function CardPizza({ name, price, ingredients = [], img2, desc, img }) {
           gap: "1rem",
         }}
       >
+        <img className="zombie" src={img2} alt={name} />
         <p className="cardPrice">${pricer(price)}</p>
         <div className="cardWindows">
-          <h2 className="cardTitle">{capitalizer(name)}</h2>
+        <h2 className="cardTitle">{capitalizer(name)}</h2>
           <h4 className="cardSubTitle">
             {capitalizer(ingredients?.join(", ") || "No disponible")}
           </h4>

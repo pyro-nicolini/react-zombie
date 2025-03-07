@@ -25,8 +25,7 @@ function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % texts.length);
-    }, 5000);
-
+    }, 7000);
     return () => clearInterval(interval);
   }, []);
 
