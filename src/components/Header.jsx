@@ -3,7 +3,7 @@ function Header({ title1, description1, fondo }) {
     <div className="header" style={{ backgroundImage: `url(${fondo})` }}>
         <div className="p1">
           <h1 id="title1">{title1}</h1>
-          <p id="desc1">{description1}</p>
+          <h2 id="desc1">{description1}</h2>
         <img
           className="itemHeader"
           src="src/images/hand.png"

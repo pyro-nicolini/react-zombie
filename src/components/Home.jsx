@@ -36,7 +36,6 @@ function Home() {
         description1={texts[index].description}
         fondo={fondoPizza}
       />
-
       <div className="containerPizza">
         <div className="pizzas">
           {pizzas.map((pizza) => (

@@ -1,9 +1,7 @@
-# Proyecto React + Vite
-# Pizzería Mamma Mia
+# Proyecto React + Vite  
+# Zombie Pizza  
 
-¡Bienvenido a **Pizzería Mamma Mia**! Esta es una aplicación web donde podrás explorar deliciosas pizzas,
- conocer los ingredientes de cada una y hacer tu pedido de manera fácil y rápida.
+¡Bienvenido a **Zombie Pizza**! Esta es una aplicación web donde podrás descubrir las pizzas más terroríficas, conocer sus ingredientes espeluznantes y hacer tu pedido antes de que el hambre te convierta en un zombi.  
 
-### Tecnologías usadas
-- React
-- Bootstrap
+### Tecnologías usadas  
+- React  

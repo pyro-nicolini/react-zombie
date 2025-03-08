@@ -1,9 +1,10 @@
 import "./App.css";
+import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
-import Register from "./components/Register";
-import Login from "./components/Login";
+// import Register from "./components/Register";
+// import Login from "./components/Login";
 import { useState } from "react";
 
 
@@ -40,7 +41,8 @@ function App() {
     <div className="app">
       <Navbar onLogout={cerrarSesion} auth={auth} />
       <div className="main">
-      {auth.autorizado ? <Home /> : null}
+      <Cart/>
+      {/* {auth.autorizado ? <Home /> : null} */}
         {auth.autorizado ? null : (
           <>
             <Register
@@ -48,13 +50,13 @@ function App() {
               auth={auth}
               onChange={controlCambios}
               values={auth.input}
-            />
+              />
             <Login
               setAuth={setAuth}
               auth={auth}
               onChange={controlCambios}
               values={auth.input}
-            />
+              />
           </>
         )}
       </div>
