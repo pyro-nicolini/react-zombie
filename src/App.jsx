@@ -44,8 +44,8 @@ function App() {
       <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo}/>
       <div className="main">
       <Cart setTotalisimo={setTotalisimo} />      
-      {/* {auth.autorizado ? <Home /> : null} */}
-          <>
+      {auth.autorizado ? <Home /> : null}
+          <div className="flex twins">
             <Register
               setAuth={setAuth}
               auth={auth}
@@ -58,7 +58,7 @@ function App() {
               onChange={controlCambios}
               values={auth.input}
               />
-          </>
+          </div>
       </div>
       <Footer footerTextA={"© 2025 -"}
       footerLink={'Zombie Pizza'}

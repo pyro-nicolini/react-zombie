@@ -477,15 +477,17 @@ label {
   background-color: rgb(241, 39, 39);
   color: white;
   border-radius: .5rem;
-  margin: 1rem auto;
-  padding: .7rem .2rem;
+  padding: 1rem !important;
+  text-align: center;
 }
 .exito {
+  width: 100%;
   background-color: rgb(62, 147, 45);
   color: white;
   border-radius: .5rem;
   margin: auto;
-  padding: .7rem;
+  padding: 1rem !important;
+  text-align: center;
 }
 
 .column {
@@ -596,6 +598,10 @@ label {
   }
 }
 
+.twins {
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .cardBody {
     height: 35rem;
@@ -689,6 +695,10 @@ label {
 }
 
 @media (max-width: 480px) {
+  .twins {
+   flex-direction: column;
+  }
+
   .cart, .form {
     width: auto;
 
