@@ -70,59 +70,49 @@ function Register({ onChange, values, auth, setAuth }) {
   };
 
   return (
-    <form
-      onSubmit={validarRegistro}
-      className="form"
-    >
-      <h3 className="mt-3">🔐 Registrar Usuario</h3>
-      {error && <p className="alert bg-danger py-1 mt-3">{error}</p>}
-      {exito && <p className="alert bg-success py-1 mt-3">{exito}</p>}
-      <div className="mb-3 container">
-        <label className="d-flex">Email:</label>
+    <form onSubmit={validarRegistro} className="form">
+      <h3>🔐 Registrar Usuario</h3>
+      {error && <p className="alert">{error}</p>}
+      {exito && <p className="exito">{exito}</p>}
+
+      <div className="titleForm">
+        <label>Email:</label>
         <input
           type="email"
           name="email"
           value={email}
           onChange={onChange}
-          className="form-control"
+          className="flex"
           placeholder="Email"
         />
       </div>
 
-      <div className="mb-3 container">
-        <label className="d-flex">Contraseña:</label>
+      <div className="titleForm">
+        <label>Contraseña:</label>
         <input
           type="password"
           name="pass"
           value={pass}
           onChange={onChange}
-          className="form-control"
+          className="flex"
           placeholder="contraseña"
         />
       </div>
-
-      <div className="mb-3 container">
-        <label className="d-flex">Confirmar Contraseña:</label>
+      <div className="titleForm">
+        <label>Confirmar Contraseña:</label>
         <input
           type="password"
           name="pass2"
           value={pass2}
           onChange={onChange}
-          className="form-control mb-3"
+          className="flex"
           placeholder="Re-ingresar contraseña"
         />
-        <Button
-          type="submit"
-          className={`btn-outline-light mt-1 container p-2`}
-          buttonText={"Registrar"}
-        />
-        <label style={{ fontSize: "0.7rem" }} className="mt-2">
-          ¿Ya tienes una cuenta?
-        </label>
-        <Button
-          className={`btn-outline-light mt-1 container p-2`}
-          buttonText={"Iniciar Sesión"}
-        />
+      </div>
+      <div className="column space gap">
+        <Button type="submit" className={`padding`} buttonText={"Registrar"} />
+        <p style={{ fontSize: "0.7rem" }}>¿Ya tienes una cuenta?</p>
+        <Button className={`padding`} buttonText={"Iniciar Sesión"} />
       </div>
     </form>
   );

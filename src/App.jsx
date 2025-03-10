@@ -3,12 +3,13 @@ import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
-// import Register from "./components/Register";
-// import Login from "./components/Login";
-import { useState } from "react";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import { useState, useEffect } from "react";
 
 
 function App() {
+  const [totalisimo, setTotalisimo] = useState(0)
   const [auth, setAuth] = useState({
     autorizado: true,
     users: [{ email: "prueba@prueba.com", pass: "prueba@prueba.com" }],
@@ -37,13 +38,13 @@ function App() {
     }));
   };
 
+
   return (
     <div className="app">
-      <Navbar onLogout={cerrarSesion} auth={auth} />
+      <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo}/>
       <div className="main">
-      <Cart/>
+      <Cart setTotalisimo={setTotalisimo} />      
       {/* {auth.autorizado ? <Home /> : null} */}
-        {auth.autorizado ? null : (
           <>
             <Register
               setAuth={setAuth}
@@ -58,7 +59,6 @@ function App() {
               values={auth.input}
               />
           </>
-        )}
       </div>
       <Footer footerTextA={"© 2025 -"}
       footerLink={'Zombie Pizza'}

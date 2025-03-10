@@ -61,41 +61,39 @@ function Login({ onChange, values, auth, setAuth }) {
   };
 
   return (
-    <form
-      onSubmit={validarLogin}
-      className="form"
-    >
-      <h3 className="mt-3">🔓 Iniciar Sesión</h3>
-      {error && <p className="alert bg-danger py-1 mt-3">{error}</p>}
-      {exito && <p className="alert bg-success py-1 mt-3">{exito}</p>}
-      <div className="mb-3 container">
-        <label className="d-flex">Email:</label>
+    <form onSubmit={validarLogin} className="form">
+      <h3>🔓 Iniciar Sesión</h3>
+      {error && <p className="alert">{error}</p>}
+      {exito && <p className="exito">{exito}</p>}
+      <div className="titleForm">
+        <label>Email:</label>
         <input
           type="email"
           name="email"
           value={email}
           onChange={onChange}
-          className="form-control"
+          className="flex"
           placeholder="Email"
         />
       </div>
-
-      <div className="mb-3 container">
-        <label className="d-flex">Contraseña:</label>
+      <div className="titleForm">
+        <label>Contraseña:</label>
         <input
           type="password"
           name="pass"
           value={pass}
           onChange={onChange}
-          className="form-control"
+          className="flex"
           placeholder="contraseña"
         />
+      </div>
+      <div className="column gap">
         <Button
           type="submit"
-          className={`btn-outline-light mt-3 container p-2`}
+          className={`padding`}
           buttonText={"Iniciar Sesión"}
         />
-        <a href="#" className="text-white d-flex justify-content-center">
+        <a href="#" className="white">
           ¿Olvidaste tu contraseña?
         </a>
       </div>

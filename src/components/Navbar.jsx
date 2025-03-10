@@ -2,9 +2,9 @@ import Button from "./Button";
 import logo from "../images/logo2.png";
 import Promo from "./Promo.jsx";
 
-const Navbar = ({ onLogout, auth }) => {
-  const total = 25000;
+const Navbar = ({ onLogout, auth, total }) => {
   const { autorizado, autenticado } = auth || {};
+
   const email = autenticado ? autenticado.email : "";
 
   window.addEventListener("scroll", function () {
@@ -21,7 +21,7 @@ const Navbar = ({ onLogout, auth }) => {
     <div className="fixed">
       <Promo
         promo={
-          "35% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $5.000, descuento máximo $12.000.*"
+          "35% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
         }
       />
       <div className="nav" id="navbar">
@@ -53,12 +53,12 @@ const Navbar = ({ onLogout, auth }) => {
             </>
           )}
           <div className="info">
-          <Button className="navLink" buttonText={"Sucursales"} />
-          <Button className="navLink" buttonText={"Promos"} />
+            <Button className="navLink" buttonText={"Sucursales"} />
+            <Button className="navLink" buttonText={"Promos"} />
           </div>
         </div>
         <Button
-          buttonText={`Total: ${total.toLocaleString("es-CL", {
+          buttonText={`Total: ${Math.round(total*1000).toLocaleString("es-CL", {
             style: "currency",
             currency: "CLP",
           })}`}
