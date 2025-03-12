@@ -72,8 +72,8 @@ function Register({ onChange, values, auth, setAuth }) {
   return (
     <form onSubmit={validarRegistro} className="form">
       <h3>🔐 Registrar Usuario</h3>
-      {error && <p className="alert">{error}</p>}
-      {exito && <p className="exito">{exito}</p>}
+      {error && <div className="alert">{error}</div>}
+      {exito && <div className="exito">{exito}</div>}
 
       <div className="titleForm">
         <label>Email:</label>
@@ -111,7 +111,7 @@ function Register({ onChange, values, auth, setAuth }) {
       </div>
       <div className="column space gap">
         <Button type="submit" className={`padding`} buttonText={"Registrar"} />
-        <p style={{ fontSize: "0.7rem" }}>¿Ya tienes una cuenta?</p>
+        <p style={{ fontSize: "0.9rem" }}>¿Ya tienes una cuenta?</p>
         <Button className={`padding`} buttonText={"Iniciar Sesión"} />
       </div>
     </form>

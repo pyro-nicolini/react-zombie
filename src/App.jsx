@@ -43,9 +43,9 @@ function App() {
     <div className="app">
       <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo}/>
       <div className="main">
-      <Cart setTotalisimo={setTotalisimo} />      
+      <Cart cuponPromo={'caca'} setTotalisimo={setTotalisimo} />      
       {auth.autorizado ? <Home /> : null}
-          <div className="flex twins">
+          <div className="twins">
             <Register
               setAuth={setAuth}
               auth={auth}

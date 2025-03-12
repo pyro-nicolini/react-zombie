@@ -2,7 +2,7 @@ import { pizzaCart } from "../data/pizzas";
 import Button from "./Button";
 import { useState, useEffect } from "react";
 
-export default function Cart({ setTotalisimo }) {
+export default function Cart({ setTotalisimo, cuponPromo }) {
   const [pizzaCart2, setPizzaCart2] = useState(pizzaCart);
   const [cupon, setCupon] = useState("");
   const [descuentoAplicado, setDescuentoAplicado] = useState(0);
@@ -38,7 +38,7 @@ export default function Cart({ setTotalisimo }) {
   }
 
   function aplicarCupon() {
-    if (cupon.toLowerCase() === "movistar") {
+    if (cupon.toLowerCase() === cuponPromo) {
       setDescuentoAplicado(calcularDescuento(total));
     } else {
       setDescuentoAplicado(0);
@@ -60,7 +60,7 @@ export default function Cart({ setTotalisimo }) {
 
   return (
     <div className="cart">
-      <h2>Detalle del pedido</h2>
+      <h3>Detalle del pedido</h3>
       {pizzaCart2.map(
         (pizza) =>
           pizza.count > 0 && (
@@ -91,7 +91,7 @@ export default function Cart({ setTotalisimo }) {
         <input
           type="text"
           id="Cupon"
-          placeholder="Ingrese el código del cupón"
+          placeholder="Ingrese el código del cupón. Ejemplo: 'movistar'"
           value={cupon}
           onChange={(e) => setCupon(e.target.value)}
         />
