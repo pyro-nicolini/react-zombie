@@ -261,10 +261,10 @@ p {
     background-position: center 0%;
   }
   50% {
-    background-position: center 20%;
+    background-position: center 30%;
   }
   100% {
-    background-position: center 40%;
+    background-position: center 65%;
   }
 }
 

@@ -57,13 +57,14 @@ const Navbar = ({ onLogout, auth, total }) => {
             <Button className="navLink" buttonText={"Promos"} />
           </div>
         </div>
+        {autorizado ?
         <Button
           buttonText={`Total: ${Math.round(total*1000).toLocaleString("es-CL", {
             style: "currency",
             currency: "CLP",
           })}`}
           className="total"
-        />
+        /> : null }
       </div>
     </div>
   );

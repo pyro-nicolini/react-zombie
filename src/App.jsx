@@ -7,14 +7,13 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import { useState, useEffect } from "react";
 
-
 function App() {
-  const [totalisimo, setTotalisimo] = useState(0)
+  const [totalisimo, setTotalisimo] = useState(0);
   const [auth, setAuth] = useState({
     autorizado: true,
     users: [{ email: "prueba@prueba.com", pass: "prueba@prueba.com" }],
     input: { email: "", pass: "", pass2: "", exito: "", error: "" },
-    autenticado: {email: "prueba@prueba.com"},
+    autenticado: { email: "prueba@prueba.com" },
   });
 
   const controlCambios = (e) => {
@@ -38,31 +37,38 @@ function App() {
     }));
   };
 
-
   return (
     <div className="app">
-      <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo}/>
+      <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo} />
       <div className="main">
-      <Cart cuponPromo={'caca'} setTotalisimo={setTotalisimo} />      
-      {auth.autorizado ? <Home /> : null}
+        {auth.autorizado ? (
+          <div style={{ width: "100%" }}>
+            {" "}
+            <Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} />
+            &&
+            <Home />
+          </div>
+        ) : (
           <div className="twins">
             <Register
               setAuth={setAuth}
               auth={auth}
               onChange={controlCambios}
               values={auth.input}
-              />
+            />
             <Login
               setAuth={setAuth}
               auth={auth}
               onChange={controlCambios}
               values={auth.input}
-              />
+            />
           </div>
+        )}
       </div>
-      <Footer footerTextA={"© 2025 -"}
-      footerLink={'Zombie Pizza'}
-      footerTextB={'- Todos los derechos reservados'}
+      <Footer
+        footerTextA={"© 2025 -"}
+        footerLink={"Zombie Pizza"}
+        footerTextB={"- Todos los derechos reservados"}
       />
     </div>
   );
