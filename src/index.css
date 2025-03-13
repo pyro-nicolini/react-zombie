@@ -209,7 +209,8 @@ p {
 
 .p1 h1,
 .p1 h2,
-.p1 .itemHeader {
+.p1 .itemHeader,
+h1 {
   text-shadow: 2px 2px 3px #7b00ff !important;
   filter: drop-shadow(0px 0px 3px #10ee00);
 }
@@ -316,6 +317,16 @@ p {
   width: auto;
   left: 5rem;
   filter: drop-shadow(1px 3px 2px rgb(0, 0, 0));
+}
+
+
+
+.zombie2 {
+  position: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7rem;
+  height: auto;
 }
 
 .cardImg {
@@ -446,6 +457,14 @@ li {
   max-width: 30rem;
   height: fit-content;
   gap: .5rem;
+  border: #10ee00 2px dotted;
+  transition: all 0.3s ease-in-out;
+}
+
+.form:hover {
+  background-color: #470099;
+  border: #ecd500 2px dotted;
+
 }
 
 input {
@@ -475,6 +494,8 @@ label {
 }
 
 .alert {
+  transition: all 0.3s ease-in-out;
+
   width: 100%;
   height: 2rem;
   display: flex;
@@ -508,7 +529,12 @@ label {
   align-items: center !important;
   padding: 0 !important;
   margin: 0 !important;
-  font-size: .9rem;
+  font-size: 1rem;
+}
+
+.column p {
+  font-size: 1.1rem !important;
+  text-transform: capitalize;
 }
 
 .flex {
@@ -551,20 +577,27 @@ label {
   display: flex;
   flex-direction: column;
   margin: 2rem auto;
-  background-color: #7011ed;
+  background-color: #470099;
   padding: 1rem;
   color: white;
   border-radius: 1.3rem;
   width: 100%;
   max-width: 30rem;
   gap: 1rem;
+  border: #10ee00 0px dotted;
 }
+
+.cart-item:hover {
+  background-color: #7011ed;
+}
+
 
 h3 {
   text-align: center;
 }
 
 .cart-item {
+  transition: all 0.1s ease-in-out;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -580,9 +613,22 @@ h3 {
   box-shadow: 3px 3px 4px #000000;
 }
 
+.sumar, .restar {
+  transition: transform 0.2s ease-in-out;
+}
+
+.sumar:hover, .restar:hover {
+  transform: scale(1.1);
+}
+
+.sumar:active, .restar:active {
+  transform: scale(.9);
+}
+
+
 .sumar {
-  background-color: #49bc02;
-  color: #000;
+  background-color: #0099ff;
+  color: #ffffff;
   font-size: 2rem;
   width: 2rem;
   height: 2rem;
@@ -591,13 +637,21 @@ h3 {
   align-items: center;
   text-align: center;
 }
+.sumar:active {
+  background-color: #003a7c;
+}
+.restar:active {
+  background-color: #570202;
+}
 .restar {
+  background-color: #bb0000;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #fa4444;
   width: 2rem;
+  line-height: 0;
   height: 2rem;
   font-size: 2rem;
 }

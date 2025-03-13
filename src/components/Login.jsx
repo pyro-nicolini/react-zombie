@@ -1,5 +1,5 @@
-import React from "react";
 import Button from "./Button";
+import zom2 from "../images/zom2.png";
 
 function Login({ onChange, values, auth, setAuth }) {
   const { email, pass, error, exito } = values;
@@ -62,7 +62,10 @@ function Login({ onChange, values, auth, setAuth }) {
 
   return (
     <form onSubmit={validarLogin} className="form">
-      <h3>🔓 Iniciar Sesión</h3>
+      <div className="flex">
+        <img src={zom2} alt="" className="zombie2" />
+      </div>
+        <h3>🔓 Iniciar Sesión</h3>
       {error && <p className="alert">{error}</p>}
       {exito && <p className="exito">{exito}</p>}
       <div className="titleForm">

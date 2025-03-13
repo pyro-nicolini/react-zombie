@@ -1,4 +1,6 @@
 import Button from "./Button";
+import zom1 from "../images/zom1.png";
+
 
 function Register({ onChange, values, auth, setAuth }) {
   const { email = "", pass = "", pass2 = "", error, exito } = values || {};
@@ -71,6 +73,9 @@ function Register({ onChange, values, auth, setAuth }) {
 
   return (
     <form onSubmit={validarRegistro} className="form">
+      <div className="flex">
+      <img src={zom1} alt="" className="zombie2"/>
+      </div>
       <h3>🔐 Registrar Usuario</h3>
       {error && <div className="alert">{error}</div>}
       {exito && <div className="exito">{exito}</div>}

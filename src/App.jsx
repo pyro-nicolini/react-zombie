@@ -2,6 +2,7 @@ import "./App.css";
 import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
+import Button from "./components/Button";
 import Footer from "./components/Footer";
 import Register from "./components/Register";
 import Login from "./components/Login";
@@ -49,19 +50,23 @@ function App() {
             <Home />
           </div>
         ) : (
-          <div className="twins">
+          <div className="twins column">
+            <h1 className="white">¿Que vamos a pedir hoy?</h1>
+            <Button buttonText={'Ver Promos'} className="total"/>
+            <div className="twins" >
             <Register
               setAuth={setAuth}
               auth={auth}
               onChange={controlCambios}
               values={auth.input}
-            />
+              />
             <Login
               setAuth={setAuth}
               auth={auth}
               onChange={controlCambios}
               values={auth.input}
-            />
+              />
+              </div>
           </div>
         )}
       </div>
