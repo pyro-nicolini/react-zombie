@@ -1,23 +1,23 @@
-import { pizzaCart } from "../data/pizzas";
+import { pizzaCartJs } from "../data/pizzas";
 import Button from "./Button";
 import { useState, useEffect } from "react";
 
 export default function Cart({ setTotalisimo, cuponPromo }) {
-  const [pizzaCart2, setPizzaCart2] = useState(pizzaCart);
+  const [pizzaCart, setPizzaCart] = useState(pizzaCartJs);
   const [cupon, setCupon] = useState("");
   const [descuentoAplicado, setDescuentoAplicado] = useState(0);
 
-  function sumar(id) {
-    setPizzaCart2((prevCart) =>
-      prevCart.map((pizza) =>
+  function addPizza(id) {
+    setPizzaCart((prevPizzas) =>
+      prevPizzas.map((pizza) =>
         pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
       )
     );
   }
 
-  function restar(id) {
-    setPizzaCart2((prevCart) =>
-      prevCart.map((pizza) =>
+  function deletePizza(id) {
+    setPizzaCart((prevPizzas) =>
+      prevPizzas.map((pizza) =>
         pizza.id === id && pizza.count > 0
           ? { ...pizza, count: pizza.count - 1 }
           : pizza
@@ -25,11 +25,11 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
     );
   }
 
-  const total = pizzaCart2.reduce(
+  const total = pizzaCart.reduce(
     (acc, pizza) => acc + pizza.price * pizza.count,
     0
   );
-  const cantidad = pizzaCart2.reduce((acc, pizza) => acc + pizza.count, 0);
+  const cantidad = pizzaCart.reduce((acc, pizza) => acc + pizza.count, 0);
 
   function calcularDescuento(total) {
     if (total < 10000) return 0;
@@ -61,7 +61,7 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
   return (
     <div className="cart">
       <h3>Detalle del pedido</h3>
-      {pizzaCart2.map(
+      {pizzaCart.map(
         (pizza) =>
           pizza.count > 0 && (
             <div key={pizza.id} className="cart-item">
@@ -73,14 +73,14 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
               <div className="flex">
                 <Button
                   buttonText="+"
-                  className="sumar"
-                  onClick={() => sumar(pizza.id)}
+                  className="addPizza"
+                  onClick={() => addPizza(pizza.id)}
                 />
                 <p>{pizza.count}</p>
                 <Button
                   buttonText="-"
-                  className="restar"
-                  onClick={() => restar(pizza.id)}
+                  className="deletePizza"
+                  onClick={() => deletePizza(pizza.id)}
                 />
               </div>
             </div>

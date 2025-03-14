@@ -56,7 +56,7 @@ export const pizzas = [
 ];
 
 
-export const pizzaCart = [
+export const pizzaCartJs = [
   {
     id: "P001",
     name: "napolitana",

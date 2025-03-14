@@ -2,7 +2,7 @@ import Button from "./Button";
 import zom1 from "../images/zom1.png";
 
 
-function Register({ onChange, values, auth, setAuth }) {
+function RegisterPage({ onChange, values, auth, setAuth }) {
   const { email = "", pass = "", pass2 = "", error, exito } = values || {};
 
   const validarRegistro = (e) => {
@@ -123,4 +123,4 @@ function Register({ onChange, values, auth, setAuth }) {
   );
 }
 
-export default Register;
+export default RegisterPage;

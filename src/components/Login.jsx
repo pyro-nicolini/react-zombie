@@ -1,7 +1,7 @@
 import Button from "./Button";
 import zom2 from "../images/zom2.png";
 
-function Login({ onChange, values, auth, setAuth }) {
+function LoginPage({ onChange, values, auth, setAuth }) {
   const { email, pass, error, exito } = values;
 
   const validarLogin = (e) => {
@@ -104,4 +104,4 @@ function Login({ onChange, values, auth, setAuth }) {
   );
 }
 
-export default Login;
+export default LoginPage;

@@ -613,20 +613,20 @@ h3 {
   box-shadow: 3px 3px 4px #000000;
 }
 
-.sumar, .restar {
+.addPizza, .deletePizza {
   transition: transform 0.2s ease-in-out;
 }
 
-.sumar:hover, .restar:hover {
+.addPizza:hover, .deletePizza:hover {
   transform: scale(1.1);
 }
 
-.sumar:active, .restar:active {
+.addPizza:active, .deletePizza:active {
   transform: scale(.9);
 }
 
 
-.sumar {
+.addPizza {
   background-color: #0099ff;
   color: #ffffff;
   font-size: 2rem;
@@ -637,13 +637,13 @@ h3 {
   align-items: center;
   text-align: center;
 }
-.sumar:active {
+.addPizza:active {
   background-color: #003a7c;
 }
-.restar:active {
+.deletePizza:active {
   background-color: #570202;
 }
-.restar {
+.deletePizza {
   background-color: #bb0000;
   color: #ffffff;
   display: flex;
