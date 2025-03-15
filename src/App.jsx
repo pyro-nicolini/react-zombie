@@ -45,7 +45,7 @@ function App() {
         {auth.autorizado ? (
           <div style={{ width: "100%" }}>
             {" "}
-            <Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} />
+            {/* <Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} /> */}
             &&
             <Home />
           </div>
