@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 
 function Pizza() {
-  const [pizzas, setPizzas] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
   const [optionId, setOptionId] = useState("p001");
   const [pizza, setPizza] = useState(null);
 
@@ -15,31 +13,11 @@ function Pizza() {
   function pricer(num) {
     return num.toLocaleString().replace(",", ".");
   }
-
-  /* preparo una lista con todas las pizzas para generar las opciones y no ponerlas manualmente */
-  const getData = async () => {
-    try {
-      const url = `http://localhost:5000/api/pizzas/`;
-      const response = await fetch(url);
-      if (!response.ok)
-        throw new Error("Error de respuesta, los Zombiez se comieron el WiFi");
-      const data = await response.json();
-      setPizzas(data);
-      console.log("Encendiendo hornos...");
-    } catch (e) {
-      console.error("Error al obtener las pizzas:", e);
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-
-  /* según la opción elegida se cargará la pizza seleccionada de la API */
+  
   const getPizza = async () => {
     if (!optionId) return;
+    setLoading(true);
+    setError(false);
     try {
       const url_id = `http://localhost:5000/api/pizzas/${optionId}`;
       const response = await fetch(url_id);
@@ -50,14 +28,19 @@ function Pizza() {
     } catch (e) {
       console.error("Error al obtener la pizza:", e);
       setError(true);
+      setLoading(false);
+    } finally {
+      if (!error) {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      }
     }
   };
+  
   useEffect(() => {
-    getPizza();
+      getPizza();
   }, [optionId]);
-
-  if (loading) return <div>Cargando...</div>;
-  if (error) return <div>Error: los Zombiez se comieron al repartidor</div>;
 
   return (
     <>
@@ -67,33 +50,33 @@ function Pizza() {
         </label>
         <select value={optionId} onChange={(e) => setOptionId(e.target.value)}>
           <option value="">Selecciona una pizza</option>
-          {pizzas.map((pizza) => (
-            <option key={pizza.id} value={pizza.id}>
-              {capitalizer(pizza.name)}
-            </option>
-          ))}
+          <option value="p001">Napolitana</option>
+          <option value="p002">Española</option>
+          <option value="p003">Salame</option>
+          <option value="p004">Cuatro estaciones</option>
+          <option value="p005">Bacon</option>
+          <option value="p006">Pollo picante</option>
         </select>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "1rem",
-          margin: "2rem auto",
-        }}
-      >
-        {pizza && (
+      <div className="contenedorPizza">
+        {loading && <img src="src/images/logo.png" className="spinner"/>}
+        {error && <div>Error: los Zombiez se comieron al repartidor</div>}
+        {!loading && pizza && (
           <div
             key={pizza.id}
             className="cardBody"
-            style={{ maxWidth: "20rem", backgroundImage: `url(${pizza.img})` }}
+            style={{
+              maxWidth: "20rem",
+              margin: "2rem auto",
+              padding: "0",
+              paddingBottom: "0",
+            }}
           >
-            <img className="cardImg" src={pizza.img} alt={pizza.name} />
-            <p className="cardPrice">Precio: ${pricer(pizza.price)}</p>
-            <div className="cardWindows">
+            <div className="cardWindowsB" style={{ margin: "0" }}>
+              <img className="cardImg" src={pizza.img} alt={pizza.name} />
               <h1 className="cardTitle">{capitalizer(pizza.name)}</h1>
+              <h2 className="">Precio: ${pricer(pizza.price)}</h2>
               <p className="cardSubTitle">
                 Ingredientes: {capitalizer(pizza.ingredients.join(", "))}
               </p>

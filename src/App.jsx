@@ -43,10 +43,8 @@ function App() {
       <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo} />
       <div className="main">
         {auth.autorizado ? (
-          <div style={{ width: "100%" }}>
-            {" "}
+          <div style={{ width: "100%", marginTop: '2rem', }}>
             {/* <Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} /> */}
-            &&
             <Home />
           </div>
         ) : (
