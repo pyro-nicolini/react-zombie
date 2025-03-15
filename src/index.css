@@ -467,6 +467,28 @@ li {
 
 }
 
+ option {
+  display: block;
+  padding: .5rem 0;
+  background-color: #360068;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  width: 100%;
+  color: #ffffff;
+  margin-bottom: .5rem;
+  text-align: center;
+}
+select {
+  display: block;
+  padding: .5rem 0;
+  background: linear-gradient(30deg, #850085, #360068);
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  width: 100%;
+  color: #ffffff;
+  margin-bottom: .5rem;
+  text-align: center;
+}
 input {
   display: block;
   padding: .5rem 0;
