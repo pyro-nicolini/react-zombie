@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Button from "./Button";
 
 function Pizza() {
   const [loading, setLoading] = useState(false);
@@ -77,6 +78,11 @@ function Pizza() {
               <img className="cardImg" src={pizza.img} alt={pizza.name} />
               <h1 className="cardTitle">{capitalizer(pizza.name)}</h1>
               <h2 className="">Precio: ${pricer(pizza.price)}</h2>
+              <Button
+                buttonText="Agregar al carrito"
+                className="add"
+                onClick={() => console.log("Agregar a carrito")}
+              />
               <p className="cardSubTitle">
                 Ingredientes: {capitalizer(pizza.ingredients.join(", "))}
               </p>

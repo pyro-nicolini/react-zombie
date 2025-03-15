@@ -445,6 +445,7 @@ li {
   box-shadow: 1px 1px 3px #000000;
   font-size: 1.2rem;
   border-radius: 1rem;
+  margin: auto;
 }
 
 .add:hover {
