@@ -3,6 +3,7 @@ import Header from "./Header";
 import CardPizza from "./CardPizza";
 import { pizzasJS } from "../data/pizzas";
 import fondoPizza from "../images/fondopizza.webp";
+import Pizza from "./Pizza"
 
 function Home() {
   const texts = [
@@ -35,7 +36,7 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
+
     const getData = async () => {
       try {
         const url = "http://localhost:5000/api/pizzas";
@@ -51,8 +52,15 @@ function Home() {
         setLoading(false);
       }
     };
-    getData();
-  }, []);
+
+  
+    useEffect(() => {
+      const timer = setTimeout(()=> {
+        getData();
+      }, 1000);
+      return () => clearTimeout(timer);
+     }, []);
+
 
   if (loading) {
     return <Header title1="Cargando... " fondo={fondoPizza} />;
@@ -64,6 +72,7 @@ function Home() {
 
   return (
     <div className="home">
+      <Pizza />
       <Header
         title1={texts[index].title}
         description1={texts[index].description}
