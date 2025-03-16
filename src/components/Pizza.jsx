@@ -61,32 +61,41 @@ function Pizza() {
       </div>
 
       <div className="contenedorPizza">
-        {loading && <img src="src/images/logo.png" className="spinner"/>}
+        {loading && (
+          <>
+        <img src="src/images/logo.png" className="spinner"/>
+        <p className="white" style={{position: 'relative', top: '-1rem'}}><strong>{'Invadiendo...'}</strong></p>
+        </>
+        )
+        }
         {error && <div>Error: los Zombiez se comieron al repartidor</div>}
         {!loading && pizza && (
           <div
             key={pizza.id}
-            className="cardBody"
+            className="cardB"
             style={{
-              maxWidth: "20rem",
+              maxWidth: "40rem",
               margin: "2rem auto",
               padding: "0",
               paddingBottom: "0",
             }}
           >
-            <div className="cardWindowsB" style={{ margin: "0" }}>
-              <img className="cardImg" src={pizza.img} alt={pizza.name} />
-              <h1 className="cardTitle">{capitalizer(pizza.name)}</h1>
-              <h2 className="">Precio: ${pricer(pizza.price)}</h2>
+              <div className="" style={{ margin: "0" }}>
+              <img className="cardImg2" src={pizza.img} alt={pizza.name} />
+              <h2 className="price">${pricer(pizza.price)}</h2>
               <Button
                 buttonText="Agregar al carrito"
                 className="add"
                 onClick={() => console.log("Agregar a carrito")}
               />
+            </div>
+            <div>
+
+              <h1 className="cardTitle">{capitalizer(pizza.name)}</h1>
               <p className="cardSubTitle">
                 Ingredientes: {capitalizer(pizza.ingredients.join(", "))}
               </p>
-              <p className="cardText">{pizza.desc}</p>
+              <p className="pizzaText">{pizza.desc}</p>
             </div>
           </div>
         )}

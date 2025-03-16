@@ -112,6 +112,7 @@ p {
   background: linear-gradient(#ffffff, #bbbbbb);
   color: #9800c2;
   font-weight: 700;
+  margin: 0 !important;
 }
 
 .perfil {
@@ -156,6 +157,7 @@ p {
   transition: all 0.1s ease-in-out;
   cursor: pointer;
   font-weight: 500;
+  margin: auto;
 }
 
 .button:hover {
@@ -299,6 +301,7 @@ h1 {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   box-shadow: 0px 0px 10px 2px rgb(0, 255, 0);
   border: 1px solid rgb(0, 255, 0);
+  height: 50rem !important;
 }
 
 .cardTitle {
@@ -383,12 +386,42 @@ h1 {
   gap:.1rem
 }
 
-.cardWindows p {
-  color: #ffffff;
-  font-size: clamp(0.7rem, 2vw, 0.8rem);
-  padding: 0 1rem 1rem 1rem;
-  margin: 0;
+.cardB {
+  display: flex;
+  height: fit-content;
+  background-color: hsl(258, 91%, 47%);
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem !important;
+  border-radius: 1rem;
+  gap: 1rem;
+  width: auto;
+  margin: 2rem;
+  box-shadow: 0px 0px 10px 2px rgb(0, 255, 0);
+  border: 1px solid rgb(0, 255, 0);
+
 }
+.cardImg2 {
+  border-radius: .7rem;
+  height: auto;
+  width: 20rem;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.615);
+}
+.pizzaText p {
+  padding: 1rem;
+  text-align: justify;
+  font-size: (.5rem, 2vw, .7rem) !important;
+}
+
+.price {
+  font-size: 2.3rem;
+  margin: auto;
+  padding: 1rem;
+  text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.615);
+
+}
+
 .cardWindows h4 {
   color: #ffffff;
   padding: 0 0.5rem;
@@ -431,6 +464,7 @@ li {
   color: #ffffff;
   text-align: justify;
   padding: 0 1.5rem;
+  font-size: clamp (.4rem, 2vw, 1rem);
 }
 
 .add {
@@ -457,14 +491,13 @@ li {
   border-radius: 1rem;
   font-size: 1.2rem;
   width: 9rem;
-  margin-bottom: 0.5rem;
   border-top-left-radius: 2rem;
   border-bottom-left-radius: 2rem;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: start;
-  background-color: #6136ef;
+  background-color: #542ed0;
   color: #ffffff;
 }
 
@@ -821,6 +854,10 @@ h3 {
   .transparent {
     background: rgb(35, 0, 90);
   }
+  .cardB {
+    flex-direction: column;
+    width: 19rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -829,6 +866,10 @@ h3 {
    align-items: center;
    max-width: none;
   }
+.header {
+  height: 30rem !important;
+
+}
 
   .cart, .form {
     max-width: 19rem;

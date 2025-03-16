@@ -36,7 +36,7 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
 
           <p className="cardText">{desc}</p>
         </div>
-        <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+        <div style={{ display: "flex", gap: "1rem", justifyContent: "center", alignContent: 'center', marginBottom: '.7rem' }}>
           <Button buttonText="Añadir 🍕" className="add" />
           <Button
             buttonText={
