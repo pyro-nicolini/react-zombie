@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import CardPizza from "./CardPizza";
 import { pizzasJS } from "../data/pizzas";
 
-export default function Promos() {
+export default function AllPizzas() {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);

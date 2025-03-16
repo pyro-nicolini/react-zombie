@@ -1,5 +1,5 @@
 import { pizzaCartJs } from "../data/pizzas";
-import Button from "./Button";
+import Button from "../components/Button";
 import { useState, useEffect } from "react";
 
 export default function Cart({ setTotalisimo, cuponPromo }) {

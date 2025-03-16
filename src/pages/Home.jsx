@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import Header from "./Header";
+import Header from "../components/Header";
 import fondoPizza from "../images/fondopizza.webp";
-import Pizza from "./Pizza";
-import Button from "./Button";
+import Button from "../components/Button";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -25,8 +24,6 @@ function Home() {
   ];
 
   const [index, setIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,23 +34,17 @@ function Home() {
 
   return (
     <div className="home">
-      <div className="twins column">
-        <h1 className="white">¿Qué vamos a pedir hoy?</h1>
-        <Link to="/promos">
-          <Button buttonText={"Ver Promos"} className="total" />
-        </Link>
-      </div>
-      <Pizza
-        loading={loading}
-        error={error}
-        setLoading={setLoading}
-        setError={setError}
-      />
       <Header
         title1={texts[index].title}
         description1={texts[index].description}
         fondo={fondoPizza}
       />
+      <div className="twins column hero">
+        <h1 className="white">¿Qué vamos a pedir hoy?</h1>
+        <Link to="/allpizzas">
+          <Button buttonText={"Ver Promos"} className="promoBtn" />
+        </Link>
+      </div>
     </div>
   );
 }

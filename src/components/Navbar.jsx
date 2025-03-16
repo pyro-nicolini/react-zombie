@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom"; // Importa Link
+import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
-import Button from "./Button";
+import Button from "../components/Button";
 
 const Navbar = ({ onLogout, auth, total }) => {
   const { autorizado, autenticado } = auth || {};
@@ -14,20 +14,22 @@ const Navbar = ({ onLogout, auth, total }) => {
           <img src={logo} alt="logo" className="navLogo" />
         </Link>
         {autorizado ? (
-          <div className="account">
-            <p>Perfil</p>
-            <Button
-              className="perfil"
-              buttonText={`${email}`}
-              buttonImg={" "}
-            />
-          </div>
+          <Link to="/profile">
+            <div className="account">
+              <p className="online">
+                <div className="icon"> </div>Conectado
+              </p>
+              <Button
+                className="perfil"
+                buttonText={`${email}`}
+                buttonImg={" "}
+              />
+            </div>
+          </Link>
         ) : null}
         <div className="menu">
           <Link to="/" className="navLink">
-            {" "}
-            {/* Usa Link para navegación */}
-            <Button buttonText={"Inicio"} className="navLink" />
+            <Button buttonText={"HOME"} className="navLink" />
           </Link>
           {autorizado ? (
             <>
@@ -46,8 +48,11 @@ const Navbar = ({ onLogout, auth, total }) => {
             </>
           )}
           <div className="info">
-            <Link to="/promos">
-              <Button className="navLink" buttonText={"Promos"} />
+            <Link to="/pizza/p001">
+              <Button className="navLink" buttonText={"Pizzas"} />
+            </Link>
+            <Link to="/404">
+              <Button className="navLink" buttonText={"NotFound"} />
             </Link>
             <Link to="/cart">
               <Button className="navLink" buttonText={"Carrito"} />

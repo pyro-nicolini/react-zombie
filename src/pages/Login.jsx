@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "../components/Button";
 import zom2 from "../images/zom2.png";
 import { useNavigate } from "react-router-dom";
 

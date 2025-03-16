@@ -1,6 +1,5 @@
-import Button from "./Button";
+import Button from "../components/Button";
 import zom1 from "../images/zom1.png";
-
 
 function RegisterPage({ onChange, values, auth, setAuth }) {
   const { email = "", pass = "", pass2 = "", error, exito } = values || {};
@@ -10,7 +9,6 @@ function RegisterPage({ onChange, values, auth, setAuth }) {
     const { email, pass, pass2 } = auth.input;
 
     if (!email?.trim() || !pass?.trim() || !pass2?.trim()) {
-      // si no existe, elimina los espacios vacios (valida si existe y que no hayan espacios en blanco)
       return setAuth((prev) => ({
         ...prev,
         input: {
@@ -74,7 +72,7 @@ function RegisterPage({ onChange, values, auth, setAuth }) {
   return (
     <form onSubmit={validarRegistro} className="form">
       <div className="flex">
-      <img src={zom1} alt="" className="zombie2"/>
+        <img src={zom1} alt="" className="zombie2" />
       </div>
       <h3>🔐 Registrar Usuario</h3>
       {error && <div className="alert">{error}</div>}

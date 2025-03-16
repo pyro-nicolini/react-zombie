@@ -42,6 +42,7 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
           justifyContent: "center",
           alignContent: "center",
           marginBottom: ".7rem",
+          margin: "auto",
         }}
       >
         <Link to="/cart">

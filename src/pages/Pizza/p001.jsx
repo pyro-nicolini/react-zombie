@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import Button from "./Button";
+import Button from "../../components/Button";
 
-export default function Pizza({ loading, error, setLoading, setError }) {
+export default function Pizza({}) {
   const [optionId, setOptionId] = useState("p001");
   const [pizza, setPizza] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   function capitalizer(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -69,9 +71,9 @@ export default function Pizza({ loading, error, setLoading, setError }) {
 
         <div className="contenedorPizza">
           {loading && (
-            <>
+            <div className="column">
               <img
-                src="src/images/logo.png"
+                src="../src/images/logo.png"
                 className="spinner"
                 alt="Cargando..."
               />
@@ -81,7 +83,7 @@ export default function Pizza({ loading, error, setLoading, setError }) {
               >
                 <strong>{"Invadiendo..."}</strong>
               </p>
-            </>
+            </div>
           )}
           {error && <div>Error: los Zombiez se comieron al repartidor</div>}
           {!loading && pizza && (
@@ -89,7 +91,7 @@ export default function Pizza({ loading, error, setLoading, setError }) {
               key={pizza.id}
               className="cardB"
               style={{
-                maxWidth: "40rem",
+                maxWidth: "35rem",
                 margin: "2rem auto",
                 padding: "0",
                 paddingBottom: "0",

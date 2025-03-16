@@ -1,13 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import Cart from "./components/Cart";
+import Cart from "./pages/Cart";
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Button from "./components/Button";
+import Home from "./pages/Home";
 import Footer from "./components/Footer";
-import RegisterPage from "./components/Register";
-import LoginPage from "./components/Login";
+import RegisterPage from "./pages/Register";
+import LoginPage from "./pages/Login";
 import { useState } from "react";
-import Promos from "./components/Promos";
+import Profile from "./pages/Profile";
+import Pizza from "./pages/Pizza/p001";
+import AllPizzas from "./components/AllPizzas";
+import NotFound from "./pages/404";
 
 function App() {
   const [totalisimo, setTotalisimo] = useState(0);
@@ -44,7 +46,13 @@ function App() {
       <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo} />
       <div className="main">
         <Routes>
+          <Route
+            path="/profile"
+            element={<Profile auth={auth} onLogout={cerrarSesion} />}
+          />
           <Route path="/" element={<Home />} />
+          <Route path="/allpizzas" element={<AllPizzas />} />
+          <Route path="/404" element={<NotFound />} />
           <Route
             path="/login"
             element={
@@ -77,8 +85,7 @@ function App() {
               <Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} />
             }
           />
-          <Route path="/promos" element={<Promos />} />
-          {/* Agrega más rutas aquí según lo necesites */}
+          <Route path="/pizza/p001" element={<Pizza />} />
         </Routes>
       </div>
 
