@@ -1,4 +1,4 @@
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
 import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -6,7 +6,8 @@ import Button from "./components/Button";
 import Footer from "./components/Footer";
 import RegisterPage from "./components/Register";
 import LoginPage from "./components/Login";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Promos from "./components/Promos";
 
 function App() {
   const [totalisimo, setTotalisimo] = useState(0);
@@ -41,35 +42,44 @@ function App() {
   return (
     <div className="app">
       <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo} />
-      <img src="src/images/sheff.png" className="sheff"></img>
-      <img src="src/images/take.png" className="take"></img>
-
       <div className="main">
-        {auth.autorizado ? (
-          <div style={{ width: "100%", marginTop: "2rem" }}>
-            {/* <Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} /> */}
-            <Home />
-          </div>
-        ) : (
-          <div className="twins column">
-            <h1 className="white">¿Que vamos a pedir hoy?</h1>
-            <Button buttonText={"Ver Promos"} className="total" />
-            <div className="twins">
-              <RegisterPage
-                setAuth={setAuth}
-                auth={auth}
-                onChange={controlCambios}
-                values={auth.input}
-              />
-              <LoginPage
-                setAuth={setAuth}
-                auth={auth}
-                onChange={controlCambios}
-                values={auth.input}
-              />
-            </div>
-          </div>
-        )}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={
+              <div className="twins">
+                <LoginPage
+                  setAuth={setAuth}
+                  auth={auth}
+                  onChange={controlCambios}
+                  values={auth.input}
+                />
+              </div>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <div className="twins">
+                <RegisterPage
+                  setAuth={setAuth}
+                  auth={auth}
+                  onChange={controlCambios}
+                  values={auth.input}
+                />
+              </div>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} />
+            }
+          />
+          <Route path="/promos" element={<Promos />} />
+          {/* Agrega más rutas aquí según lo necesites */}
+        </Routes>
       </div>
 
       <Footer

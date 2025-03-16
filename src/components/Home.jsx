@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Header from "./Header";
-import CardPizza from "./CardPizza";
-import { pizzasJS } from "../data/pizzas";
 import fondoPizza from "../images/fondopizza.webp";
-import Pizza from "./Pizza"
+import Pizza from "./Pizza";
+import Button from "./Button";
+import { Link } from "react-router-dom";
 
 function Home() {
   const texts = [
@@ -25,8 +25,7 @@ function Home() {
   ];
 
   const [index, setIndex] = useState(0);
-  const [pizzas, setPizzas] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -36,67 +35,25 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
-
-    const getData = async () => {
-      try {
-        const url = "http://localhost:5000/api/pizzas";
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Errozr de rezpuesta, loz Zombiez sze comieron el wiFii");
-        const data = await response.json();
-        setPizzas(data);
-        console.log('Encendiendo hornos...')
-      } catch (e) {
-        console.error("Error al obtener las pizzas:", e);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-  
-    useEffect(() => {
-      const timer = setTimeout(()=> {
-        getData();
-      }, 1000);
-      return () => clearTimeout(timer);
-     }, []);
-
-
-  if (loading) {
-    return <Header title1="Cargando... " fondo={fondoPizza} />;
-  }
-
-  if (error) {
-    return <Header title1="Error loz Zombiez sze comieron al repartidor" fondo={fondoPizza} />;
-  }
-
   return (
     <div className="home">
-      <Pizza />
+      <div className="twins column">
+        <h1 className="white">¿Qué vamos a pedir hoy?</h1>
+        <Link to="/promos">
+          <Button buttonText={"Ver Promos"} className="total" />
+        </Link>
+      </div>
+      <Pizza
+        loading={loading}
+        error={error}
+        setLoading={setLoading}
+        setError={setError}
+      />
       <Header
         title1={texts[index].title}
         description1={texts[index].description}
         fondo={fondoPizza}
       />
-      <div className="containerPizza">
-        <div className="pizzas">
-          {pizzas.length === 0 ? (
-            <p>No hay pizzas disponibles</p>
-          ) : (
-            pizzas.map((pizza) => (
-              <CardPizza
-                key={pizza.id}
-                name={pizza.name}
-                price={pizza.price}
-                ingredients={pizza.ingredients}
-                desc={pizza.desc}
-                img={pizza.img}
-                img2={pizzasJS.find((zom) => zom.id.toLocaleLowerCase() === pizza.id.toLocaleLowerCase())?.zombie || "nohay"}
-              />
-            ))
-          )}
-        </div>
-      </div>
     </div>
   );
 }

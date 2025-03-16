@@ -1,31 +1,18 @@
+import { Link } from "react-router-dom"; // Importa Link
+import logo from "../images/logo.png";
 import Button from "./Button";
-import logo from "../images/logo2.png";
-import Promo from "./Promo.jsx";
 
 const Navbar = ({ onLogout, auth, total }) => {
   const { autorizado, autenticado } = auth || {};
 
   const email = autenticado ? autenticado.email : "";
 
-  window.addEventListener("scroll", function () {
-    let navbar = document.getElementById("navbar");
-
-    if (window.scrollY > 50) {
-      navbar.classList.add("transparent");
-    } else {
-      navbar.classList.remove("transparent");
-    }
-  });
-
   return (
     <div className="fixed">
-      <Promo
-        promo={
-          "35% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
-        }
-      />
       <div className="nav" id="navbar">
-        <img src={logo} alt="logo" className="navLogo" />
+        <Link to="/">
+          <img src={logo} alt="logo" className="navLogo" />
+        </Link>
         {autorizado ? (
           <div className="account">
             <p>Perfil</p>
@@ -37,34 +24,50 @@ const Navbar = ({ onLogout, auth, total }) => {
           </div>
         ) : null}
         <div className="menu">
-          <Button buttonText={"Inicio"} className="navLink" />
+          <Link to="/" className="navLink">
+            {" "}
+            {/* Usa Link para navegación */}
+            <Button buttonText={"Inicio"} className="navLink" />
+          </Link>
           {autorizado ? (
             <>
-              <Button
-                onClick={onLogout}
-                className="navLink red"
-                buttonText={"Cerrar Sesión"}
-              />
+              <Link to="/" onClick={onLogout}>
+                <Button className="navLink red" buttonText={"Cerrar Sesión"} />
+              </Link>
             </>
           ) : (
             <>
-              <Button className="navLink" buttonText={"Iniciar Sesión"} />
-              <Button className="navLink" buttonText={"Registrar"} />
+              <Link to="/login">
+                <Button className="navLink" buttonText={"Iniciar Sesión"} />
+              </Link>
+              <Link to="/register">
+                <Button className="navLink" buttonText={"Registrar"} />
+              </Link>
             </>
           )}
           <div className="info">
-            <Button className="navLink" buttonText={"Sucursales"} />
-            <Button className="navLink" buttonText={"Promos"} />
+            <Link to="/promos">
+              <Button className="navLink" buttonText={"Promos"} />
+            </Link>
+            <Link to="/cart">
+              <Button className="navLink" buttonText={"Carrito"} />
+            </Link>
           </div>
         </div>
-        {autorizado ?
-        <Button
-          buttonText={`Total: ${Math.round(total*1000).toLocaleString("es-CL", {
-            style: "currency",
-            currency: "CLP",
-          })}`}
-          className="total"
-        /> : null }
+        {autorizado ? (
+          <Link to="/cart">
+            <Button
+              buttonText={`🛒 Total: ${Math.round(total * 1000).toLocaleString(
+                "es-CL",
+                {
+                  style: "currency",
+                  currency: "CLP",
+                }
+              )}`}
+              className="total"
+            />
+          </Link>
+        ) : null}
       </div>
     </div>
   );

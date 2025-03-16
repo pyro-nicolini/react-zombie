@@ -102,15 +102,25 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
           onClick={aplicarCupon}
         />
       </div>
-      <div style={{display:'flex', justifyContent: 'start', flexDirection: 'column', gap: '.5rem', padding: '0', margin: '0', lineHeight: '0',}}>
-      <p>Total: ${pricer(total)}</p>
-      {descuentoAplicado > 0 && cantidad > 0 && (
-        <p>Descuento aplicado: -${pricer(descuentoAplicado)}</p>
-      )}
-      {descuentoAplicado > 0 && cantidad > 0 && (
-        <p>Total a pagar: ${pricer(total - descuentoAplicado)}</p>
-      )}
-      <p>Cantidad: {cantidad}</p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "start",
+          flexDirection: "column",
+          gap: ".5rem",
+          padding: "0",
+          margin: "0",
+          lineHeight: "0",
+        }}
+      >
+        <p>Total: ${pricer(total)}</p>
+        {descuentoAplicado > 0 && cantidad > 0 && (
+          <p>Descuento aplicado: -${pricer(descuentoAplicado)}</p>
+        )}
+        {descuentoAplicado > 0 && cantidad > 0 && (
+          <p>Total a pagar: ${pricer(total - descuentoAplicado)}</p>
+        )}
+        <p>Cantidad: {cantidad}</p>
       </div>
       <Button buttonText="PAGAR 🍕" className="total" />
     </div>

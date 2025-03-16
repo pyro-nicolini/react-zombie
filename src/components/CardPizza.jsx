@@ -1,5 +1,6 @@
 import Button from "./Button";
 import ytImage from "../images/yt.png";
+import { Link } from "react-router-dom";
 
 function CardPizza({ name, price, ingredients, img2, desc, img }) {
   function capitalizer(str) {
@@ -20,34 +21,42 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
         }}
       >
         <img className="zombie" src={img2} alt={name} />
-          </div>
-        <p className="cardPrice">${pricer(price)}</p>
-        <div className="cardWindows">
-          <h2 className="cardTitle">{capitalizer(name)}</h2>
-          <h4 className="cardSubTitle">
-            <ol>
+      </div>
+      <p className="cardPrice">${pricer(price)}</p>
+      <div className="cardWindows">
+        <h2 className="cardTitle">{capitalizer(name)}</h2>
+        <h4 className="cardSubTitle">
+          <ol>
             {ingredients.map((element, i) => {
-              return (
-                <li key={element}>{capitalizer(element)}</li>
-              )
+              return <li key={element}>{capitalizer(element)}</li>;
             })}
-            </ol>
-          </h4>
+          </ol>
+        </h4>
 
-          <p className="cardText">{desc}</p>
-        </div>
-        <div style={{ display: "flex", gap: "1rem", justifyContent: "center", alignContent: 'center', marginBottom: '.7rem' }}>
+        <p className="cardText">{desc}</p>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          justifyContent: "center",
+          alignContent: "center",
+          marginBottom: ".7rem",
+        }}
+      >
+        <Link to="/cart">
           <Button buttonText="Añadir 🍕" className="add" />
-          <Button
-            buttonText={
-              <>
-                <img className="youtube" src={ytImage} alt="YouTube" />
-                <span>Ver Más</span>
-              </>
-            }
-            className="mas"
-          />
-        </div>
+        </Link>
+        <Button
+          buttonText={
+            <>
+              <img className="youtube" src={ytImage} alt="YouTube" />
+              <span>Ver Más</span>
+            </>
+          }
+          className="mas"
+        />
+      </div>
     </div>
   );
 }

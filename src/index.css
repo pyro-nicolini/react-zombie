@@ -173,33 +173,15 @@ p {
   align-items: start;
   justify-content: center;
   gap: 1rem;
-  padding-top: 7rem !important;
-}
-
-.take {
-  position: absolute;
-  top: 9rem;
-  left: 70%;
-  height: 30rem;
-  width: auto;
-  z-index: -1;
-  border-radius: 50%;
-  background-attachment: fixed;
-  background-image: url();
-}
-.sheff {
-  position: absolute;
-  top: 9rem;
-  left: 10%;
-  height: 30rem;
-  width: auto;
-  z-index: -1;
-  border-radius: 50%;
+  padding-top: 5rem !important;
 }
 
 .home {
   width: 100%;
   text-align: center;
+  background-image: url("/src/images/sheff.png");
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .header {
@@ -773,8 +755,8 @@ h3 {
   width: 100%;
   display: flex;
   justify-content: center !important;
-  gap: 2rem;
-  align-items: start;
+  margin: 2rem auto !important;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
@@ -872,10 +854,6 @@ h3 {
     flex-direction: column;
     width: 19rem;
   }
-
-  .take {
-    display: none;
-  }
 }
 
 @media (max-width: 480px) {
@@ -885,7 +863,8 @@ h3 {
     max-width: none;
   }
   .header {
-    height: 29rem !important;
+    height: 26rem !important;
+    margin-bottom: 2rem;
   }
 
   .cart,
