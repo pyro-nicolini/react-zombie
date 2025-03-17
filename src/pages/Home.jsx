@@ -33,19 +33,21 @@ function Home() {
   }, []);
 
   return (
-    <div className="home">
-      <Header
-        title1={texts[index].title}
-        description1={texts[index].description}
-        fondo={fondoPizza}
-      />
+    <>
+      <div className="home">
+        <Header
+          title1={texts[index].title}
+          description1={texts[index].description}
+          fondo={fondoPizza}
+        />
+      </div>
       <div className="hero">
         <h1 className="white">¿Qué vamos a pedir hoy?</h1>
         <Link to="/allpizzas">
           <Button buttonText={"Ver Promos"} className="promoBtn" />
         </Link>
       </div>
-    </div>
+    </>
   );
 }
 

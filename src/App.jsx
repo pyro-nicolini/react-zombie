@@ -53,6 +53,7 @@ function App() {
           />
           <Route path="/allpizzas" element={<AllPizzas />} />
           <Route path="/404" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
           <Route
             path="/login"
             element={
