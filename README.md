@@ -5,6 +5,7 @@
 [Repositorio Principal](https://github.com/pyro-nicolini/react-zombie)  
 
 ### Challenge / Hitos 
+
 *Hito 1:* Configuración inicial y estructura de componentes
 
 *Hito 2:* Implementación de `useState` para la gestión de estado
