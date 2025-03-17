@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
-import Button from "../components/Button";
+import Button from "./Button";
+import Promo from "./Promo";
 
 const Navbar = ({ onLogout, auth, total }) => {
   const { autorizado, autenticado } = auth || {};
@@ -9,6 +10,11 @@ const Navbar = ({ onLogout, auth, total }) => {
 
   return (
     <div className="fixed">
+            <Promo
+        promo={
+          "35% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
+        }
+      />
       <div className="nav" id="navbar">
         <Link to="/">
           <img src={logo} alt="logo" className="navLogo" />
@@ -16,9 +22,9 @@ const Navbar = ({ onLogout, auth, total }) => {
         {autorizado ? (
           <Link to="/profile">
             <div className="account">
-              <p className="online">
+              <div className="online">
                 <div className="icon"> </div>Conectado
-              </p>
+              </div>
               <Button
                 className="perfil"
                 buttonText={`${email}`}

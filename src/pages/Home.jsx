@@ -39,7 +39,7 @@ function Home() {
         description1={texts[index].description}
         fondo={fondoPizza}
       />
-      <div className="twins column hero">
+      <div className="hero">
         <h1 className="white">¿Qué vamos a pedir hoy?</h1>
         <Link to="/allpizzas">
           <Button buttonText={"Ver Promos"} className="promoBtn" />

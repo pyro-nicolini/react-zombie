@@ -44,39 +44,35 @@ function App() {
   return (
     <div className="app">
       <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo} />
-      <div className="main">
+      <main className="main">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route
             path="/profile"
             element={<Profile auth={auth} onLogout={cerrarSesion} />}
           />
-          <Route path="/" element={<Home />} />
           <Route path="/allpizzas" element={<AllPizzas />} />
           <Route path="/404" element={<NotFound />} />
           <Route
             path="/login"
             element={
-              <div className="twins">
                 <LoginPage
                   setAuth={setAuth}
                   auth={auth}
                   onChange={controlCambios}
                   values={auth.input}
                 />
-              </div>
             }
           />
           <Route
             path="/register"
             element={
-              <div className="twins">
                 <RegisterPage
                   setAuth={setAuth}
                   auth={auth}
                   onChange={controlCambios}
                   values={auth.input}
                 />
-              </div>
             }
           />
           <Route
@@ -87,7 +83,7 @@ function App() {
           />
           <Route path="/pizza/p001" element={<Pizza />} />
         </Routes>
-      </div>
+      </main>
 
       <Footer
         footerTextA={"© 2025 -"}
