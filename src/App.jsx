@@ -41,35 +41,37 @@ function App() {
   return (
     <div className="app">
       <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo} />
+      <img src="src/images/sheff.png" className="sheff"></img>
+      <img src="src/images/take.png" className="take"></img>
+
       <div className="main">
         {auth.autorizado ? (
-          <div style={{ width: "100%" }}>
-            {" "}
-            <Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} />
-            &&
+          <div style={{ width: "100%", marginTop: "2rem" }}>
+            {/* <Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} /> */}
             <Home />
           </div>
         ) : (
           <div className="twins column">
             <h1 className="white">¿Que vamos a pedir hoy?</h1>
-            <Button buttonText={'Ver Promos'} className="total"/>
-            <div className="twins" >
-            <RegisterPage
-              setAuth={setAuth}
-              auth={auth}
-              onChange={controlCambios}
-              values={auth.input}
+            <Button buttonText={"Ver Promos"} className="total" />
+            <div className="twins">
+              <RegisterPage
+                setAuth={setAuth}
+                auth={auth}
+                onChange={controlCambios}
+                values={auth.input}
               />
-            <LoginPage
-              setAuth={setAuth}
-              auth={auth}
-              onChange={controlCambios}
-              values={auth.input}
+              <LoginPage
+                setAuth={setAuth}
+                auth={auth}
+                onChange={controlCambios}
+                values={auth.input}
               />
-              </div>
+            </div>
           </div>
         )}
       </div>
+
       <Footer
         footerTextA={"© 2025 -"}
         footerLink={"Zombie Pizza"}
