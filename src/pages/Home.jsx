@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import fondoPizza from "../images/fondopizza.webp";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import logo from "../images/logo.png";
 
 function Home() {
   const texts = [
@@ -42,6 +43,7 @@ function Home() {
         />
       </div>
       <div className="hero">
+        <img src={logo} alt="logo" className="navLogo2" style={{height: '13rem'}} />
         <h1 className="white">¿Qué vamos a pedir hoy?</h1>
         <Link to="/allpizzas">
           <Button buttonText={"Ver Promos"} className="promoBtn" />

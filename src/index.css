@@ -81,7 +81,7 @@ p {
   gap: 2rem;
 }
 
-.navLogo {
+.navLogo, .navLogo2 {
   position: relative;
   width: auto;
   height: 5rem;
@@ -120,16 +120,20 @@ p {
   margin: 0 !important;
 }
 .promoBtn {
+  background: linear-gradient(#9073f8, #1f0052);
+  border: 1px violet solid;
+  color: #ffffff;
   padding: 1.5rem;
-  font-size: 1.6rem !important;
+  font-size: 1.5rem !important;
 }
 
 .perfil {
   display: flex;
   gap: 0.3rem;
-  padding: 0.5rem;
-  background-color: #b64c00;
-  color: wheat;
+  font-size: 1.1rem;
+  padding: .4rem;
+  background-color: #8400ff;
+  color: rgb(255, 255, 255);
 }
 .perfil:hover {
   transform: none !important;
@@ -187,7 +191,7 @@ p {
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
-  padding-top: 5rem;
+  padding-top: 2rem;
 }
 
 .hero {
@@ -202,7 +206,8 @@ p {
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  padding: 5rem 0;
+  padding: 2rem 0;
+  gap: 2rem;
 }
 
 .header {
@@ -294,45 +299,64 @@ h1 {
   }
 }
 
-.containerPizza {
-  padding-top: 8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 1200px;
-}
-
 .pizzas {
-  display: grid;
+  margin-top: 8rem;
+  max-width: 1600px !important;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-  grid-gap: 2rem;
+  gap: 1rem;
   padding: 1rem;
 }
 
 .cardBody {
+  gap: 1rem;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   justify-content: end;
-  gap: 0.5rem;
+  align-items: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
   border-radius: 2rem;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center bottom;
-  padding: 5px;
+  padding: 1rem;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  box-shadow: 0px 0px 10px 2px rgb(0, 255, 0);
-  border: 1px solid rgb(0, 255, 0);
+  border: 1px ss ease-in-out;
 }
+.cardBody:hover {
+  box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.6);
+  animation: bleeding 0.5s infinite alternate ease-in-out;
+}
+
+@keyframes bleeding {
+  0% {
+    border: 1px solid red;
+    filter: brightness(1); 
+    /* box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.6); */
+  }
+  50% {
+    filter: brightness(1.1);
+    border: 3px solid red;
+    /* box-shadow: 0px 0px 30px 10px rgba(255, 0, 0, 0.8); */
+  }
+  100% {
+    border: 1px solid red;
+    filter: brightness(0.95);
+    /* box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.6); */
+  }
+}
+
+
 
 .cardTitle {
   font-weight: bold;
   margin-top: 2rem;
   color: #ffffff;
   text-align: center;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-  margin: auto;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
   font-size: clamp(1.5rem, 3vw, 2rem) !important;
 }
 
@@ -340,17 +364,41 @@ h1 {
   position: relative;
   height: 12rem;
   width: auto;
-  left: 5rem;
+  top: 5rem;
+  left:9rem;
+  z-index: 10;
   filter: drop-shadow(1px 3px 2px rgb(0, 0, 0));
 }
 
+.zombie:hover {
+  animation: zombieMove 1s infinite ease-in-out;
+  transform: scale(1.05);
+}
+
+@keyframes zombieMove {
+  0%, 100% {
+    transform: rotate(10deg);
+  }
+  25% {
+    transform: rotate(-30deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+}
+
+
+
 .spinner {
-  width: 10rem;
-  height: 9rem;
+  width: 15rem;
+  height: 14rem;
   border-top-color: white;
   animation: spin 1s infinite, grow 1s ease-out;
   transform-origin: center;
-  margin: 1rem;
+  margin: 3rem;
 }
 
 @keyframes spin {
@@ -372,20 +420,8 @@ h1 {
 }
 
 .zombie2 {
-  position: flex;
-  justify-content: center;
-  align-items: center;
   width: 7rem;
-  height: auto;
-}
-
-.cardImg {
-  width: 90%;
-  object-fit: cover;
   margin: auto;
-  padding: 1rem;
-  padding-top: 1.4rem;
-  border-radius: 1.8rem;
 }
 
 .cardWindows,
@@ -393,12 +429,13 @@ h1 {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: auto-fit;
-  background-color: #4b0778;
+  height: auto;
+  background-color: #3600cc85;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
   border-radius: 1.8rem;
   margin-bottom: 10px;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-  gap: 1rem;
 }
 .cardWindowsB {
   margin: 0;
@@ -442,24 +479,11 @@ h1 {
   text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.615);
 }
 
-.cardWindows h4 {
-  color: #ffffff;
-  padding: 0 0.5rem;
-  margin: 0;
-}
-.cardWindows h2 {
-  color: #ffffff;
-  padding: 0.5rem 0;
-  margin: 0;
-}
-
-.cardSubTitle > ol {
+.cardSubTitle {
   color: #ffffff;
   padding: 0 1rem;
   margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+  text-wrap: word-wrap;
 }
 
 li {
@@ -468,15 +492,15 @@ li {
 }
 
 .cardPrice {
-  color: #d97b00;
-  background-color: #ffffff;
-  padding: 0.1rem 1rem;
-  box-shadow: 0px 0px 3px 5px rgba(255, 0, 0, 0.8);
-  border-radius: 3rem;
+  color: #d32e3b;
   font-weight: bold;
-  text-shadow: 3px 1px 1px #701aa5;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid black;
+  padding: .2rem 1rem;
   margin: auto;
-  font-size: 2.7rem;
+  font-size: 4rem;
+  text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.615);
 }
 
 .cardText {
@@ -565,10 +589,10 @@ option {
 }
 select {
   display: block;
-  padding: 0.5rem 0;
+  padding: .6rem 0;
   background: linear-gradient(30deg, #850085, #360068);
   border-radius: 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   width: 100%;
   color: #ffffff;
   margin-bottom: 0.5rem;
@@ -589,9 +613,8 @@ input {
 }
 
 .titleForm {
-  display: block;
-  width: 100% !important;
-  justify-items: center;
+  margin: auto;
+  width: 100%;
 }
 
 label {
@@ -646,8 +669,8 @@ label {
 }
 
 .flex {
+  flex-wrap: wrap;
   display: flex;
-  justify-content: space-evenly !important;
   align-items: center;
   gap: 0.5rem;
 }
@@ -677,7 +700,8 @@ label {
 
 .white {
   color: white;
-  margin: 3rem auto;
+  margin: 1rem auto;
+  margin-top: 2rem;
   text-align: center;
 }
 
@@ -786,19 +810,7 @@ h3 {
   }
 }
 
-.twins {
-  width: 100%;
-  display: flex;
-  justify-content: center !important;
-  margin: 2rem auto !important;
-  align-items: center;
-}
-
 @media (max-width: 768px) {
-  .cardBody {
-    height: 35rem;
-  }
-
   .zombie {
     height: 10rem;
     width: 10rem;
@@ -806,6 +818,7 @@ h3 {
 }
 
 .footer {
+  position: sticky;
   grid-area: footer;
   background-color: #3600a1;
   color: #ffffff;
@@ -855,11 +868,18 @@ h3 {
   .navLogo {
     height: 4rem !important;
   }
+  .navLogo2 {
+    height: 10rem !important;
+  }
 
   .main {
-    padding-top: 13rem !important;
     width: auto;
   }
+
+.pizzas {
+  margin-top: 11rem;
+}
+
 }
 
 @media (max-width: 768px) {
@@ -894,16 +914,17 @@ h3 {
     width: 19rem;
   }
   .hero {
-    height: 19rem;
+    height: 20rem;
+    margin-top: 3rem;
+  }
+
+  .pizzas {
+    margin-top: 2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .twins {
-    flex-direction: column;
-    align-items: center;
-    max-width: none;
-  }
+
   .header {
     height: 26rem !important;
     margin-bottom: 2rem;

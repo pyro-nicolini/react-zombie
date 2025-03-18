@@ -3,6 +3,18 @@ import ytImage from "../images/yt.png";
 import { Link } from "react-router-dom";
 
 function CardPizza({ name, price, ingredients, img2, desc, img }) {
+  const pizzaEmojis = [
+    "🧀", // Mozzarella
+    "🍅", // Tomates
+    "🍖", // Jamón
+    "🌿", // Orégano
+    "🌭", // Choricillo
+    "🍕", // Salame
+    "🍄", // Champiñones
+    "🥓", // Bacon
+    "🌶️", // Pimientos
+    "🍗", // Pollo grillé
+  ];
   function capitalizer(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -22,19 +34,8 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
       >
         <img className="zombie" src={img2} alt={name} />
       </div>
-      <p className="cardPrice">${pricer(price)}</p>
-      <div className="cardWindows">
-        <h2 className="cardTitle">{capitalizer(name)}</h2>
-        <h4 className="cardSubTitle">
-          <ol>
-            {ingredients.map((element, i) => {
-              return <li key={element}>{capitalizer(element)}</li>;
-            })}
-          </ol>
-        </h4>
 
-        <p className="cardText">{desc}</p>
-      </div>
+      <p className="cardPrice">${pricer(price)}</p>
       <div
         style={{
           display: "flex",
@@ -57,6 +58,26 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
           }
           className="mas"
         />
+      </div>
+      <div className="cardWindows">
+        <h2 className="cardTitle">{capitalizer(name)}</h2>
+        <h4 className="cardSubTitle">
+          <div className="flex"> 
+            <p>[</p>
+            {ingredients.map((element, i) => {
+              i++;
+              return (
+                <>
+                <p key={i}>{pizzaEmojis[i]}</p>
+                <p key={i}>{capitalizer(element)}</p>
+                </>
+              ) 
+            })}
+            <p>]</p>
+          </div>
+        </h4>
+
+        <p className="cardText">{desc}</p>
       </div>
     </div>
   );

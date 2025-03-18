@@ -7,6 +7,7 @@ export default function AllPizzas() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+
   const getData = async () => {
     setLoading(true);
     setError(false);
@@ -35,50 +36,45 @@ export default function AllPizzas() {
 
   return (
     <>
-      <div className="containerPizza">
-        {loading && (
-          <div className="column">
-            <img
-              src="src/images/logo.png"
-              alt="Cargando..."
-              className="spinner"
-            />
-            <p className="white">
-              <strong>Invadiendo...</strong>
-            </p>
-          </div>
-        )}
-
-        {error && (
-          <div className="errorText">
-            Error: los Zombiez se comieron el WiFi
-          </div>
-        )}
-
-        {!loading && !error && pizzas.length === 0 && (
-          <div>No hay promociones disponibles en este momento.</div>
-        )}
-
-        <div className="pizzas">
-          {!loading &&
-            pizzas.map((pizza) => (
-              <CardPizza
-                key={pizza.id}
-                name={pizza.name}
-                price={pizza.price}
-                ingredients={pizza.ingredients}
-                desc={pizza.desc}
-                img={pizza.img}
-                img2={
-                  pizzasJS.find(
-                    (zom) =>
-                      zom.id.toLocaleLowerCase() ===
-                      pizza.id.toLocaleLowerCase()
-                  )?.zombie || "nohay"
-                }
-              />
-            ))}
+      {loading && (
+        <div className="column">
+          <img
+            src="src/images/logo.png"
+            alt="Cargando..."
+            className="spinner"
+          />
+          <p className="white">
+            <strong>Invadiendo...</strong>
+          </p>
         </div>
+      )}
+
+      {error && (
+        <div className="errorText">Error: los Zombiez se comieron el WiFi</div>
+      )}
+
+      {!loading && !error && pizzas.length === 0 && (
+        <div>No hay promociones disponibles en este momento.</div>
+      )}
+
+      <div className="pizzas">
+        {!loading &&
+          pizzas.map((pizza) => (
+            <CardPizza
+              key={pizza.id}
+              name={pizza.name}
+              price={pizza.price}
+              ingredients={pizza.ingredients}
+              desc={pizza.desc}
+              img={pizza.img}
+              img2={
+                pizzasJS.find(
+                  (zom) =>
+                    zom.id.toLocaleLowerCase() === pizza.id.toLocaleLowerCase()
+                )?.zombie || "nohay"
+              }
+            />
+          ))}
       </div>
     </>
   );
