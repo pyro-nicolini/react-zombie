@@ -10,7 +10,7 @@ const Navbar = ({ onLogout, auth, total }) => {
 
   return (
     <div className="fixed">
-            <Promo
+      <Promo
         promo={
           "35% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
         }
@@ -22,14 +22,17 @@ const Navbar = ({ onLogout, auth, total }) => {
         {autorizado ? (
           <Link to="/profile">
             <div className="account">
-              <div className="online">
-                <div className="icon"> </div>Conectado
+
+              <div className="flex">
+                <div className="online">
+                  <div className="icon"> </div>Conectado
+                </div>
+                <Button
+                  className="perfil"
+                  buttonText={`${email}`}
+                  buttonImg={" "}
+                />
               </div>
-              <Button
-                className="perfil"
-                buttonText={`${email}`}
-                buttonImg={" "}
-              />
             </div>
           </Link>
         ) : null}
