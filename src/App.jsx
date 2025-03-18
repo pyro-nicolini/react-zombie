@@ -89,7 +89,7 @@ function App() {
       <Footer
         footerTextA={"© 2025 -"}
         footerLink={"Zombie Pizza"}
-        footerTextB={"- Todos los derechos reservados"}
+        footerTextB={"- Derechos reservados"}
       />
     </div>
   );

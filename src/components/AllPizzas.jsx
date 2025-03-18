@@ -7,7 +7,6 @@ export default function AllPizzas() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-
   const getData = async () => {
     setLoading(true);
     setError(false);
@@ -61,7 +60,7 @@ export default function AllPizzas() {
         {!loading &&
           pizzas.map((pizza) => (
             <CardPizza
-              key={pizza.id}
+              key={pizza.id} // Asegúrate de que cada pizza tenga un ID único
               name={pizza.name}
               price={pizza.price}
               ingredients={pizza.ingredients}

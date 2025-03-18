@@ -8,6 +8,18 @@ const Navbar = ({ onLogout, auth, total }) => {
 
   const email = autenticado ? autenticado.email : "";
 
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add("transparent");
+    } else {
+      navbar.classList.remove("transparent");
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("scroll", handleScroll);
+  });
+
   return (
     <div className="fixed">
       <Promo
@@ -15,14 +27,13 @@ const Navbar = ({ onLogout, auth, total }) => {
           "35% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
         }
       />
-      <div className="nav" id="navbar">
+      <nav className="nav" id="navbar">
         <Link to="/">
           <img src={logo} alt="logo" className="navLogo" />
         </Link>
         {autorizado ? (
           <Link to="/profile">
             <div className="account">
-
               <div className="flex">
                 <div className="online">
                   <div className="icon"> </div>Conectado
@@ -82,7 +93,7 @@ const Navbar = ({ onLogout, auth, total }) => {
             />
           </Link>
         ) : null}
-      </div>
+      </nav>
     </div>
   );
 };

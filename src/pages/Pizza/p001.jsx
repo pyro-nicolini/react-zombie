@@ -69,7 +69,7 @@ export default function Pizza({}) {
           </select>
         </div>
 
-        <div className="contenedorPizza">
+        <>
           {loading && (
             <div className="column">
               <img
@@ -89,20 +89,14 @@ export default function Pizza({}) {
           {!loading && pizza && (
             <div
               key={pizza.id}
-              className="cardB"
-              style={{
-                maxWidth: "35rem",
-                margin: "2rem auto",
-                padding: "0",
-                paddingBottom: "0",
-              }}
+              className="card2"
             >
-              <div className="" style={{ margin: "0" }}>
+              <div className="cardDiv2">
                 <img className="cardImg2" src={pizza.img} alt={pizza.name} />
-                <h2 className="price">${pricer(pizza.price)}</h2>
+                <h2 className="cardPrice2">${pricer(pizza.price)}</h2>
                 <Button
                   buttonText="Agregar al carrito"
-                  className="add"
+                  className="cardAdd"
                   onClick={() => console.log("Agregar a carrito")}
                 />
               </div>
@@ -111,11 +105,11 @@ export default function Pizza({}) {
                 <p className="cardSubTitle">
                   Ingredientes: {capitalizer(pizza.ingredients.join(", "))}
                 </p>
-                <p className="pizzaText">{pizza.desc}</p>
+                <p className="cardText">{pizza.desc}</p>
               </div>
             </div>
           )}
-        </div>
+        </>
       </div>
     </div>
   );

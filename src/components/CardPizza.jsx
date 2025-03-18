@@ -47,7 +47,7 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
         }}
       >
         <Link to="/cart">
-          <Button buttonText="Añadir 🍕" className="add" />
+          <Button buttonText="Añadir 🍕" className="cardAdd" />
         </Link>
         <Button
           buttonText={
@@ -62,17 +62,14 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
       <div className="cardWindows">
         <h2 className="cardTitle">{capitalizer(name)}</h2>
         <h4 className="cardSubTitle">
-          <div className="flex"> 
+          <div className="flex">
             <p>[</p>
-            {ingredients.map((element, i) => {
-              i++;
-              return (
-                <>
-                <p key={i}>{pizzaEmojis[i]}</p>
-                <p key={i}>{capitalizer(element)}</p>
-                </>
-              ) 
-            })}
+            {ingredients.map((element, i) => (
+              <div key={`${element}-${i}`} className="ingredient">
+                <p>{pizzaEmojis[i]}</p>
+                <p>{capitalizer(element)}</p>
+              </div>
+            ))}
             <p>]</p>
           </div>
         </h4>
