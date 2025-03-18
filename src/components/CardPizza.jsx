@@ -63,14 +63,12 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
         <h2 className="cardTitle">{capitalizer(name)}</h2>
         <h4 className="cardSubTitle">
           <div className="flex">
-            <p>[</p>
             {ingredients.map((element, i) => (
               <div key={`${element}-${i}`} className="ingredient">
                 <p>{pizzaEmojis[i]}</p>
                 <p>{capitalizer(element)}</p>
               </div>
             ))}
-            <p>]</p>
           </div>
         </h4>
 

@@ -21,6 +21,8 @@ body {
   width: 100% !important;
 }
 
+
+
 .fixed {
   position: fixed;
   z-index: 100;
@@ -199,6 +201,13 @@ body {
   padding: 5rem 0;
   gap: 2rem;
 }
+
+.error404 {
+  font-size: 2rem;
+  color: rgb(255, 243, 203);
+  filter: drop-shadow(0px 0px 3px #10ee00);
+
+}
 .header {
   display: flex;
   justify-content: center;
@@ -215,6 +224,7 @@ body {
 .itemHeader {
   width: 8rem;
   height: auto;
+  animation: shake .4s infinite alternate ease-in-out;
 }
 .p1 {
   display: flex;
@@ -331,12 +341,25 @@ select {
   background-position: center bottom;
   padding: 1rem;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  border: 1px ss ease-in-out;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  
 }
 .cardBody:hover {
+  animation-delay: 2s, 0s;
   box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.6);
-  animation: bleeding 0.5s infinite alternate ease-in-out;
+  animation: bleeding 0.3s infinite alternate ease-in-out, shake .4s;
 }
+
+.cardWindows {
+  padding: 0 .2rem;
+  width: 100%;
+  background-color: #3600cc85;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 1.8rem;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+}
+
 @keyframes bleeding {
   0% {
     border: 3px solid red;
@@ -354,14 +377,14 @@ select {
     /* box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.6); */
   }
 }
-.cardWindows {
-  width: 100%;
-  background-color: #3600cc85;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  border-radius: 1.8rem;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px) rotate(-1deg); }
+  50% { transform: translateX(5px) rotate(1deg); }
+  75% { transform: translateX(-3px) rotate(-1deg); }
+  100% { transform: translateX(3px) rotate(1deg); }
 }
+
 .zombie {
   position: relative;
   height: 12rem;
@@ -370,6 +393,7 @@ select {
   left: 4rem;
   z-index: 10;
   filter: drop-shadow(1px 3px 2px rgb(0, 0, 0));
+  
 }
 .zombie:hover {
   animation: zombieMove 1s infinite ease-in-out;
@@ -542,6 +566,10 @@ select {
   background-color: #470099;
   border: #ecd500 2px dotted;
 }
+.logBtn {
+  padding: 0.7rem;
+}
+
 input {
   display: block;
   padding: 0.5rem 0;
@@ -596,6 +624,13 @@ label {
   width: 8rem;
   margin: auto;
 }
+
+.zombie2:hover {
+  animation: shake .4s infinite alternate ease-in-out;
+}
+
+
+
 h3 {
   font-size: clamp(1.2rem, 2vw, 2rem) !important;
   text-align: center;
@@ -607,22 +642,21 @@ h3 {
   flex-direction: column;
   align-items: center !important;
   padding: 0 !important;
-  margin: 0 !important;
+  margin: 0 auto !important;
   font-size: 1rem;
 }
 
 .column p {
-  font-size: 1.1rem !important;
   text-transform: capitalize;
 }
 
 .flex {
-  flex-wrap: wrap;
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+  align-content: center;
+  margin: auto;
   text-align: center;
+  gap: 0.4rem;
 }
 
 .flex p,
@@ -633,10 +667,6 @@ h3 {
   padding: 0.1rem !important;
 }
 
-.space {
-  margin: 2rem 0;
-}
-
 .gap {
   display: flex;
   justify-content: center;
@@ -644,9 +674,6 @@ h3 {
   gap: 0.6rem;
 }
 
-.padding {
-  padding: 0.7rem;
-}
 
 .white {
   color: white;
@@ -658,7 +685,8 @@ h3 {
 .cart {
   display: flex;
   flex-direction: column;
-  margin: 2rem auto;
+  margin: 3rem auto;
+  margin-top: 7rem;
   background: linear-gradient(160deg, #ff7a2d, #7919a9, rgb(46, 2, 91));
   border: 5px rgb(0, 73, 30) solid !important;
   padding: 1rem;
@@ -703,8 +731,8 @@ h3 {
   background-color: #0099ff;
   color: #ffffff;
   font-size: 2rem;
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -723,12 +751,17 @@ h3 {
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 2rem;
+  width: 3rem;
   line-height: 0;
-  height: 2rem;
+  height: 3rem;
   font-size: 2rem;
 }
-
+.botones {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .6rem;
+}
 .footer {
   position: fixed;
   grid-area: footer;

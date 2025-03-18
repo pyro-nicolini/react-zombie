@@ -41,17 +41,8 @@ export default function Pizza({}) {
   }, [optionId]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
-        gap: "2rem",
-        margin: "auto",
-      }}
-    >
       <div>
-        <div style={{ width: "20rem", margin: "auto", textAlign: "center" }}>
+        <div style={{ width: "20rem", margin: "auto"}}>
           <label htmlFor="optionId" className="white">
             Buscador de pizzas:
           </label>
@@ -111,6 +102,6 @@ export default function Pizza({}) {
           )}
         </>
       </div>
-    </div>
+
   );
 }

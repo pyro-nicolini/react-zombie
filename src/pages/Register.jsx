@@ -113,9 +113,9 @@ function RegisterPage({ onChange, values, auth, setAuth }) {
         />
       </div>
       <div className="column space gap">
-        <Button type="submit" className={`padding`} buttonText={"Registrar"} />
+        <Button type="submit" className={`logBtn`} buttonText={"Registrar"} />
         <p style={{ fontSize: "0.9rem" }}>¿Ya tienes una cuenta?</p>
-        <Button className={`padding`} buttonText={"Iniciar Sesión"} />
+        <Button className={`logBtn`} buttonText={"Iniciar Sesión"} />
       </div>
     </form>
   );

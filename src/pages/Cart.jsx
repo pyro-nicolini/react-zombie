@@ -70,7 +70,7 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
                 <p>{pizza.name}</p>
                 <p>${pricer(pizza.price)}</p>
               </div>
-              <div className="flex">
+              <div className="botones">
                 <Button
                   buttonText="+"
                   className="addPizza"
@@ -86,7 +86,7 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
             </div>
           )
       )}
-      <div className="column">
+      <div className="column" style={{width: '90%'}}>
         <label htmlFor="Cupon">Cupón:</label>
         <input
           type="text"

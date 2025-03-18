@@ -97,7 +97,7 @@ function LoginPage({ onChange, values, auth, setAuth }) {
       <div className="column gap">
         <Button
           type="submit"
-          className={`padding`}
+          className={`logBtn`}
           buttonText={"Iniciar Sesión"}
         />
         <a href="#" className="white">

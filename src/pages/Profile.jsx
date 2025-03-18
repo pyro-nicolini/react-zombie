@@ -6,22 +6,25 @@ export default function Profile({ onLogout, auth }) {
   const email = autenticado ? autenticado.email : "";
   return (
     <>
-      {autorizado ? (
-        <div className="white">
-          <h1>Profile</h1>
-          <div className="account">
-            <p>Perfil</p>
-            <Button
-              className="perfil"
-              buttonText={`${email}`}
-              buttonImg={" "}
-            />
-            <Link to="/" onClick={onLogout}>
-              <Button className="navLink red" buttonText={"Cerrar Sesión"} />
-            </Link>
+      <div className="card2">
+        {autorizado ? (
+          <div className="white column flex" style={{justifyContent: 'space-between', gap: '3rem'}}>
+              <h1 className="flex">R.I.P</h1>
+            <div className="account">
+              <p>Perfil Zombie</p>
+              <Button
+                className="perfil"
+                buttonText={`${email}`}
+                buttonImg={" "}
+              />
+            </div>
+              <Link to="/" onClick={onLogout}>
+                <Button className="alert padding" buttonText={"Cerrar Sesión"} />
+              </Link>
+              <img src="src/images/hand.png" alt="HandZombie" className="itemHeader"/>
           </div>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </>
   );
 }
