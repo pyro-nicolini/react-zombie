@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 import Button from "./Button";
 import Promo from "./Promo";
+import { pricer } from "../utilities/helper";
 
 const Navbar = ({ onLogout, auth, total }) => {
   const { autorizado, autenticado } = auth || {};
@@ -82,13 +83,7 @@ const Navbar = ({ onLogout, auth, total }) => {
         {autorizado ? (
           <Link to="/cart">
             <Button
-              buttonText={`🛒 Total: ${Math.round(total * 1000).toLocaleString(
-                "es-CL",
-                {
-                  style: "currency",
-                  currency: "CLP",
-                }
-              )}`}
+              buttonText={`🛒 Total: $${pricer(total)}`}
               className="total"
             />
           </Link>

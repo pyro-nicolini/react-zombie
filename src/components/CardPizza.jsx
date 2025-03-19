@@ -1,6 +1,7 @@
 import Button from "./Button";
 import ytImage from "../images/yt.png";
 import { Link } from "react-router-dom";
+import { capitalizer, pricer } from "../utilities/helper"
 
 function CardPizza({ name, price, ingredients, img2, desc, img }) {
   const pizzaEmojis = [
@@ -15,13 +16,7 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
     "🌶️", // Pimientos
     "🍗", // Pollo grillé
   ];
-  function capitalizer(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  function pricer(num) {
-    return num.toLocaleString().replace(",", ".");
-  }
+ 
 
   return (
     <div className="cardBody" style={{ backgroundImage: `url(${img})` }}>

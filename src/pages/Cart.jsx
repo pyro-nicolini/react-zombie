@@ -1,6 +1,7 @@
 import { pizzaCartJs } from "../data/pizzas";
 import Button from "../components/Button";
 import { useState, useEffect } from "react";
+import { pricer } from "../utilities/helper";
 
 export default function Cart({ setTotalisimo, cuponPromo }) {
   const [pizzaCart, setPizzaCart] = useState(pizzaCartJs);
@@ -44,10 +45,6 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
       setDescuentoAplicado(0);
       alert("Cupón inválido ❌");
     }
-  }
-
-  function pricer(num) {
-    return num.toLocaleString().replace(",", ".");
   }
 
   useEffect(() => {

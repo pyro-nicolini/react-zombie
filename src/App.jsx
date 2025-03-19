@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Pizza from "./pages/Pizza/p001";
 import AllPizzas from "./components/AllPizzas";
 import NotFound from "./pages/404";
+import { controlCambios, cerrarSesion } from "./utilities/helper"
 
 function App() {
   const [totalisimo, setTotalisimo] = useState(0);
@@ -20,36 +21,16 @@ function App() {
     autenticado: { email: "prueba@prueba.com" },
   });
 
-  const controlCambios = (e) => {
-    setAuth((prev) => ({
-      ...prev,
-      input: {
-        ...prev.input,
-        [e.target.name]: e.target.value,
-        error: "",
-        exito: "",
-      },
-    }));
-  };
-
-  const cerrarSesion = () => {
-    setAuth((prev) => ({
-      ...prev,
-      autorizado: false,
-      autenticado: null,
-      input: { email: "", pass: "", error: "", exito: "" },
-    }));
-  };
 
   return (
     <div className="app">
-      <Navbar onLogout={cerrarSesion} auth={auth} total={totalisimo} />
+      <Navbar onLogout={() => cerrarSesion(setAuth)} auth={auth} total={totalisimo} />
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
             path="/profile"
-            element={<Profile auth={auth} onLogout={cerrarSesion} />}
+            element={<Profile auth={auth} onLogout={() => cerrarSesion(setAuth)} />}
           />
           <Route path="/allpizzas" element={<AllPizzas />} />
           <Route path="/404" element={<NotFound />} />
@@ -60,7 +41,7 @@ function App() {
                 <LoginPage
                   setAuth={setAuth}
                   auth={auth}
-                  onChange={controlCambios}
+                  onChange={(e) => controlCambios(e, setAuth)}
                   values={auth.input}
                 />
             }
@@ -71,7 +52,7 @@ function App() {
                 <RegisterPage
                   setAuth={setAuth}
                   auth={auth}
-                  onChange={controlCambios}
+                  onChange={(e) => controlCambios(e, setAuth)}
                   values={auth.input}
                 />
             }
