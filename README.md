@@ -1,16 +1,19 @@
-#  Zombie Pizza 🍕🧟‍♂️
-¡Bienvenido a **Zombie Pizza**! Una aplicación web donde podrás descubrir las pizzas más terroríficas, conocer sus ingredientes espeluznantes y hacer tu pedido antes de que el hambre te convierta en un zombi.  
+# Zombie Pizza 🍕🧟‍♂️
+
+¡Bienvenido a **Zombie Pizza**! Una aplicación web donde podrás descubrir las pizzas más terroríficas, conocer sus ingredientes espeluznantes y hacer tu pedido antes de que el hambre te convierta en un zombi.
 
 ## Main
-[Repositorio Principal](https://github.com/pyro-nicolini/react-zombie)  
 
-### Challenge / Hitos 
+[Repositorio Principal](https://github.com/pyro-nicolini/react-zombie)
 
-*Hito 1:* Configuración inicial y estructura de componentes
+### Challenge / Hitos
 
-*Hito 2:* Implementación de `useState` para la gestión de estado
+_Hito 1:_ Configuración inicial y estructura de componentes
 
-*Hito 3:* Renderizado dinámico de pizzas
+_Hito 2:_ Implementación de `useState` para la gestión de estado
 
-*Hito 4:* Integración de `useEffect` y consumo de API ([Ver aquí Hito4](https://github.com/pyro-nicolini/react-zombie/tree/Hito4))  
+_Hito 3:_ Renderizado dinámico de pizzas
 
+_Hito 4:_ Integración de `useEffect` y consumo de API (Merged)
+
+_Hito 5:_ Integración de `React Router` y distribución por rutas ([Ver aquí Hito5](https://github.com/pyro-nicolini/react-zombie/tree/Hito5))
