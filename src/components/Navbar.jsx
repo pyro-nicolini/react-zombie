@@ -1,20 +1,24 @@
+import { Link } from "react-router-dom";
+import logo from "../images/logo.png";
 import Button from "./Button";
-import logo from "../images/logo2.png";
-import Promo from "./Promo.jsx";
+import Promo from "./Promo";
+import { pricer } from "../utilities/helper";
 
 const Navbar = ({ onLogout, auth, total }) => {
   const { autorizado, autenticado } = auth || {};
 
   const email = autenticado ? autenticado.email : "";
 
-  window.addEventListener("scroll", function () {
-    let navbar = document.getElementById("navbar");
-
+  window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
       navbar.classList.add("transparent");
     } else {
       navbar.classList.remove("transparent");
     }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("scroll", handleScroll);
   });
 
   return (
@@ -24,48 +28,67 @@ const Navbar = ({ onLogout, auth, total }) => {
           "35% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
         }
       />
-      <div className="nav" id="navbar">
-        <img src={logo} alt="logo" className="navLogo" />
+      <nav className="nav" id="navbar">
+        <Link to="/">
+          <img src={logo} alt="logo" className="navLogo" />
+        </Link>
         {autorizado ? (
-          <div className="account">
-            <p>Perfil</p>
-            <Button
-              className="perfil"
-              buttonText={`${email}`}
-              buttonImg={" "}
-            />
-          </div>
+          <Link to="/profile">
+            <div className="account">
+              <div className="flex">
+                <div className="online">
+                  <div className="icon"> </div>Conectado
+                </div>
+                <Button
+                  className="perfil"
+                  buttonText={`${email}`}
+                  buttonImg={" "}
+                />
+              </div>
+            </div>
+          </Link>
         ) : null}
         <div className="menu">
-          <Button buttonText={"Inicio"} className="navLink" />
+          <Link to="/" className="navLink">
+            <Button buttonText={"HOME"} className="navLink" />
+          </Link>
           {autorizado ? (
             <>
-              <Button
-                onClick={onLogout}
-                className="navLink red"
-                buttonText={"Cerrar Sesión"}
-              />
+              <Link to="/" onClick={onLogout}>
+                <Button className="navLink red" buttonText={"Cerrar Sesión"} />
+              </Link>
             </>
           ) : (
             <>
-              <Button className="navLink" buttonText={"Iniciar Sesión"} />
-              <Button className="navLink" buttonText={"Registrar"} />
+              <Link to="/login">
+                <Button className="navLink" buttonText={"Iniciar Sesión"} />
+              </Link>
+              <Link to="/register">
+                <Button className="navLink" buttonText={"Registrar"} />
+              </Link>
             </>
           )}
           <div className="info">
-            <Button className="navLink" buttonText={"Sucursales"} />
-            <Button className="navLink" buttonText={"Promos"} />
+            <Link to="/pizza/p001">
+              <Button className="navLink" buttonText={"Pizzas"} />
+            </Link>
+            <Link to="/404">
+              <Button className="navLink" buttonText={"NotFound"} />
+            </Link>
+            <Link to="/cart">
+              <Button className="navLink" buttonText={"Carrito"} />
+            </Link>
           </div>
         </div>
-        {autorizado ?
-        <Button
-          buttonText={`Total: ${Math.round(total*1000).toLocaleString("es-CL", {
-            style: "currency",
-            currency: "CLP",
-          })}`}
-          className="total"
-        /> : null }
-      </div>
+        {autorizado ? (
+          <Link to="/cart">
+            <Button
+              buttonText={`🛒 Total: $${pricer(total)}`}
+              className="total"
+            />
+          </Link>
+        ) : null}
+      </nav>
     </div>
   );
 };

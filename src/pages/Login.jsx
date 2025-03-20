@@ -1,8 +1,11 @@
-import Button from "./Button";
+import Button from "../components/Button";
 import zom2 from "../images/zom2.png";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage({ onChange, values, auth, setAuth }) {
   const { email, pass, error, exito } = values;
+
+  const navigate = useNavigate();
 
   const validarLogin = (e) => {
     e.preventDefault();
@@ -58,6 +61,7 @@ function LoginPage({ onChange, values, auth, setAuth }) {
     }));
 
     alert(`¡Bienvenido, ${email}!`);
+    navigate("/", { replace: true });
   };
 
   return (
@@ -65,7 +69,7 @@ function LoginPage({ onChange, values, auth, setAuth }) {
       <div className="flex">
         <img src={zom2} alt="" className="zombie2" />
       </div>
-        <h3>🔓 Iniciar Sesión</h3>
+      <h3>🔓 Iniciar Sesión</h3>
       {error && <p className="alert">{error}</p>}
       {exito && <p className="exito">{exito}</p>}
       <div className="titleForm">
@@ -93,7 +97,7 @@ function LoginPage({ onChange, values, auth, setAuth }) {
       <div className="column gap">
         <Button
           type="submit"
-          className={`padding`}
+          className={`logBtn`}
           buttonText={"Iniciar Sesión"}
         />
         <a href="#" className="white">

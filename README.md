@@ -14,6 +14,6 @@ _Hito 2:_ Implementación de `useState` para la gestión de estado
 
 _Hito 3:_ Renderizado dinámico de pizzas
 
-_Hito 4:_ Integración de `useEffect` y consumo de API (Merged)
+_Hito 4:_ Integración de `useEffect` y consumo de API
 
-_Hito 5:_ Integración de `React Router` y distribución por rutas ([Ver aquí Hito5](https://github.com/pyro-nicolini/react-zombie/tree/Hito5))
+_Hito 5:_ Integración de `React Router` y distribución por rutas 
