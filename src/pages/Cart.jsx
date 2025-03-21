@@ -4,45 +4,13 @@ import { useState, useEffect, useContext } from "react";
 import { pricer } from "../utilities/helper";
 import { CartContext } from "../context/CartContext";
 
-export default function Cart({ cuponPromo }) {
-  const {totalisimo, setTotalisimo, pizzaCart, setPizzaCart, pizzaList} = useContext(CartContext);
+export default function Cart() { // {cuponPromo}
+  const {totalisimo, setTotalisimo, pizzaCart, setPizzaCart, pizzaList, addPizza, deletePizza} = useContext(CartContext);
   const [cupon, setCupon] = useState("");
   const [descuentoAplicado, setDescuentoAplicado] = useState(0);
-console.log(pizzaCart)
-console.log(pizzaList)
 
-  function addPizzaById(id) {
-    setPizzaCart((prevPizzas) =>
-      prevPizzas.map((pizza) =>
-        pizza.id === id && pizza.count > 0
-         ? {
-             ...pizza,
-              count: pizza.count + 1,
-              precio: pricer(pizza.id, pizza.count + 1),
-            }
-          : pizza
-      )
-    );
-  }
 
-  function addPizza(id) {
-    setPizzaCart((prevPizzas) =>
-      prevPizzas.map((pizza) =>
-        pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
-      )
-    );
-  }
-
-  function deletePizza(id) {
-    setPizzaCart((prevPizzas) =>
-      prevPizzas.map((pizza) =>
-        pizza.id === id && pizza.count > 0
-          ? { ...pizza, count: pizza.count - 1 }
-          : pizza
-      )
-    );
-  }
-
+ 
   const total = pizzaCart.reduce(
     (acc, pizza) => acc + pizza.price * pizza.count,
     0

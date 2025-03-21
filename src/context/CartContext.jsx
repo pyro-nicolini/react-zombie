@@ -25,16 +25,49 @@ const [pizzaCart, setPizzaCart] = useState([
     },
 
   ]);
+  function addPizza(id) {
+    setPizzaCart((prevPizzas) => {
+      const pizzaEncontrada = pizzaList.find((pizza) => pizza.id === id);
+      if (pizzaEncontrada) {
+        const pizzaExists = prevPizzas.some((pizza) => pizza.id === pizzaEncontrada.id);
+        if (pizzaExists) {
+          return prevPizzas.map((pizza) =>
+            pizza.id === pizzaEncontrada.id ? { ...pizza, count: pizza.count + 1 } : pizza
+          );
+        } else {
+          return [...prevPizzas, { ...pizzaEncontrada, count: 1 }];
+        }
+      } else {
+        return prevPizzas;
+      }
+    });
+  }
+  function deletePizza(id) {
+    setPizzaCart((prevPizzas) => {
+      return prevPizzas.map((pizza) =>
+        pizza.id === id && pizza.count > 0
+          ? { ...pizza, count: pizza.count - 1 }
+          : pizza
+      );
+    });
+  }
 
-useEffect(()=> {
-  let total = pizzaCart.reduce((acc, pizza) => acc + pizza.price * pizza.count, 0);
-  setTotalisimo(total);
-}, [])
-  
-return (
-<CartContext.Provider value={{ pizzaCart, setPizzaCart, totalisimo, setTotalisimo, pizzaList }}>
-{children}
-</CartContext.Provider>
-);
+
+
+  useEffect(() => {
+    let total = pizzaCart.reduce(
+      (acc, pizza) => acc + pizza.price * pizza.count,
+      0
+    );
+    setTotalisimo(total);
+  }, []);
+
+  return (
+    <CartContext.Provider
+      value={{ pizzaCart, setPizzaCart, totalisimo, setTotalisimo, pizzaList, addPizza, deletePizza}}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 };
 export default CartProvider;
