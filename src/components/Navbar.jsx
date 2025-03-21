@@ -3,9 +3,14 @@ import logo from "../images/logo.png";
 import Button from "./Button";
 import Promo from "./Promo";
 import { pricer } from "../utilities/helper";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { cerrarSesion } from "../utilities/helper";
 
-const Navbar = ({ onLogout, auth, total }) => {
+const Navbar = ({total}) => {
+  const { auth, setAuth } = useContext(AuthContext)
   const { autorizado, autenticado } = auth || {};
+
 
   const email = autenticado ? autenticado.email : "";
 
@@ -54,7 +59,7 @@ const Navbar = ({ onLogout, auth, total }) => {
           </Link>
           {autorizado ? (
             <>
-              <Link to="/" onClick={onLogout}>
+              <Link to="/" onClick={() => cerrarSesion(setAuth)}>
                 <Button className="navLink red" buttonText={"Cerrar Sesión"} />
               </Link>
             </>

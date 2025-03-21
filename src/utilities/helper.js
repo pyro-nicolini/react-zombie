@@ -1,6 +1,3 @@
-// utilities/helper.js
-
-// Función para manejar los cambios de input
 export function controlCambios(e, setAuth) {
   e.preventDefault();
   setAuth((prev) => ({
@@ -14,7 +11,6 @@ export function controlCambios(e, setAuth) {
   }));
 }
 
-// Función para cerrar sesión
 export function cerrarSesion(setAuth) {
   setAuth((prev) => ({
     ...prev,

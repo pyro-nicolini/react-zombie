@@ -570,6 +570,18 @@ select {
   padding: 0.7rem;
 }
 
+.link {
+  color: white !important;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.link:hover {
+  color: #ff0066 !important;
+  text-decoration: underline;
+
+}
+
 input {
   display: block;
   padding: 0.5rem 0;

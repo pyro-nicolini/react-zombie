@@ -1,15 +1,19 @@
+import { useContext } from "react";
 import Button from "../components/Button";
 import zom2 from "../images/zom2.png";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { controlCambios } from "../utilities/helper";
+import { Link } from "react-router-dom";
 
-function LoginPage({ onChange, values, auth, setAuth }) {
-  const { email, pass, error, exito } = values;
+function LoginPage() {
+  const { auth, setAuth } = useContext(AuthContext);
+  const { email = "", pass = "", error, exito } = auth.input || {};
 
   const navigate = useNavigate();
 
   const validarLogin = (e) => {
     e.preventDefault();
-    const { email, pass } = auth.input;
 
     if (!email?.trim() || !pass?.trim()) {
       return setAuth((prev) => ({
@@ -78,7 +82,7 @@ function LoginPage({ onChange, values, auth, setAuth }) {
           type="email"
           name="email"
           value={email}
-          onChange={onChange}
+          onChange={(e) => controlCambios(e, setAuth)}
           className="flex"
           placeholder="Email"
         />
@@ -89,7 +93,7 @@ function LoginPage({ onChange, values, auth, setAuth }) {
           type="password"
           name="pass"
           value={pass}
-          onChange={onChange}
+          onChange={(e) => controlCambios(e, setAuth)}
           className="flex"
           placeholder="contraseña"
         />
@@ -100,9 +104,12 @@ function LoginPage({ onChange, values, auth, setAuth }) {
           className={`logBtn`}
           buttonText={"Iniciar Sesión"}
         />
-        <a href="#" className="white">
-          ¿Olvidaste tu contraseña?
-        </a>
+        <Link to="/register" className="link">
+            ¿Olvidaste tu contraseña?
+        </Link>
+        <Link to="/register" className="link">
+            Crea una Cuenta
+        </Link>
       </div>
     </form>
   );
