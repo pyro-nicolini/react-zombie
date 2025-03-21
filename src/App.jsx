@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
 
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/Register";
@@ -12,14 +11,17 @@ import Footer from "./components/Footer";
 import Pizza from "./pages/Pizza/p001";
 import AllPizzas from "./components/AllPizzas";
 import NotFound from "./pages/404";
+
 import AuthProvider from "./context/AuthContext";
+import CartProvider from "./context/CartContext";
 
 function App() {
-  const [totalisimo, setTotalisimo] = useState(0);
+  
   return (
+        <CartProvider>
         <AuthProvider>
     <div className="app">
-        <Navbar total={totalisimo} />
+        <Navbar/>
         <main className="main">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -35,13 +37,14 @@ function App() {
               path="/register" 
               element={<RegisterPage/>} 
             />
-            <Route path="/cart" element={<Cart cuponPromo={"movistar"} setTotalisimo={setTotalisimo} />} />
+            <Route path="/cart" element={<Cart cuponPromo={"movistar"}/>} />
             <Route path="/pizza/p001" element={<Pizza />} />
           </Routes>
         </main>
         <Footer footerTextA={"© 2025 -"} footerLink={"Zombie Pizza"} footerTextB={"- Derechos reservados"} />
       </div>
     </AuthProvider>
+    </CartProvider>
   );
 }
 

@@ -4,12 +4,16 @@ import Button from "./Button";
 import Promo from "./Promo";
 import { pricer } from "../utilities/helper";
 import { useContext } from "react";
+
 import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
+
 import { cerrarSesion } from "../utilities/helper";
 
-const Navbar = ({total}) => {
+const Navbar = () => {
   const { auth, setAuth } = useContext(AuthContext)
   const { autorizado, autenticado } = auth || {};
+  const {totalisimo, setTotalisimo} = useContext(CartContext);
 
 
   const email = autenticado ? autenticado.email : "";
@@ -85,14 +89,12 @@ const Navbar = ({total}) => {
             </Link>
           </div>
         </div>
-        {autorizado ? (
           <Link to="/cart">
             <Button
-              buttonText={`🛒 Total: $${pricer(total)}`}
+              buttonText={`🛒 Total: $${pricer(totalisimo)}`}
               className="total"
             />
           </Link>
-        ) : null}
       </nav>
     </div>
   );

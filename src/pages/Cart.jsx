@@ -1,12 +1,29 @@
-import { pizzaCartJs } from "../data/pizzas";
+// import { pizzaCartJs } from "../data/pizzas";
 import Button from "../components/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { pricer } from "../utilities/helper";
+import { CartContext } from "../context/CartContext";
 
-export default function Cart({ setTotalisimo, cuponPromo }) {
-  const [pizzaCart, setPizzaCart] = useState(pizzaCartJs);
+export default function Cart({ cuponPromo }) {
+  const {totalisimo, setTotalisimo, pizzaCart, setPizzaCart, pizzaList} = useContext(CartContext);
   const [cupon, setCupon] = useState("");
   const [descuentoAplicado, setDescuentoAplicado] = useState(0);
+console.log(pizzaCart)
+console.log(pizzaList)
+
+  function addPizzaById(id) {
+    setPizzaCart((prevPizzas) =>
+      prevPizzas.map((pizza) =>
+        pizza.id === id && pizza.count > 0
+         ? {
+             ...pizza,
+              count: pizza.count + 1,
+              precio: pricer(pizza.id, pizza.count + 1),
+            }
+          : pizza
+      )
+    );
+  }
 
   function addPizza(id) {
     setPizzaCart((prevPizzas) =>
@@ -30,30 +47,34 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
     (acc, pizza) => acc + pizza.price * pizza.count,
     0
   );
+
+  setTotalisimo(total);
+
   const cantidad = pizzaCart.reduce((acc, pizza) => acc + pizza.count, 0);
+  
 
-  function calcularDescuento(total) {
-    if (total < 10000) return 0;
-    let descuento = total * 0.35;
-    return Math.min(descuento, 12000);
-  }
+  // function calcularDescuento(total) {
+  //   if (total < 10000) return 0;
+  //   let descuento = total * 0.35;
+  //   return Math.min(descuento, 12000);
+  // }
 
-  function aplicarCupon() {
-    if (cupon.toLowerCase() === cuponPromo) {
-      setDescuentoAplicado(calcularDescuento(total));
-    } else {
-      setDescuentoAplicado(0);
-      alert("Cupón inválido ❌");
-    }
-  }
+  // function aplicarCupon() {
+  //   if (cupon.toLowerCase() === cuponPromo) {
+  //     setDescuentoAplicado(calcularDescuento(total));
+  //   } else {
+  //     setDescuentoAplicado(0);
+  //     alert("Cupón inválido ❌");
+  //   }
+  // }
 
-  useEffect(() => {
-    const newTotal =
-      pricer(total - descuentoAplicado) < pricer(total)
-        ? pricer(total - descuentoAplicado)
-        : pricer(total);
-    setTotalisimo(newTotal);
-  }, [total, descuentoAplicado, setTotalisimo]);
+  // useEffect(() => {
+  //   const newTotal =
+  //     pricer(total - descuentoAplicado) < pricer(total)
+  //       ? pricer(total - descuentoAplicado)
+  //       : pricer(total);
+  //   setTotalisimo(newTotal);
+  // }, [total, descuentoAplicado, setTotalisimo]);
 
   return (
     <div className="cart">
@@ -96,7 +117,7 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
           type="submit"
           className="total"
           buttonText="Aplicar"
-          onClick={aplicarCupon}
+          // onClick={aplicarCupon}
         />
       </div>
       <div
