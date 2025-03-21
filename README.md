@@ -4,7 +4,7 @@
 
 ## Main
 
-[Repositorio Principal](https://github.com/pyro-nicolini/react-zombie)
+[Repositorio Principal](https://github.com/pyro-nicolini/react-zombie) Main actual: Hito5
 
 ### Challenge / Hitos
 
@@ -17,3 +17,5 @@ _Hito 3:_ Renderizado dinámico de pizzas
 _Hito 4:_ Integración de `useEffect` y consumo de API
 
 _Hito 5:_ Integración de `React Router` y distribución por rutas 
+
+_Hito 6:_ Integración de `useContext` y uso de Estados Globales [Hito6](https://github.com/pyro-nicolini/react-zombie/tree/Hito6)
