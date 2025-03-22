@@ -1,9 +1,8 @@
 import Button from "./Button";
 import ytImage from "../images/yt.png";
-import { Link } from "react-router-dom";
 import { capitalizer, pricer } from "../utilities/helper"
 
-function CardPizza({ name, price, ingredients, img2, desc, img }) {
+function CardPizza({ name, price, ingredients, img2, desc, img, onClick, id }) {
   const pizzaEmojis = [
     "🧀", // Mozzarella
     "🍅", // Tomates
@@ -41,9 +40,7 @@ function CardPizza({ name, price, ingredients, img2, desc, img }) {
           margin: "auto",
         }}
       >
-        <Link to="/cart">
-          <Button buttonText="Añadir 🍕" className="cardAdd" />
-        </Link>
+          <Button buttonText="Añadir 🍕" className="cardAdd" onClick={onClick} id={id}/>
         <Button
           buttonText={
             <>

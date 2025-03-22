@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import CardPizza from "./CardPizza";
 import { pizzasJS } from "../data/pizzas";
+import { CartContext } from "../context/CartContext";
 
 export default function AllPizzas() {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const { addPizza } = useContext(CartContext)
 
   const getData = async () => {
     setLoading(true);
@@ -72,6 +75,8 @@ export default function AllPizzas() {
                     zom.id.toLocaleLowerCase() === pizza.id.toLocaleLowerCase()
                 )?.zombie || "nohay"
               }
+              id={pizza.id}
+              onClick={() => addPizza(pizza.id)}
             />
           ))}
       </div>
