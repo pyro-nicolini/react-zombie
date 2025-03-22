@@ -23,7 +23,6 @@ export function cerrarSesion(setAuth) {
 export function capitalizer(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
 export function pricer(num) {
-  return num.toLocaleString().replace(",", ".");
+  return num.toLocaleString('es-CL', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }

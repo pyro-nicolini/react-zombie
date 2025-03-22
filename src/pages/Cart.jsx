@@ -1,27 +1,29 @@
 import Button from "../components/Button";
 import { useState, useEffect, useContext } from "react";
-import { pricer } from "../utilities/helper";
+import { pricer, capitalizer } from "../utilities/helper";
 import { CartContext } from "../context/CartContext";
 
 export default function Cart({ cuponPromo }) {
   const {
     setTotalisimo,
-    pizzaCart,
+    carro,
+    totalisimo,
     addPizza,
     deletePizza,
     descuentoAplicado,
     setDescuentoAplicado,
     cupon,
+    stock,
     setCupon,
     newTotal,
     setNewTotal,
   } = useContext(CartContext);
 
-  const total = pizzaCart.reduce(
+  const total = carro.reduce(
     (acc, pizza) => acc + pizza.price * pizza.count,
     0
   );
-  const cantidad = pizzaCart.reduce((acc, pizza) => acc + pizza.count, 0);
+  const cantidad = carro.reduce((acc, pizza) => acc + pizza.count, 0);
 
   function calcularDescuento(total) {
     if (total < 15000) return 0;
@@ -56,7 +58,7 @@ export default function Cart({ cuponPromo }) {
   return (
     <div className="cart">
       <h3>Detalle del pedido</h3>
-      {pizzaCart.map(
+      {carro.map(
         (pizza) =>
           pizza.count > 0 && (
             <div key={pizza.id} className="cart-item">
@@ -77,6 +79,15 @@ export default function Cart({ cuponPromo }) {
                   className="deletePizza"
                   onClick={() => deletePizza(pizza.id)}
                 />
+                {stock
+                  .filter((item) => item.id === pizza.id)
+                  .map((item, index) => (
+                    <div key={index}>
+                      <p>
+                        {item.stock > 0 ? `Quedan: ${item.stock}` : "Sin Stock"}
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
           )
@@ -97,16 +108,44 @@ export default function Cart({ cuponPromo }) {
           onClick={aplicarCupon}
         />
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
+ <div
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    gap: ".5rem",
+    lineHeight: "0",
+  }}
+>
+  <p>Cantidad: {cantidad}</p>
+  <div>
+    {/* Si hay descuento, mostramos los precios ajustados */}
+    {descuentoAplicado > 0 && cantidad > 0 ? (
+      <>
+        <p>Neto: ${pricer(((total - descuentoAplicado) / 1.19))}</p>
+        <p>Iva: ${pricer(((total - descuentoAplicado) - (total - descuentoAplicado) / 1.19))}</p>
+        {descuentoAplicado > 0 && cantidad > 0 && (
+          <p>
+            Descuento {capitalizer(cupon)} aplicado: -$
+            {pricer(descuentoAplicado)}
+          </p>
+        )}
+        <p>Total con descuento: ${pricer((total - descuentoAplicado))}</p>
+      </>
+    ) : (
+      // Si no hay descuento, mostramos los precios originales
+      <>
+        <p>Neto: ${pricer((total / 1.19))}</p>
+        <p>Iva: ${pricer((total - total / 1.19))}</p>
         <p>Total: ${pricer(total)}</p>
-        {descuentoAplicado > 0 && cantidad > 0 && (
-          <p>Descuento aplicado: -${pricer(descuentoAplicado)}</p>
-        )}
-        {descuentoAplicado > 0 && cantidad > 0 && (
-          <p>Total a pagar: ${pricer(newTotal)}</p>
-        )}
-        <p>Cantidad: {cantidad}</p>
-      </div>
+      </>
+    )}
+
+    {/* Si hay descuento, mostramos el detalle del descuento */}
+  </div>
+</div>
+
+
+
       <Button buttonText="PAGAR 🍕" className="total" />
     </div>
   );
