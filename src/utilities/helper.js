@@ -24,5 +24,10 @@ export function capitalizer(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 export function pricer(num) {
-  return num.toLocaleString('es-CL', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  return num
+    .toLocaleString("es-CL", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 3,
+    })
+    .replace(",", ".");
 }

@@ -1,59 +1,24 @@
 import Button from "../components/Button";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { pricer, capitalizer } from "../utilities/helper";
 import { CartContext } from "../context/CartContext";
 
 export default function Cart({ cuponPromo }) {
   const {
-    setTotalisimo,
     carro,
-    totalisimo,
+    promo,
     addPizza,
+    totalisimo,
     deletePizza,
-    descuentoAplicado,
-    setDescuentoAplicado,
+    cantidad,
     cupon,
     stock,
+    aplicarCupon,
     setCupon,
-    newTotal,
-    setNewTotal,
   } = useContext(CartContext);
 
-  const total = carro.reduce(
-    (acc, pizza) => acc + pizza.price * pizza.count,
-    0
-  );
-  const cantidad = carro.reduce((acc, pizza) => acc + pizza.count, 0);
-
-  function calcularDescuento(total) {
-    if (total < 15000) return 0;
-    return Math.floor(Math.min(total * 0.35, 12000));
-  }
-
-  useEffect(() => {
-    if (cupon.toLowerCase() === cuponPromo) {
-      const descuento = calcularDescuento(total);
-      setDescuentoAplicado(descuento);
-    } else {
-      setDescuentoAplicado(0);
-    }
-  }, [total, cupon, cuponPromo, setDescuentoAplicado]);
-
-  useEffect(() => {
-    const newTotalCalc = total - descuentoAplicado;
-    setNewTotal(newTotalCalc);
-    setTotalisimo(pricer(newTotalCalc));
-  }, [total, descuentoAplicado, setNewTotal, setTotalisimo]);
-
-  function aplicarCupon() {
-    if (cupon.toLowerCase() === cuponPromo) {
-      const descuento = calcularDescuento(total);
-      setDescuentoAplicado(descuento);
-    } else {
-      setDescuentoAplicado(0);
-      alert("Cupón inválido ❌");
-    }
-  }
+  // reemplazando la clave de la promocion de movistar (posible mejora para agregar cupones)
+  promo.movistar.clave = cuponPromo;
 
   return (
     <div className="cart">
@@ -108,43 +73,23 @@ export default function Cart({ cuponPromo }) {
           onClick={aplicarCupon}
         />
       </div>
- <div
-  style={{
-    display: "flex",
-    flexDirection: "column",
-    gap: ".5rem",
-    lineHeight: "0",
-  }}
->
-  <p>Cantidad: {cantidad}</p>
-  <div>
-    {/* Si hay descuento, mostramos los precios ajustados */}
-    {descuentoAplicado > 0 && cantidad > 0 ? (
-      <>
-        <p>Neto: ${pricer(((total - descuentoAplicado) / 1.19))}</p>
-        <p>Iva: ${pricer(((total - descuentoAplicado) - (total - descuentoAplicado) / 1.19))}</p>
-        {descuentoAplicado > 0 && cantidad > 0 && (
-          <p>
-            Descuento {capitalizer(cupon)} aplicado: -$
-            {pricer(descuentoAplicado)}
-          </p>
-        )}
-        <p>Total con descuento: ${pricer((total - descuentoAplicado))}</p>
-      </>
-    ) : (
-      // Si no hay descuento, mostramos los precios originales
-      <>
-        <p>Neto: ${pricer((total / 1.19))}</p>
-        <p>Iva: ${pricer((total - total / 1.19))}</p>
-        <p>Total: ${pricer(total)}</p>
-      </>
-    )}
-
-    {/* Si hay descuento, mostramos el detalle del descuento */}
-  </div>
-</div>
-
-
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: ".5rem",
+          lineHeight: "0",
+        }}
+      >
+        <p>Cantidad: {cantidad}</p>
+        <div>
+          <>
+            <p>Neto: ${pricer(totalisimo / 1.19)}</p>
+            <p>Iva: ${pricer(totalisimo * 0.19)}</p>
+            <p>Total: ${pricer(totalisimo)}</p>
+          </>
+        </div>
+      </div>
 
       <Button buttonText="PAGAR 🍕" className="total" />
     </div>
