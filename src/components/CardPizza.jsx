@@ -29,7 +29,7 @@ function CardPizza({ name, price, ingredients, img2, desc, img, onClick, id }) {
         <img className="zombie" src={img2} alt={name} />
       </div>
 
-      <p className="cardPrice">${pricer(price)}</p>
+      <p className="cardPrice">{pricer(price)}</p>
       <div
         style={{
           display: "flex",

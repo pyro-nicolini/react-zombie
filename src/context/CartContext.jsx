@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 import { pizzasJS } from "../data/pizzas";
 import { pricer } from "../utilities/helper";
 
@@ -10,15 +10,7 @@ const CartProvider = ({ children }) => {
   const [stock, setStock] = useState([]);
   const [totalConDescuento, setTotalConDescuento] = useState(0);
   const [totalisimo, setTotalisimo] = useState(0);
-  const [carro, setCarro] = useState([
-    {
-      id: "P002",
-      name: "española",
-      price: 7250,
-      count: 3,
-      img: "https://firebasestorage.googleapis.com/v0/b/apis-varias-mias.appspot.com/o/pizzeria%2Fcheese-164872_640_com.jpg?alt=media&token=18b2b821-4d0d-43f2-a1c6-8c57bc388fab",
-    },
-  ]);
+  const [carro, setCarro] = useState([]);
   const [promo, setPromo] = useState({
     aplicado: false,
     movistar: {
@@ -29,37 +21,34 @@ const CartProvider = ({ children }) => {
     },
   });
 
-  // Variables dinamicas para para el stock
-  useEffect(() => {
-    const stockActualizado = listaDeProductos.map((pizza) => {
-      const pizzaEnCarrito = carro.find((item) => item.id === pizza.id); // busca en carro item.id y lo compara con el parametro.id
-      const stockDisponible = pizzaEnCarrito // si la pizza buscada esta en el carro?
-        ? pizza.stock - pizzaEnCarrito.count //devolvera el stock desde la lista y restara con la cantidad del carro, (actualiza el stock)
-        : pizza.stock; // si no devuelve el stock de la lista. sin restar nada.
-      return { id: pizza.id, stock: stockDisponible }; // retorna el id de pizzas de la lista y el stock Actual.
-    });
-    setStock(stockActualizado); //Array con todos los stocks disponibles
-  }, [carro, listaDeProductos]);
-
-  // cantidad total de pizzas del carrito
-  let cantidad = carro.reduce((acc, pizza) => acc + pizza.count, 0);
-
-  // valor total del carrito
-  const total = carro.reduce(
-    (acc, pizza) => acc + pizza.price * pizza.count,
-    0
+  const cantidad = useMemo(
+    () => carro.reduce((acc, pizza) => acc + pizza.count, 0),
+    [carro]
   );
 
-  // actualización variables
-  useEffect(() => {}, [cantidad, total]);
+  const total = useMemo(
+    () => carro.reduce((acc, pizza) => acc + pizza.price * pizza.count, 0),
+    [carro]
+  );
 
-  //actualizador del total con descuento
+  // Corrige el problema del cupón manteniéndose activo incorrectamente
+  useEffect(() => {
+    if (promo.aplicado && total < promo.movistar.minimo) {
+      setPromo((prevPromo) => ({ ...prevPromo, aplicado: false }));
+      setTotalConDescuento(0);
+      console.log("❌ Cupón removido: Total menor al mínimo requerido.");
+    } else if (promo.aplicado) {
+      setTotalConDescuento(calcularDescuento(total));
+    }
+  }, [carro, total, promo.aplicado]);
+
+  // Actualiza el total final con o sin descuento
   useEffect(() => {
     const nuevoTotal = total - totalConDescuento;
     setTotalisimo(pricer(nuevoTotal));
-  }, [total, totalConDescuento, totalisimo, carro]);
+  }, [total, totalConDescuento]);
 
-  // funciones para el carrito
+
   function addPizza(id) {
     setCarro((prevPizzas) => {
       const pizzaEncontrada = listaDeProductos.find(
@@ -67,19 +56,13 @@ const CartProvider = ({ children }) => {
       );
       if (!pizzaEncontrada) return prevPizzas;
 
-      const pizzaExists = prevPizzas.find(
-        (pizza) => pizza.id.toLowerCase() === pizzaEncontrada.id.toLowerCase()
-      );
-
-      if (pizzaExists) {
-        return prevPizzas.map((pizza) =>
-          pizza.id.toLowerCase() === pizzaEncontrada.id.toLowerCase()
-            ? { ...pizza, count: pizza.count + 1 }
-            : pizza
-        );
-      } else {
-        return [...prevPizzas, { ...pizzaEncontrada, count: 1 }];
-      }
+      return prevPizzas.some((pizza) => pizza.id.toLowerCase() === id.toLowerCase())
+        ? prevPizzas.map((pizza) =>
+            pizza.id.toLowerCase() === id.toLowerCase()
+              ? { ...pizza, count: pizza.count + 1 }
+              : pizza
+          )
+        : [...prevPizzas, { ...pizzaEncontrada, count: 1 }];
     });
   }
 
@@ -93,7 +76,6 @@ const CartProvider = ({ children }) => {
     );
   }
 
-  //funcion para la variable descuento
   function calcularDescuento(total) {
     if (total < promo.movistar.minimo) return 0;
     return Math.floor(
@@ -101,16 +83,13 @@ const CartProvider = ({ children }) => {
     );
   }
 
-  //funcion para definir el total con descuento
-
   function aplicarCupon() {
-    if (cupon.toLowerCase() === promo.movistar.clave) {
-      const descuento = calcularDescuento(total);
-      setTotalConDescuento(descuento);
-      console.log("descuento aplicado");
+    if (cupon.toLowerCase() === promo.movistar.clave && total >= promo.movistar.minimo) {
+      setPromo((prevPromo) => ({ ...prevPromo, aplicado: true }));
+      console.log("✅ Descuento aplicado");
     } else {
-      setTotalConDescuento(0);
-      console.log("Cupón inválido ❌");
+      setPromo((prevPromo) => ({ ...prevPromo, aplicado: false }));
+      console.log("❌ Cupón inválido o monto insuficiente.");
     }
   }
 

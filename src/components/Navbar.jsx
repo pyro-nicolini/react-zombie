@@ -90,7 +90,7 @@ const Navbar = () => {
         </div>
         <Link to="/cart">
           <Button
-            buttonText={`🛒 Total: $${pricer(totalisimo)}`}
+            buttonText={`🛒 Total: ${pricer(totalisimo)}`}
             className="total"
           />
         </Link>

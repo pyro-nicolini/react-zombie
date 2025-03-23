@@ -1,6 +1,6 @@
+import { useContext, useState, useEffect } from "react";
 import Button from "../components/Button";
-import { useContext } from "react";
-import { pricer, capitalizer } from "../utilities/helper";
+import { pricer } from "../utilities/helper";
 import { CartContext } from "../context/CartContext";
 
 export default function Cart({ cuponPromo }) {
@@ -17,7 +17,19 @@ export default function Cart({ cuponPromo }) {
     setCupon,
   } = useContext(CartContext);
 
-  // reemplazando la clave de la promocion de movistar (posible mejora para agregar cupones)
+  const [neto, setNeto] = useState(0);
+  const [iva, setIva] = useState(0);
+
+  useEffect(() => {
+    if (!totalisimo || isNaN(totalisimo)) return; // Evita errores si totalisimo es null o undefined
+    const netoCalculado = totalisimo / 1.19;
+    const ivaCalculado = totalisimo - netoCalculado;
+
+    setNeto(netoCalculado);
+    setIva(ivaCalculado);
+  }, [totalisimo]); // Se ejecuta cuando cambia totalisimo
+
+  // Reemplazando la clave de la promoción de Movistar
   promo.movistar.clave = cuponPromo;
 
   return (
@@ -30,17 +42,17 @@ export default function Cart({ cuponPromo }) {
               <img src={pizza.img} alt={pizza.name} />
               <div className="column">
                 <p>{pizza.name}</p>
-                <p>${pricer(pizza.price)}</p>
+                <p>{pricer(pizza.price)}</p>
               </div>
               <div className="botones">
                 <Button
-                  buttonText="+"
+                  buttonText="➕"
                   className="addPizza"
                   onClick={() => addPizza(pizza.id)}
                 />
                 <p>{pizza.count}</p>
                 <Button
-                  buttonText="-"
+                  buttonText="➖"
                   className="deletePizza"
                   onClick={() => deletePizza(pizza.id)}
                 />
@@ -82,11 +94,12 @@ export default function Cart({ cuponPromo }) {
         }}
       >
         <p>Cantidad: {cantidad}</p>
+        <p>Cupon: {promo}</p>
         <div>
           <>
-            <p>Neto: ${pricer(totalisimo / 1.19)}</p>
-            <p>Iva: ${pricer(totalisimo * 0.19)}</p>
-            <p>Total: ${pricer(totalisimo)}</p>
+            <p>Neto: {pricer(neto)}</p>
+            <p>Iva: {pricer(iva)}</p>
+            <p>Total: {pricer(totalisimo)}</p>
           </>
         </div>
       </div>
