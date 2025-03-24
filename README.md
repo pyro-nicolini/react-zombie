@@ -4,7 +4,7 @@
 
 ## Main
 
-[Repositorio Principal](https://github.com/pyro-nicolini/react-zombie) Main actual: Hito5
+[ Main actual: Hito5 ](https://github.com/pyro-nicolini/react-zombie) 
 
 ### Challenge / Hitos
 
