@@ -63,7 +63,7 @@ export default function Pizza({}) {
           </p>
         </div>
       )}
-      {error && <div>Error: los Zombiez se comieron al repartidor</div>}
+      {error && <h2 className="white">Error: los Zombiez se comieron al repartidor</h2>}
       {!loading && pizza && (
         <div key={pizza.id} className="card2">
           <div className="cardDiv2">

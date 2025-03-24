@@ -11,6 +11,7 @@ export default function Cart({ cuponPromo }) {
     totalisimo,
     deletePizza,
     cantidad,
+    descuentoAplicado,
     cupon,
     stock,
     cuponMsg,
@@ -101,13 +102,14 @@ export default function Cart({ cuponPromo }) {
         <div>
           <p>Cantidad: {cantidad}</p>
           <p>Cupon: {cuponMsg}</p>
+          <p>Dscto: {pricer(parseFloat(descuentoAplicado))}</p>
         </div>
         <div>
-          <>
-          <p>Neto: {pricer(neto)}</p>
-          <p>Iva: {iva}</p>   {/* Muestra el IVA con formato */}
-            <p>Total: {totalisimo}</p>  {/* Muestra el total con formato */}
-          </>
+          <div>
+          <p>Neto: {pricer(parseFloat(neto))}</p>
+          <p>Iva: {pricer(parseFloat(iva))}</p>
+          </div>
+            <p>Total: {pricer(totalisimo)}</p>
         </div>
       </div>
 

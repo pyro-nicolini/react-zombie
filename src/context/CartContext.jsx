@@ -80,10 +80,12 @@ const CartProvider = ({ children }) => {
     );
   }
 
+const descuentoAplicado = promo.aplicado ? totalConDescuento : 0;
+
   function aplicarCupon() {
     if (cupon.toLowerCase() === promo.movistar.clave && total >= promo.movistar.minimo) {
       setPromo((prevPromo) => ({ ...prevPromo, aplicado: true }));
-      setCuponMsg("✅ Descuento aplicado");
+      setCuponMsg(`✅ Descuento ${cupon} aplicado`);
       setTotalConDescuento(calcularDescuento(total));
     } else {
       setPromo((prevPromo) => ({ ...prevPromo, aplicado: false }));
@@ -99,6 +101,8 @@ const CartProvider = ({ children }) => {
         totalisimo,
         cantidad,
         addPizza,
+        totalConDescuento,
+        descuentoAplicado,
         deletePizza,
         cupon,
         cuponMsg,

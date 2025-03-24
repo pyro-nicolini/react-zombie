@@ -52,11 +52,11 @@ export default function AllPizzas() {
       )}
 
       {error && (
-        <div className="errorText">Error: los Zombiez se comieron el WiFi</div>
+        <h2 className="white">Error: los Zombiez se comieron el WiFi</h2>
       )}
 
       {!loading && !error && pizzas.length === 0 && (
-        <div>No hay promociones disponibles en este momento.</div>
+        <h2 className="white">No hay promociones disponibles en este momento.</h2>
       )}
 
       <div className="pizzas">
