@@ -33,7 +33,7 @@ const Navbar = () => {
     <div className="fixed">
       <Promo
         promo={
-          "35% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
+          "20% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
         }
       />
       <nav className="nav" id="navbar">

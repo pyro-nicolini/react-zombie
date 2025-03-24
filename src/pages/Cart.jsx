@@ -13,24 +13,29 @@ export default function Cart({ cuponPromo }) {
     cantidad,
     cupon,
     stock,
+    cuponMsg,
     aplicarCupon,
     setCupon,
   } = useContext(CartContext);
+
+  const cuponName = promo.aplicado;
+
+
 
   const [neto, setNeto] = useState(0);
   const [iva, setIva] = useState(0);
 
   useEffect(() => {
-    if (!totalisimo || isNaN(totalisimo)) return; // Evita errores si totalisimo es null o undefined
-    const netoCalculado = totalisimo / 1.19;
-    const ivaCalculado = totalisimo - netoCalculado;
+    const total = parseFloat(totalisimo); 
 
-    setNeto(netoCalculado);
-    setIva(ivaCalculado);
-  }, [totalisimo]); // Se ejecuta cuando cambia totalisimo
+    if (!isNaN(total)) {
+      const netoCalculado = total / 1.19; 
+            const ivaCalculado = netoCalculado * 0.19;
 
-  // Reemplazando la clave de la promoción de Movistar
-  promo.movistar.clave = cuponPromo;
+      setNeto(netoCalculado.toFixed(2));
+      setIva(ivaCalculado.toFixed(2)); 
+    }
+  }, [totalisimo]);
 
   return (
     <div className="cart">
@@ -58,8 +63,8 @@ export default function Cart({ cuponPromo }) {
                 />
                 {stock
                   .filter((item) => item.id === pizza.id)
-                  .map((item, index) => (
-                    <div key={index}>
+                  .map((item) => (
+                    <div key={item.id}>
                       <p>
                         {item.stock > 0 ? `Quedan: ${item.stock}` : "Sin Stock"}
                       </p>
@@ -93,13 +98,15 @@ export default function Cart({ cuponPromo }) {
           lineHeight: "0",
         }}
       >
-        <p>Cantidad: {cantidad}</p>
-        <p>Cupon: {promo}</p>
+        <div>
+          <p>Cantidad: {cantidad}</p>
+          <p>Cupon: {cuponMsg}</p>
+        </div>
         <div>
           <>
-            <p>Neto: {pricer(neto)}</p>
-            <p>Iva: {pricer(iva)}</p>
-            <p>Total: {pricer(totalisimo)}</p>
+          <p>Neto: {pricer(neto)}</p>
+          <p>Iva: {iva}</p>   {/* Muestra el IVA con formato */}
+            <p>Total: {totalisimo}</p>  {/* Muestra el total con formato */}
           </>
         </div>
       </div>

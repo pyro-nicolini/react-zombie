@@ -1,10 +1,10 @@
 import { createContext, useState, useEffect, useMemo } from "react";
 import { pizzasJS } from "../data/pizzas";
-import { pricer } from "../utilities/helper";
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
+  const [cuponMsg, setCuponMsg] = useState('');
   const [listaDeProductos, setListaDeProductos] = useState(pizzasJS);
   const [cupon, setCupon] = useState("");
   const [stock, setStock] = useState([]);
@@ -16,7 +16,7 @@ const CartProvider = ({ children }) => {
     movistar: {
       clave: "movistar",
       minimo: 15000,
-      porcentaje: 0.35,
+      porcentaje: 0.20,
       descuento: 12000,
     },
   });
@@ -31,23 +31,20 @@ const CartProvider = ({ children }) => {
     [carro]
   );
 
-  // Corrige el problema del cupón manteniéndose activo incorrectamente
   useEffect(() => {
     if (promo.aplicado && total < promo.movistar.minimo) {
       setPromo((prevPromo) => ({ ...prevPromo, aplicado: false }));
       setTotalConDescuento(0);
-      console.log("❌ Cupón removido: Total menor al mínimo requerido.");
+      setCuponMsg("❌ Cupón removido: Total menor al mínimo.");
     } else if (promo.aplicado) {
       setTotalConDescuento(calcularDescuento(total));
     }
   }, [carro, total, promo.aplicado]);
 
-  // Actualiza el total final con o sin descuento
   useEffect(() => {
     const nuevoTotal = total - totalConDescuento;
-    setTotalisimo(pricer(nuevoTotal));
+    setTotalisimo(nuevoTotal);
   }, [total, totalConDescuento]);
-
 
   function addPizza(id) {
     setCarro((prevPizzas) => {
@@ -70,7 +67,7 @@ const CartProvider = ({ children }) => {
     setCarro((prevPizzas) =>
       prevPizzas
         .map((pizza) =>
-          pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
+          pizza.id.toLowerCase() === id.toLowerCase() ? { ...pizza, count: pizza.count - 1 } : pizza
         )
         .filter((pizza) => pizza.count > 0)
     );
@@ -86,10 +83,12 @@ const CartProvider = ({ children }) => {
   function aplicarCupon() {
     if (cupon.toLowerCase() === promo.movistar.clave && total >= promo.movistar.minimo) {
       setPromo((prevPromo) => ({ ...prevPromo, aplicado: true }));
-      console.log("✅ Descuento aplicado");
+      setCuponMsg("✅ Descuento aplicado");
+      setTotalConDescuento(calcularDescuento(total));
     } else {
       setPromo((prevPromo) => ({ ...prevPromo, aplicado: false }));
-      console.log("❌ Cupón inválido o monto insuficiente.");
+      setCuponMsg("❌ Cupón inválido o monto insuficiente.");
+      setTotalConDescuento(0);
     }
   }
 
@@ -102,6 +101,7 @@ const CartProvider = ({ children }) => {
         addPizza,
         deletePizza,
         cupon,
+        cuponMsg,
         promo,
         setCupon,
         setTotalisimo,
