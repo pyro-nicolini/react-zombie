@@ -13,7 +13,7 @@ import { cerrarSesion } from "../utilities/helper";
 const Navbar = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const { autorizado, autenticado } = auth || {};
-  const { totalisimo } = useContext(CartContext);
+  const { totalisimo, promo } = useContext(CartContext);
 
   const email = autenticado ? autenticado.email : "";
 
@@ -31,11 +31,9 @@ const Navbar = () => {
 
   return (
     <div className="fixed">
-      <Promo
-        promo={
-          "20% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
-        }
-      />
+      <Link to="/cart" style={{textDecoration: 'none',}}>
+        <Promo promo={promo.movistar.promocion} />
+      </Link>
       <nav className="nav" id="navbar">
         <Link to="/">
           <img src={logo} alt="logo" className="navLogo" />

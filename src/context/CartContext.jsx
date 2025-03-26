@@ -18,6 +18,7 @@ const CartProvider = ({ children }) => {
       minimo: 15000,
       porcentaje: 0.20,
       descuento: 12000,
+      promocion: "20% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $15.000, descuento máximo $12.000.*",
     },
   });
 
