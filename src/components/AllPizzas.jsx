@@ -60,7 +60,7 @@ export default function AllPizzas() {
         {!loading &&
           pizzas.map((pizza) => (
             <CardPizza
-              key={pizza.id} // Asegúrate de que cada pizza tenga un ID único
+              key={pizza.id}
               name={pizza.name}
               price={pizza.price}
               ingredients={pizza.ingredients}
