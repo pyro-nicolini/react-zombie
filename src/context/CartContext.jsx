@@ -4,7 +4,7 @@ import { pizzasJS } from "../data/pizzas";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const [cuponMsg, setCuponMsg] = useState('');
+  const [cuponMsg, setCuponMsg] = useState("");
   const [listaDeProductos, setListaDeProductos] = useState(pizzasJS);
   const [cupon, setCupon] = useState("");
   const [stock, setStock] = useState([]);
@@ -16,9 +16,10 @@ const CartProvider = ({ children }) => {
     movistar: {
       clave: "movistar",
       minimo: 15000,
-      porcentaje: 0.20,
+      porcentaje: 0.2,
       descuento: 12000,
-      promocion: "20% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $15.000, descuento máximo $12.000.*",
+      promocion:
+        "20% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $15.000, descuento máximo $12.000.*",
     },
   });
 
@@ -47,19 +48,31 @@ const CartProvider = ({ children }) => {
     setTotalisimo(nuevoTotal);
   }, [total, totalConDescuento]);
 
+  useEffect(() => {
+    const updatedStock = listaDeProductos.map((pizza) => {
+      const pizzaEnCarrito = carro.find((item) => item.id === pizza.id);
+      const stockDisponible = pizzaEnCarrito
+        ? pizza.stock - pizzaEnCarrito.count
+        : pizza.stock;
+      return { ...pizza, stock: stockDisponible };
+    });
+
+    setStock(updatedStock);
+    setStock(updatedStock);
+  }, [carro, listaDeProductos]);
+
   function addPizza(id) {
+    
     setCarro((prevPizzas) => {
       const pizzaEncontrada = listaDeProductos.find(
         (pizza) => pizza.id.toLowerCase() === id.toLowerCase()
       );
       if (!pizzaEncontrada) return prevPizzas;
 
-      return prevPizzas.some((pizza) => pizza.id.toLowerCase() === id.toLowerCase())
-        ? prevPizzas.map((pizza) =>
-            pizza.id.toLowerCase() === id.toLowerCase()
-              ? { ...pizza, count: pizza.count + 1 }
-              : pizza
-          )
+      return prevPizzas.some(
+        (pizza) => pizza.id.toLowerCase() === id.toLowerCase()
+      ) ? prevPizzas.map((pizza) =>
+            pizza.id.toLowerCase() === id.toLowerCase() ? { ...pizza, count: pizza.count + 1 }   : pizza  )
         : [...prevPizzas, { ...pizzaEncontrada, count: 1 }];
     });
   }
@@ -68,7 +81,9 @@ const CartProvider = ({ children }) => {
     setCarro((prevPizzas) =>
       prevPizzas
         .map((pizza) =>
-          pizza.id.toLowerCase() === id.toLowerCase() ? { ...pizza, count: pizza.count - 1 } : pizza
+          pizza.id.toLowerCase() === id.toLowerCase()
+            ? { ...pizza, count: pizza.count - 1 }
+            : pizza
         )
         .filter((pizza) => pizza.count > 0)
     );
@@ -81,10 +96,13 @@ const CartProvider = ({ children }) => {
     );
   }
 
-const descuentoAplicado = promo.aplicado ? totalConDescuento : 0;
+  const descuentoAplicado = promo.aplicado ? totalConDescuento : 0;
 
   function aplicarCupon() {
-    if (cupon.toLowerCase() === promo.movistar.clave && total >= promo.movistar.minimo) {
+    if (
+      cupon.toLowerCase() === promo.movistar.clave &&
+      total >= promo.movistar.minimo
+    ) {
       setPromo((prevPromo) => ({ ...prevPromo, aplicado: true }));
       setCuponMsg(`✅ Descuento ${cupon} aplicado`);
       setTotalConDescuento(calcularDescuento(total));

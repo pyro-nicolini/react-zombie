@@ -54,7 +54,9 @@ export default function Cart({ cuponPromo }) {
                 <Button
                   buttonText="➕"
                   className="addPizza"
-                  onClick={() => addPizza(pizza.id)}
+                  onClick={() => stock
+                    .filter((item) => item.id === pizza.id)
+                    .map((item) => item.stock > 0 ?  addPizza(pizza.id) : null)}  // la función agregar pizza ahora es condicional con el stock
                 />
                 <p>{pizza.count}</p>
                 <Button
@@ -72,7 +74,7 @@ export default function Cart({ cuponPromo }) {
                     </div>
                   ))}
               </div>
-            </div>
+            </div>     
           )
       )}
       <div className="column" style={{ width: "90%" }}>

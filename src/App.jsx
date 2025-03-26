@@ -16,34 +16,31 @@ import AuthProvider from "./context/AuthContext";
 import CartProvider from "./context/CartContext";
 
 function App() {
-  
   return (
-        <CartProvider>
-        <AuthProvider>
-    <div className="app">
-        <Navbar/>
-        <main className="main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile/>} />
-            <Route path="/allpizzas" element={<AllPizzas />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="/*" element={<NotFound />} />
-            <Route 
-              path="/login" 
-              element={<LoginPage/>} 
-            />
-            <Route 
-              path="/register" 
-              element={<RegisterPage/>} 
-            />
-            <Route path="/cart" element={<Cart cuponPromo={"movistar"}/>} />
-            <Route path="/pizza/p001" element={<Pizza />} />
-          </Routes>
-        </main>
-        <Footer footerTextA={"© 2025 -"} footerLink={"Zombie Pizza"} footerTextB={"- Derechos reservados"} />
-      </div>
-    </AuthProvider>
+    <CartProvider>
+      <AuthProvider>
+        <div className="app">
+          <Navbar />
+          <main className="main">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/allpizzas" element={<AllPizzas />} />
+              <Route path="/404" element={<NotFound />} />
+              <Route path="/*" element={<NotFound />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/cart" element={<Cart cuponPromo={"movistar"} />} />
+              <Route path="/pizza/p001" element={<Pizza />} />
+            </Routes>
+          </main>
+          <Footer
+            footerTextA={"© 2025 -"}
+            footerLink={"Zombie Pizza"}
+            footerTextB={"- Derechos reservados"}
+          />
+        </div>
+      </AuthProvider>
     </CartProvider>
   );
 }
