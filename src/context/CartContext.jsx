@@ -54,28 +54,39 @@ const CartProvider = ({ children }) => {
       const stockDisponible = pizzaEnCarrito
         ? pizza.stock - pizzaEnCarrito.count
         : pizza.stock;
-      return { ...pizza, stock: stockDisponible };
+      return { id: pizza.id, stock: stockDisponible };
     });
 
-    setStock(updatedStock);
     setStock(updatedStock);
   }, [carro, listaDeProductos]);
 
   function addPizza(id) {
-    
     setCarro((prevPizzas) => {
       const pizzaEncontrada = listaDeProductos.find(
         (pizza) => pizza.id.toLowerCase() === id.toLowerCase()
       );
       if (!pizzaEncontrada) return prevPizzas;
-
-      return prevPizzas.some(
+  
+      const pizzaEnCarrito = prevPizzas.find(
         (pizza) => pizza.id.toLowerCase() === id.toLowerCase()
-      ) ? prevPizzas.map((pizza) =>
-            pizza.id.toLowerCase() === id.toLowerCase() ? { ...pizza, count: pizza.count + 1 }   : pizza  )
-        : [...prevPizzas, { ...pizzaEncontrada, count: 1 }];
+      );
+  
+      if (pizzaEnCarrito) {
+        if (pizzaEnCarrito.count < pizzaEncontrada.stock) {
+          return prevPizzas.map((pizza) =>
+            pizza.id.toLowerCase() === id.toLowerCase()
+              ? { ...pizza, count: pizza.count + 1 }
+              : pizza
+          );
+        } else {
+          return prevPizzas;
+        }
+      }
+  
+      return [...prevPizzas, { ...pizzaEncontrada, count: 1 }];
     });
   }
+  
 
   function deletePizza(id) {
     setCarro((prevPizzas) =>
@@ -112,6 +123,7 @@ const CartProvider = ({ children }) => {
       setTotalConDescuento(0);
     }
   }
+  
 
   return (
     <CartContext.Provider

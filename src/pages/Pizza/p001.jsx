@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Button from "../../components/Button";
 import { CartContext } from "../../context/CartContext";
+import { pricer, capitalizer } from "../../utilities/helper";
 
 export default function Pizza({}) {
   const [optionId, setOptionId] = useState("p001");
@@ -8,15 +9,8 @@ export default function Pizza({}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const { addPizza } = useContext(CartContext);
+  const { addPizza, stock } = useContext(CartContext);
 
-  function capitalizer(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  function pricer(num) {
-    return num.toLocaleString().replace(",", ".");
-  }
 
   const getPizza = async () => {
     if (!optionId) return;
@@ -39,6 +33,8 @@ export default function Pizza({}) {
   useEffect(() => {
     getPizza();
   }, [optionId]);
+
+  const pizzaStock = stock.find((p) => p.id.toLowerCase() === pizza?.id.toLowerCase());
 
   return (
     <div>
@@ -68,9 +64,9 @@ export default function Pizza({}) {
         <div key={pizza.id} className="card2">
           <div className="cardDiv2">
             <img className="cardImg2" src={pizza.img} alt={pizza.name} />
-            <h2 className="cardPrice2">${pricer(pizza.price)}</h2>
+            <h2 className="cardPrice2">{pricer(pizza.price)}</h2>
             <Button
-              buttonText="Agregar al carrito"
+              buttonText={pizzaStock && pizzaStock.stock > 0 ? "Agregar al carrito" : "Sin Stock"}
               className="cardAdd"
               onClick={() => addPizza(pizza.id)}
             />

@@ -8,7 +8,7 @@ export default function AllPizzas() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const { addPizza } = useContext(CartContext)
+  const { addPizza, stock } = useContext(CartContext);
 
   const getData = async () => {
     setLoading(true);
@@ -56,29 +56,40 @@ export default function AllPizzas() {
       )}
 
       {!loading && !error && pizzas.length === 0 && (
-        <h2 className="white">No hay promociones disponibles en este momento.</h2>
+        <h2 className="white">
+          No hay promociones disponibles en este momento.
+        </h2>
       )}
 
       <div className="pizzas">
         {!loading &&
-          pizzas.map((pizza) => (
-            <CardPizza
-              key={pizza.id} // Asegúrate de que cada pizza tenga un ID único
-              name={pizza.name}
-              price={pizza.price}
-              ingredients={pizza.ingredients}
-              desc={pizza.desc}
-              img={pizza.img}
-              img2={
-                pizzasJS.find(
-                  (zom) =>
-                    zom.id.toLocaleLowerCase() === pizza.id.toLocaleLowerCase()
-                )?.zombie || "nohay"
-              }
-              id={pizza.id}
-              onClick={() => addPizza(pizza.id)}
-            />
-          ))}
+          pizzas.map((pizza) => {
+            const pizzaStock = stock.find(
+              (p) => p.id.toLowerCase() === pizza.id.toLowerCase()
+            );
+            const botonAnadir =
+              pizzaStock.stock > 0 ? "Añadir Pizza" : `Sin Stock`;
+            return (
+              <CardPizza
+                key={pizza.id}
+                name={pizza.name}
+                price={pizza.price}
+                ingredients={pizza.ingredients}
+                desc={pizza.desc}
+                img={pizza.img}
+                img2={
+                  pizzasJS.find(
+                    (zom) =>
+                      zom.id.toLocaleLowerCase() ===
+                      pizza.id.toLocaleLowerCase()
+                  )?.zombie || "nohay"
+                }
+                id={pizza.id}
+                onClick={() => addPizza(pizza.id)}
+                botonAnadir={botonAnadir}
+              />
+            );
+          })}
       </div>
     </>
   );

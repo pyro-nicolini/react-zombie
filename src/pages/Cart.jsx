@@ -6,7 +6,6 @@ import { CartContext } from "../context/CartContext";
 export default function Cart({ cuponPromo }) {
   const {
     carro,
-    promo,
     addPizza,
     totalisimo,
     deletePizza,
@@ -18,10 +17,6 @@ export default function Cart({ cuponPromo }) {
     aplicarCupon,
     setCupon,
   } = useContext(CartContext);
-
-  const cuponName = promo.aplicado;
-
-
 
   const [neto, setNeto] = useState(0);
   const [iva, setIva] = useState(0);
@@ -54,9 +49,7 @@ export default function Cart({ cuponPromo }) {
                 <Button
                   buttonText="➕"
                   className="addPizza"
-                  onClick={() => stock
-                    .filter((item) => item.id === pizza.id)
-                    .map((item) => item.stock > 0 ?  addPizza(pizza.id) : null)}  // la función agregar pizza ahora es condicional con el stock
+                  onClick={() => addPizza(pizza.id)}  // la función agregar pizza ahora es condicional con el stock
                 />
                 <p>{pizza.count}</p>
                 <Button

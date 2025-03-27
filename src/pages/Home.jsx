@@ -43,8 +43,8 @@ function Home() {
         />
       </div>
       <div className="hero">
-        <img src={logo} alt="logo" className="navLogo2" style={{height: '13rem'}} />
-        <h1 className="white">¿Qué vamos a pedir hoy?</h1>
+        <img src={logo} alt="logo" className="navLogo2"/>
+        <h2 className="white">¿Qué vamos a pedir hoy?</h2>
         <Link to="/allpizzas">
           <Button buttonText={"Ver Promos"} className="promoBtn" />
         </Link>

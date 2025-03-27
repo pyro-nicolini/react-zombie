@@ -2,7 +2,9 @@ import Button from "./Button";
 import ytImage from "../images/yt.png";
 import { capitalizer, pricer } from "../utilities/helper"
 
-function CardPizza({ name, price, ingredients, img2, desc, img, onClick, id }) {
+
+function CardPizza({ name, price, ingredients, img2, desc, img, onClick, id, botonAnadir = 'Añadir 🍕'}) {
+
   const pizzaEmojis = [
     "🧀", // Mozzarella
     "🍅", // Tomates
@@ -40,7 +42,7 @@ function CardPizza({ name, price, ingredients, img2, desc, img, onClick, id }) {
           margin: "auto",
         }}
       >
-          <Button buttonText="Añadir 🍕" className="cardAdd" onClick={onClick} id={id}/>
+          <Button buttonText={botonAnadir} className="cardAdd" onClick={onClick} id={id}/>
         <Button
           buttonText={
             <>
