@@ -1,12 +1,17 @@
+import { useContext } from "react";
 import Button from "../components/Button";
 import zom1 from "../images/zom1.png";
+import {AuthContext} from "../context/AuthContext";
+import { controlCambios } from "../utilities/helper";
+import { Link } from "react-router-dom";
 
-function RegisterPage({ onChange, values, auth, setAuth }) {
-  const { email = "", pass = "", pass2 = "", error, exito } = values || {};
+function RegisterPage() {
+  const { auth, setAuth } = useContext(AuthContext)
+  const { email = "", pass = "", pass2 = "", error, exito } = auth.input || {};
+
 
   const validarRegistro = (e) => {
     e.preventDefault();
-    const { email, pass, pass2 } = auth.input;
 
     if (!email?.trim() || !pass?.trim() || !pass2?.trim()) {
       return setAuth((prev) => ({
@@ -84,7 +89,7 @@ function RegisterPage({ onChange, values, auth, setAuth }) {
           type="email"
           name="email"
           value={email}
-          onChange={onChange}
+          onChange={(e) => controlCambios(e, setAuth)}
           className="flex"
           placeholder="Email"
         />
@@ -96,7 +101,7 @@ function RegisterPage({ onChange, values, auth, setAuth }) {
           type="password"
           name="pass"
           value={pass}
-          onChange={onChange}
+          onChange={(e) => controlCambios(e, setAuth)}
           className="flex"
           placeholder="contraseña"
         />
@@ -107,7 +112,7 @@ function RegisterPage({ onChange, values, auth, setAuth }) {
           type="password"
           name="pass2"
           value={pass2}
-          onChange={onChange}
+          onChange={(e) => controlCambios(e, setAuth)}
           className="flex"
           placeholder="Re-ingresar contraseña"
         />
@@ -115,7 +120,9 @@ function RegisterPage({ onChange, values, auth, setAuth }) {
       <div className="column space gap">
         <Button type="submit" className={`logBtn`} buttonText={"Registrar"} />
         <p style={{ fontSize: "0.9rem" }}>¿Ya tienes una cuenta?</p>
-        <Button className={`logBtn`} buttonText={"Iniciar Sesión"} />
+        <Link to="/login" className="link"> Iniciar Sesión
+        </Link>
+
       </div>
     </form>
   );

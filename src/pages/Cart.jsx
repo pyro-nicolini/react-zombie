@@ -1,89 +1,76 @@
-import { pizzaCartJs } from "../data/pizzas";
+import { useContext, useState, useEffect } from "react";
 import Button from "../components/Button";
-import { useState, useEffect } from "react";
 import { pricer } from "../utilities/helper";
+import { CartContext } from "../context/CartContext";
 
-export default function Cart({ setTotalisimo, cuponPromo }) {
-  const [pizzaCart, setPizzaCart] = useState(pizzaCartJs);
-  const [cupon, setCupon] = useState("");
-  const [descuentoAplicado, setDescuentoAplicado] = useState(0);
+export default function Cart({ cuponPromo }) {
+  const {
+    carro,
+    addPizza,
+    totalisimo,
+    deletePizza,
+    cantidad,
+    descuentoAplicado,
+    cupon,
+    stock,
+    cuponMsg,
+    aplicarCupon,
+    setCupon,
+  } = useContext(CartContext);
 
-  function addPizza(id) {
-    setPizzaCart((prevPizzas) =>
-      prevPizzas.map((pizza) =>
-        pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
-      )
-    );
-  }
-
-  function deletePizza(id) {
-    setPizzaCart((prevPizzas) =>
-      prevPizzas.map((pizza) =>
-        pizza.id === id && pizza.count > 0
-          ? { ...pizza, count: pizza.count - 1 }
-          : pizza
-      )
-    );
-  }
-
-  const total = pizzaCart.reduce(
-    (acc, pizza) => acc + pizza.price * pizza.count,
-    0
-  );
-  const cantidad = pizzaCart.reduce((acc, pizza) => acc + pizza.count, 0);
-
-  function calcularDescuento(total) {
-    if (total < 10000) return 0;
-    let descuento = total * 0.35;
-    return Math.min(descuento, 12000);
-  }
-
-  function aplicarCupon() {
-    if (cupon.toLowerCase() === cuponPromo) {
-      setDescuentoAplicado(calcularDescuento(total));
-    } else {
-      setDescuentoAplicado(0);
-      alert("Cupón inválido ❌");
-    }
-  }
+  const [neto, setNeto] = useState(0);
+  const [iva, setIva] = useState(0);
 
   useEffect(() => {
-    const newTotal =
-      pricer(total - descuentoAplicado) < pricer(total)
-        ? pricer(total - descuentoAplicado)
-        : pricer(total);
-    setTotalisimo(newTotal);
-  }, [total, descuentoAplicado, setTotalisimo]);
+    const total = parseFloat(totalisimo); 
+
+    if (!isNaN(total)) {
+      const netoCalculado = total / 1.19; 
+            const ivaCalculado = netoCalculado * 0.19;
+
+      setNeto(netoCalculado.toFixed(2));
+      setIva(ivaCalculado.toFixed(2)); 
+    }
+  }, [totalisimo]);
 
   return (
     <div className="cart">
       <h3>Detalle del pedido</h3>
-      {pizzaCart.map(
+      {carro.map(
         (pizza) =>
           pizza.count > 0 && (
             <div key={pizza.id} className="cart-item">
               <img src={pizza.img} alt={pizza.name} />
               <div className="column">
                 <p>{pizza.name}</p>
-                <p>${pricer(pizza.price)}</p>
+                <p>{pricer(pizza.price)}</p>
               </div>
               <div className="botones">
                 <Button
-                  buttonText="+"
+                  buttonText="➕"
                   className="addPizza"
-                  onClick={() => addPizza(pizza.id)}
+                  onClick={() => addPizza(pizza.id)}  // la función agregar pizza ahora es condicional con el stock
                 />
                 <p>{pizza.count}</p>
                 <Button
-                  buttonText="-"
+                  buttonText="➖"
                   className="deletePizza"
                   onClick={() => deletePizza(pizza.id)}
                 />
+                {stock
+                  .filter((item) => item.id === pizza.id)
+                  .map((item) => (
+                    <div key={item.id}>
+                      <p>
+                        {item.stock > 0 ? `Quedan: ${item.stock}` : "Sin Stock"}
+                      </p>
+                    </div>
+                  ))}
               </div>
-            </div>
+            </div>     
           )
       )}
-      <div className="column" style={{width: '90%'}}>
+      <div className="column" style={{ width: "90%" }}>
         <label htmlFor="Cupon">Cupón:</label>
         <input
           type="text"
@@ -102,23 +89,25 @@ export default function Cart({ setTotalisimo, cuponPromo }) {
       <div
         style={{
           display: "flex",
-          justifyContent: "start",
           flexDirection: "column",
           gap: ".5rem",
-          padding: "0",
-          margin: "0",
           lineHeight: "0",
         }}
       >
-        <p>Total: ${pricer(total)}</p>
-        {descuentoAplicado > 0 && cantidad > 0 && (
-          <p>Descuento aplicado: -${pricer(descuentoAplicado)}</p>
-        )}
-        {descuentoAplicado > 0 && cantidad > 0 && (
-          <p>Total a pagar: ${pricer(total - descuentoAplicado)}</p>
-        )}
-        <p>Cantidad: {cantidad}</p>
+        <div>
+          <p>Cantidad: {cantidad}</p>
+          <p>Cupon: {cuponMsg}</p>
+          <p>Dscto: {pricer(parseFloat(descuentoAplicado))}</p>
+        </div>
+        <div>
+          <div>
+          <p>Neto: {pricer(parseFloat(neto))}</p>
+          <p>Iva: {pricer(parseFloat(iva))}</p>
+          </div>
+            <p>Total: {pricer(totalisimo)}</p>
+        </div>
       </div>
+
       <Button buttonText="PAGAR 🍕" className="total" />
     </div>
   );

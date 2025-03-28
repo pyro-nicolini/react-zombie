@@ -3,9 +3,17 @@ import logo from "../images/logo.png";
 import Button from "./Button";
 import Promo from "./Promo";
 import { pricer } from "../utilities/helper";
+import { useContext } from "react";
 
-const Navbar = ({ onLogout, auth, total }) => {
+import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
+
+import { cerrarSesion } from "../utilities/helper";
+
+const Navbar = () => {
+  const { auth, setAuth } = useContext(AuthContext);
   const { autorizado, autenticado } = auth || {};
+  const { totalisimo, promo } = useContext(CartContext);
 
   const email = autenticado ? autenticado.email : "";
 
@@ -23,11 +31,9 @@ const Navbar = ({ onLogout, auth, total }) => {
 
   return (
     <div className="fixed">
-      <Promo
-        promo={
-          "35% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $10.000, descuento máximo $12.000.*"
-        }
-      />
+      <Link to="/cart" style={{textDecoration: 'none',}}>
+        <Promo promo={promo.movistar.promocion} />
+      </Link>
       <nav className="nav" id="navbar">
         <Link to="/">
           <img src={logo} alt="logo" className="navLogo" />
@@ -54,7 +60,7 @@ const Navbar = ({ onLogout, auth, total }) => {
           </Link>
           {autorizado ? (
             <>
-              <Link to="/" onClick={onLogout}>
+              <Link to="/" onClick={() => cerrarSesion(setAuth)}>
                 <Button className="navLink red" buttonText={"Cerrar Sesión"} />
               </Link>
             </>
@@ -80,14 +86,12 @@ const Navbar = ({ onLogout, auth, total }) => {
             </Link>
           </div>
         </div>
-        {autorizado ? (
-          <Link to="/cart">
-            <Button
-              buttonText={`🛒 Total: $${pricer(total)}`}
-              className="total"
-            />
-          </Link>
-        ) : null}
+        <Link to="/cart">
+          <Button
+            buttonText={`🛒 Total: ${pricer(totalisimo)}`}
+            className="total"
+          />
+        </Link>
       </nav>
     </div>
   );
