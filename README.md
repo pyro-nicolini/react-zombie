@@ -12,7 +12,7 @@ _Hito 1:_ Configuración inicial y estructura de componentes
 
 _Hito 2:_ Implementación de `useState` para la gestión de estado
 
-_Hito 3:_ Renderizado dinámico de pizzas
+_Hito 3:_ Renderizado dinámico de pizzas .
 
 _Hito 4:_ Integración de `useEffect` y consumo de API
 
