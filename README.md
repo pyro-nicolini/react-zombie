@@ -4,7 +4,7 @@
 
 ## Main
 
-[ Main actual: Hito5 ](https://github.com/pyro-nicolini/react-zombie) 
+[ Main actual: Hito6 ](https://github.com/pyro-nicolini/react-zombie) 
 
 ### Challenge / Hitos
 
@@ -18,4 +18,4 @@ _Hito 4:_ Integración de `useEffect` y consumo de API
 
 _Hito 5:_ Integración de `React Router` y distribución por rutas 
 
-_Hito 6:_ Integración de `useContext` y uso de Estados Globales [Hito6](https://github.com/pyro-nicolini/react-zombie/tree/Hito6)
+_Hito 6:_ Integración de `useContext` y uso de Estados Globales 
