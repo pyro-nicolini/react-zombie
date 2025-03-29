@@ -15,6 +15,8 @@ const Navbar = () => {
   const { autorizado, autenticado } = auth || {};
   const { totalisimo, promo } = useContext(CartContext);
 
+  const setActiveClass = ({ isActive }) => (isActive ? "active" : undefined);
+
   const email = autenticado ? autenticado.email : "";
 
   window.addEventListener("scroll", () => {
@@ -60,9 +62,7 @@ const Navbar = () => {
           </Link>
           {autorizado ? (
             <>
-              <Link to="/" onClick={() => cerrarSesion(setAuth)}>
-                <Button className="navLink red" buttonText={"Cerrar Sesión"} />
-              </Link>
+                <Button className="navLink red" buttonText={"Cerrar Sesión"} onClick={() => cerrarSesion(setAuth)}/>
             </>
           ) : (
             <>
@@ -75,7 +75,7 @@ const Navbar = () => {
             </>
           )}
           <div className="info">
-            <Link to="/pizza/p001">
+            <Link to="/pizza">
               <Button className="navLink" buttonText={"Pizzas"} />
             </Link>
             <Link to="/404">

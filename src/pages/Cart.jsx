@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import Button from "../components/Button";
 import { pricer } from "../utilities/helper";
 import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Cart({ cuponPromo }) {
   const {
@@ -16,22 +18,15 @@ export default function Cart({ cuponPromo }) {
     cuponMsg,
     aplicarCupon,
     setCupon,
+    neto,
+    iva
   } = useContext(CartContext);
 
-  const [neto, setNeto] = useState(0);
-  const [iva, setIva] = useState(0);
+  const {
+    auth,
+  } = useContext(AuthContext);
 
-  useEffect(() => {
-    const total = parseFloat(totalisimo); 
 
-    if (!isNaN(total)) {
-      const netoCalculado = total / 1.19; 
-            const ivaCalculado = netoCalculado * 0.19;
-
-      setNeto(netoCalculado.toFixed(2));
-      setIva(ivaCalculado.toFixed(2)); 
-    }
-  }, [totalisimo]);
 
   return (
     <div className="cart">
@@ -107,8 +102,17 @@ export default function Cart({ cuponPromo }) {
             <p>Total: {pricer(totalisimo)}</p>
         </div>
       </div>
-
-      <Button buttonText="PAGAR 🍕" className="total" />
+      <div className="flex">
+      {auth.autorizado?
+      <Link to='/pagar'>
+      <Button buttonText="PAGAR 🍕" className={auth.autorizado? 'total' : 'desactivate'} />
+        </Link>
+         : 
+        <Link to='/login'>
+        <Button buttonText={'Inicia Sesión 🔒 Para PAGAR'} className="alert whit"/>
+        </Link>
+         }
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import Button from "../../components/Button";
-import { CartContext } from "../../context/CartContext";
-import { pricer, capitalizer } from "../../utilities/helper";
+import Button from "../components/Button";
+import { CartContext } from "../context/CartContext";
+import { pricer, capitalizer } from "../utilities/helper";
 
 export default function Pizza({}) {
   const [optionId, setOptionId] = useState("p001");
@@ -10,7 +10,6 @@ export default function Pizza({}) {
   const [error, setError] = useState(false);
 
   const { addPizza, stock } = useContext(CartContext);
-
 
   const getPizza = async () => {
     if (!optionId) return;
@@ -34,12 +33,16 @@ export default function Pizza({}) {
     getPizza();
   }, [optionId]);
 
-  const pizzaStock = stock.find((p) => p.id.toLowerCase() === pizza?.id.toLowerCase());
+  const pizzaStock = stock.find(
+    (p) => p.id.toLowerCase() === pizza?.id.toLowerCase()
+  );
 
   return (
     <div>
-      <div style={{ width: "20rem", margin: "auto"}}>
-        <label htmlFor="optionId" className="white">Buscador de pizzas:</label>
+      <div style={{ width: "20rem", margin: "auto" }}>
+        <label htmlFor="optionId" className="white">
+          Buscador de pizzas:
+        </label>
         <select value={optionId} onChange={(e) => setOptionId(e.target.value)}>
           <option value="">Selecciona una pizza</option>
           <option value="p001">Napolitana</option>
@@ -53,20 +56,30 @@ export default function Pizza({}) {
 
       {loading && (
         <div className="column">
-          <img src="../src/images/logo.png" className="spinner" alt="Cargando..." />
+          <img
+            src="../src/images/logo.png"
+            className="spinner"
+            alt="Cargando..."
+          />
           <p className="white" style={{ position: "relative", top: "-1rem" }}>
             <strong>{"Invadiendo..."}</strong>
           </p>
         </div>
       )}
-      {error && <h2 className="white">Error: los Zombiez se comieron al repartidor</h2>}
+      {error && (
+        <h2 className="white">Error: los Zombiez se comieron al repartidor</h2>
+      )}
       {!loading && pizza && (
         <div key={pizza.id} className="card2">
           <div className="cardDiv2">
             <img className="cardImg2" src={pizza.img} alt={pizza.name} />
             <h2 className="cardPrice2">{pricer(pizza.price)}</h2>
             <Button
-              buttonText={pizzaStock && pizzaStock.stock > 0 ? "Agregar al carrito" : "Sin Stock"}
+              buttonText={
+                pizzaStock && pizzaStock.stock > 0
+                  ? "Agregar al carrito"
+                  : "Sin Stock"
+              }
               className="cardAdd"
               onClick={() => addPizza(pizza.id)}
             />
