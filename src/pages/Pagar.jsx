@@ -8,12 +8,13 @@ function Pagar() {
   const { carro, totalisimo, descuentoAplicado, neto, iva } = useContext(CartContext);
 
   return (
+    <div className="form">
     <div className="pagar white">
       <h1>Confirmar Pedido</h1>
       <ul>
         {carro.map((pizza) => (
-          pizza.count > 0 && (
-            <li key={pizza.id}>
+            pizza.count > 0 && (
+                <li key={pizza.id}>
               {pizza.name} - {pizza.count} x {pricer(pizza.price)}
             </li>
           )
@@ -22,20 +23,21 @@ function Pagar() {
       
       <div className="resumen">
         <p>Descuento aplicado: {pricer(descuentoAplicado)}</p>
-        <p>Neto: {pricer(neto)}</p>
-        <p>IVA (19%): {pricer(iva)}</p>
+        <p>Neto: {pricer(parseFloat(neto))}</p>
+        <p>IVA (19%): {pricer(parseFloat(iva))}</p>
         <p>Total a pagar: {pricer(totalisimo)}</p>
       </div>
       
-      <div className="column flex">
+      <div className="column" style={{gap: '2rem'}}>
         <Link to="/checkout">
           <Button buttonText="Proceder al pago 💳" className="total" />
         </Link>
         <Link to="/cart">
-          <Button buttonText="Volver al carrito 🔙" className="secondary" />
+          <Button buttonText="Volver al carrito 🔙" className="form" />
         </Link>
       </div>
     </div>
+        </div>
   );
 }
 

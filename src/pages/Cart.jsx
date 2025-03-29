@@ -19,14 +19,10 @@ export default function Cart({ cuponPromo }) {
     aplicarCupon,
     setCupon,
     neto,
-    iva
+    iva,
   } = useContext(CartContext);
 
-  const {
-    auth,
-  } = useContext(AuthContext);
-
-
+  const { auth } = useContext(AuthContext);
 
   return (
     <div className="cart">
@@ -44,7 +40,7 @@ export default function Cart({ cuponPromo }) {
                 <Button
                   buttonText="➕"
                   className="addPizza"
-                  onClick={() => addPizza(pizza.id)}  // la función agregar pizza ahora es condicional con el stock
+                  onClick={() => addPizza(pizza.id)} // la función agregar pizza ahora es condicional con el stock
                 />
                 <p>{pizza.count}</p>
                 <Button
@@ -62,7 +58,7 @@ export default function Cart({ cuponPromo }) {
                     </div>
                   ))}
               </div>
-            </div>     
+            </div>
           )
       )}
       <div className="column" style={{ width: "90%" }}>
@@ -96,22 +92,26 @@ export default function Cart({ cuponPromo }) {
         </div>
         <div>
           <div>
-          <p>Neto: {pricer(parseFloat(neto))}</p>
-          <p>Iva: {pricer(parseFloat(iva))}</p>
+            <p>Neto: {pricer(parseFloat(neto))}</p>
+            <p>Iva: {pricer(parseFloat(iva))}</p>
           </div>
-            <p>Total: {pricer(totalisimo)}</p>
+          <p>Total: {pricer(totalisimo)}</p>
         </div>
       </div>
       <div className="flex">
-      {auth.autorizado?
-      <Link to='/pagar'>
-      <Button buttonText="PAGAR 🍕" className={auth.autorizado? 'total' : 'desactivate'} />
-        </Link>
-         : 
-        <Link to='/login'>
-        <Button buttonText={'Inicia Sesión 🔒 Para PAGAR'} className="alert whit"/>
-        </Link>
-         }
+        {carro.length > 0 &&
+          (auth.autorizado ? (
+            <Link to="/pagar">
+              <Button buttonText="PAGAR 🍕" className="form" />
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button
+                buttonText="Inicia Sesión 🔒 Para PAGAR"
+                className="form"
+              />
+            </Link>
+          ))}
       </div>
     </div>
   );
