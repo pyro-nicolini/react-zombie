@@ -40,7 +40,7 @@ export default function Cart({ cuponPromo }) {
                 <Button
                   buttonText="➕"
                   className="addPizza"
-                  onClick={() => addPizza(pizza.id)} // la función agregar pizza ahora es condicional con el stock
+                  onClick={() => addPizza(pizza.id)} 
                 />
                 <p>{pizza.count}</p>
                 <Button
@@ -98,20 +98,33 @@ export default function Cart({ cuponPromo }) {
           <p>Total: {pricer(totalisimo)}</p>
         </div>
       </div>
-      <div className="flex">
-        {carro.length > 0 &&
-          (auth.autorizado ? (
+      <div className="column" style={{ gap: "1rem" }}>
+        {cantidad === 0 ? (
+          <>
+            <p className="white">Debes agregar productos</p>
             <Link to="/pagar">
-              <Button buttonText="PAGAR 🍕" className="form" />
+              <Button buttonText="PAGAR 🍕" className="form" disabled={true} />
             </Link>
-          ) : (
-            <Link to="/login">
+          </>
+        ) : (
+          <>
+            {!auth.autorizado && (
+              <p className="white">Debes iniciar sesión para comprar</p>
+            )}
+            <Link to="/pagar">
               <Button
-                buttonText="Inicia Sesión 🔒 Para PAGAR"
+                buttonText="PAGAR 🍕"
                 className="form"
+                disabled={!auth.autorizado}
               />
             </Link>
-          ))}
+            {!auth.autorizado && (
+              <Link to="/login">
+                <Button buttonText="Inicia Sesión 🔒" className="alert" />
+              </Link>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

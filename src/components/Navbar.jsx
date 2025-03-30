@@ -75,7 +75,7 @@ const Navbar = () => {
             </>
           )}
           <div className="info">
-            <Link to="/pizza">
+            <Link to="/pizzas/p001">
               <Button className="navLink" buttonText={"Pizzas"} />
             </Link>
             <Link to="/404">

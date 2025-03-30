@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useNavigate } from "react";
 import CardPizza from "./CardPizza";
 import { pizzasJS } from "../data/pizzas";
 import { CartContext } from "../context/CartContext";
@@ -7,7 +7,6 @@ export default function AllPizzas() {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
   const { addPizza, stock } = useContext(CartContext);
 
   const getData = async () => {
@@ -84,9 +83,10 @@ export default function AllPizzas() {
                       pizza.id.toLocaleLowerCase()
                   )?.zombie || "nohay"
                 }
-                id={pizza.id}
-                onClick={() => addPizza(pizza.id)}
+                idx={pizza.id}
+                onClick1={() => addPizza(pizza.id)}
                 botonAnadir={botonAnadir}
+                id={pizza.id}
               />
             );
           })}

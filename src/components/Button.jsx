@@ -4,12 +4,13 @@ function Button({
   className = "",
   onClick,
   buttonImg = "",
-  id="",
+  idx="",
+  disabled,
 }) {
   return (
     <>
       {buttonImg ? <div className="buttonImg"></div> : null}
-      <button id={id} type={type} className={`button ${className}`} onClick={onClick}>
+      <button id={idx} type={type} className={`button ${className}`} onClick={onClick} disabled={disabled}>
         {buttonText}
       </button>
     </>
