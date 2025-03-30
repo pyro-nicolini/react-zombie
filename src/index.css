@@ -641,6 +641,12 @@ label {
   text-align: center;
   margin-bottom: 0.4rem;
 }
+
+li {
+  text-align: start;
+  font-style: italic;
+}
+
 .zombie2 {
   width: 8rem;
   margin: auto;

@@ -29,3 +29,4 @@ export function pricer(num) {
     { style: "currency", currency: "CLP" }
   );
 }
+
