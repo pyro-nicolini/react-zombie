@@ -8,19 +8,18 @@ export default function Pizza() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [selectedId, setSelectedId] = useState(id || "p001");
   const [pizza, setPizza] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const { addPizza, stock } = useContext(CartContext);
 
-  const getPizza = async (pizzaId) => {
-    if (!pizzaId) return;
+  const getPizza = async (id) => {
+    if (!id) return;
     setLoading(true);
     setError(false);
     try {
-      const response = await fetch(`http://localhost:5000/api/pizzas/${pizzaId}`);
+      const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
       if (!response.ok) throw new Error("Error al obtener la pizza");
       const data = await response.json();
       setPizza(data);
@@ -33,13 +32,12 @@ export default function Pizza() {
   };
 
   useEffect(() => {
-    getPizza(selectedId);
-  }, [selectedId]);
+    getPizza(id);
+  }, [id]);
 
   const cambiosEnPizza = (e) => {
-    const newId = e.target.value;
-    setSelectedId(newId);
-    navigate(`/pizzas/${newId}`);
+    const idSelected = e.target.value;
+    navigate(`/pizzas/${idSelected}`);
   };
 
   const pizzaStock = stock.find((p) => p.id?.toLowerCase() === pizza?.id?.toLowerCase());
@@ -48,9 +46,9 @@ export default function Pizza() {
     <div>
       <div style={{ width: "20rem", margin: "auto" }}>
         <label htmlFor="pizzaSelect" className="white">
-          Información de tu pizza:
+          Escoge tú favorita:
         </label>
-        <select id="pizzaSelect" value={selectedId} onChange={cambiosEnPizza}>
+        <select id="pizzaSelect" value={id} onChange={cambiosEnPizza}>
           <option value="p001">Napolitana</option>
           <option value="p002">Española</option>
           <option value="p003">Salame</option>
