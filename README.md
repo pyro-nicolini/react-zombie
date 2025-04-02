@@ -20,4 +20,6 @@ _Hito 5:_ Integración de `React Router` y distribución por rutas
 
 _Hito 6:_ Integración de `useContext` y uso de Estados Globales 
 
-_Hito 7:_ Complementando `ReactRouter`, uso de Params y designando rutas protegidas. [ Hito 7 ](https://github.com/pyro-nicolini/react-zombie/tree/Hito7)
+_Hito 7:_ Complementando `ReactRouter`, uso de Params y designando rutas protegidas.
+
+_Hito 8:_ Validación con Json Web Token (JWT) desde el backEnd.
