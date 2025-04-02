@@ -1,77 +1,70 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Button from "../components/Button";
 import zom2 from "../images/zom2.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { controlCambios } from "../utilities/helper";
-import { Link } from "react-router-dom";
+import useInput from "../hooks/useInput";
 
 function LoginPage() {
+  const email = useInput("");
+  const password = useInput("");
+  const [error, setError] = useState("");
+  const [exito, setExito] = useState("");
   const { auth, setAuth } = useContext(AuthContext);
-  const { email = "", pass = "", error, exito } = auth.input || {};
 
   const navigate = useNavigate();
 
-  const validarLogin = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!email?.trim() || !pass?.trim()) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "Todos los campos son obligatorios",
-          exito: "",
+    localStorage.removeItem("token");
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      }));
+        body: JSON.stringify({
+          email: email.value,
+          password: password.value,
+        }),
+      });
+      const data = await response.json();
+
+      if (data?.error) {
+        setExito("");
+        setError(data.error);
+        return;
+      }
+      setError("");
+      setExito("Authentication successful!");
+
+      setAuth({
+        autorizado: true,
+        autenticado: { email: data.email },
+      });
+
+      localStorage.setItem("token", data.token);
+      setTimeout(() => {
+        navigate("/cart", { replace: true });
+      }, 1500);
+    } catch (e) {
+      console.error("Error in login process:", e);
+      setError("Error connecting to the server. Please try again.");
+    } finally {
+      
     }
-
-    if (pass.length < 6) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "La contraseña debe tener al menos 6 caracteres",
-          exito: "",
-        },
-      }));
-    }
-
-    const usuarioEncontrado = auth.users.find(
-      (user) => user.email === email && user.pass === pass
-    );
-
-    if (!usuarioEncontrado) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "Usuario y/o contraseña no válidos",
-          exito: "",
-        },
-      }));
-    }
-
-    setAuth((prev) => ({
-      ...prev,
-      autorizado: true,
-      autenticado: usuarioEncontrado,
-      input: {
-        email: "",
-        pass: "",
-        error: "",
-        exito: `Inicio de sesión exitoso`,
-      },
-    }));
-
-    alert(`¡Bienvenido, ${email}!`);
-    navigate("/", { replace: true });
   };
 
+  // useEffect(() => {
+  //   console.log('Autorizado: ', auth.autorizado);
+  //   console.log('Logueado con:', auth.autenticado);
+  // }, [auth]);
+
   return (
-    <form onSubmit={validarLogin} className="form">
+    <form onSubmit={handleSubmit} className="form">
       <div className="flex">
-        <img src={zom2} alt="" className="zombie2" />
+        <img src={zom2} alt="Zombie" className="zombie2" />
       </div>
       <h3>🔓 Iniciar Sesión</h3>
       {error && <p className="alert">{error}</p>}
@@ -81,8 +74,7 @@ function LoginPage() {
         <input
           type="email"
           name="email"
-          value={email}
-          onChange={(e) => controlCambios(e, setAuth)}
+          {...email}
           className="flex"
           placeholder="Email"
         />
@@ -91,24 +83,19 @@ function LoginPage() {
         <label>Contraseña:</label>
         <input
           type="password"
-          name="pass"
-          value={pass}
-          onChange={(e) => controlCambios(e, setAuth)}
+          name="password"
+          {...password}
           className="flex"
-          placeholder="contraseña"
+          placeholder="Contraseña"
         />
       </div>
       <div className="column gap">
-        <Button
-          type="submit"
-          className={`logBtn`}
-          buttonText={"Iniciar Sesión"}
-        />
+        <Button type="submit" className="logBtn" buttonText="Iniciar Sesión" />
         <Link to="/register" className="link">
-            ¿Olvidaste tu contraseña?
+          ¿Olvidaste tu contraseña?
         </Link>
         <Link to="/register" className="link">
-            Crea una Cuenta
+          Crea una Cuenta
         </Link>
       </div>
     </form>

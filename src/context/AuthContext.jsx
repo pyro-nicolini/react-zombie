@@ -5,10 +5,8 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 
 const [auth, setAuth] = useState({
-    autorizado: true,
-    users: [{ email: "prueba@prueba.com", pass: "prueba@prueba.com" }],
-    input: { email: "", pass: "", pass2: "", exito: "", error: "" },
-    autenticado: { email: "prueba@prueba.com" },
+    autorizado: false,
+    autenticado: { email: "" },
   });
 
 return (
@@ -18,3 +16,6 @@ return (
 );
 };
 export default AuthProvider;
+
+
+

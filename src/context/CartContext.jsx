@@ -23,8 +23,6 @@ const CartProvider = ({ children }) => {
     },
   });
 
-
-
   const cantidad = useMemo(
     () => carro.reduce((acc, pizza) => acc + pizza.count, 0),
     [carro]

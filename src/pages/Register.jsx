@@ -1,81 +1,55 @@
-import { useContext } from "react";
+import { useState } from "react";
 import Button from "../components/Button";
 import zom1 from "../images/zom1.png";
-import {AuthContext} from "../context/AuthContext";
-import { controlCambios } from "../utilities/helper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useInput from "../hooks/useInput";
 
 function RegisterPage() {
-  const { auth, setAuth } = useContext(AuthContext)
-  const { email = "", pass = "", pass2 = "", error, exito } = auth.input || {};
+  const [error, setError] = useState("");
+  const [exito, setExito] = useState("");
 
+  const email = useInput("");
+  const password = useInput("");
+  const pass2 = useInput("");
 
-  const validarRegistro = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email?.trim() || !pass?.trim() || !pass2?.trim()) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "Todos los campos son obligatorios",
-          exito: "",
-        },
-      }));
+    if (pass2.value !== password.value) {
+      return setError("Las contraseñas no coinciden");
     }
 
-    if (pass !== pass2) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "Las contraseñas no coinciden",
-          exito: "",
-        },
-      }));
-    }
-
-    if (pass.length < 6) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "La contraseña debe tener al menos 6 caracteres",
-          exito: "",
-        },
-      }));
-    }
-
-    const usuarioEncontrado = auth.users.find((user) => user.email === email);
-
-    if (usuarioEncontrado) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "El email ya está registrado",
-          exito: "",
-        },
-      }));
-    }
-
-    setAuth((prev) => ({
-      ...prev,
-      users: [...prev.users, { email, pass }],
-      input: {
-        email: "",
-        pass: "",
-        pass2: "",
-        error: "",
-        exito: "Usuario creado exitosamente",
+    const response = await fetch("http://localhost:5000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    }));
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    });
+    const data = await response.json();
 
-    alert(`${email} creado exitosamente`);
+    if (data?.error) {
+      setExito("");
+      setError(data.error);
+      return;
+    }
+    setError("");
+    setExito("Authentication successful!");
+
+    localStorage.setItem("token", data.token);
+
+    setTimeout(() => {
+      navigate("/login", { replace: true });
+    }, 1500);
   };
 
   return (
-    <form onSubmit={validarRegistro} className="form">
+    <form onSubmit={handleSubmit} className="form">
       <div className="flex">
         <img src={zom1} alt="" className="zombie2" />
       </div>
@@ -88,8 +62,7 @@ function RegisterPage() {
         <input
           type="email"
           name="email"
-          value={email}
-          onChange={(e) => controlCambios(e, setAuth)}
+          {...email}
           className="flex"
           placeholder="Email"
         />
@@ -100,8 +73,7 @@ function RegisterPage() {
         <input
           type="password"
           name="pass"
-          value={pass}
-          onChange={(e) => controlCambios(e, setAuth)}
+          {...password}
           className="flex"
           placeholder="contraseña"
         />
@@ -111,8 +83,7 @@ function RegisterPage() {
         <input
           type="password"
           name="pass2"
-          value={pass2}
-          onChange={(e) => controlCambios(e, setAuth)}
+          {...pass2}
           className="flex"
           placeholder="Re-ingresar contraseña"
         />
@@ -120,9 +91,10 @@ function RegisterPage() {
       <div className="column space gap">
         <Button type="submit" className={`logBtn`} buttonText={"Registrar"} />
         <p style={{ fontSize: "0.9rem" }}>¿Ya tienes una cuenta?</p>
-        <Link to="/login" className="link"> Iniciar Sesión
+        <Link to="/login" className="link">
+          {" "}
+          Iniciar Sesión
         </Link>
-
       </div>
     </form>
   );

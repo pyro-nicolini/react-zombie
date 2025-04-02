@@ -12,13 +12,16 @@ export function controlCambios(e, setAuth) {
 }
 
 export function cerrarSesion(setAuth) {
+  localStorage.removeItem("token");
+  localStorage.clear();
   setAuth((prev) => ({
     ...prev,
     autorizado: false,
     autenticado: null,
-    input: { email: "", pass: "", error: "", exito: "" },
   }));
 }
+
+
 
 export function capitalizer(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
