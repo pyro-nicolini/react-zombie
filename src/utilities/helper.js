@@ -1,16 +1,3 @@
-export function controlCambios(e, setAuth) {
-  e.preventDefault();
-  setAuth((prev) => ({
-    ...prev,
-    input: {
-      ...prev.input,
-      [e.target.name]: e.target.value,
-      error: "",
-      exito: "",
-    },
-  }));
-}
-
 export function cerrarSesion(setAuth) {
   localStorage.removeItem("token");
   localStorage.clear();
@@ -20,8 +7,6 @@ export function cerrarSesion(setAuth) {
     autenticado: null,
   }));
 }
-
-
 
 export function capitalizer(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);

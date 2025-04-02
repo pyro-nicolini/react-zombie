@@ -14,7 +14,6 @@ function LoginPage() {
 
   const navigate = useNavigate();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
@@ -52,7 +51,6 @@ function LoginPage() {
       console.error("Error in login process:", e);
       setError("Error connecting to the server. Please try again.");
     } finally {
-      
     }
   };
 

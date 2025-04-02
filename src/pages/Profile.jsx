@@ -33,27 +33,27 @@ export default function Profile() {
           style={{ justifyContent: "space-between", gap: "3rem" }}
         >
           <h1 className="flex">R.I.P</h1>
-{auth.autorizado? (
-  <>
-  <div className="account">
-            <p>Perfil Zombie</p>
-            <Button
-              className="perfil"
-              buttonText={`${email}`}
-              buttonImg={" "}
-              />
-          </div>
-          <Link to="/">
-            <Button
-              className="alert padding"
-              buttonText={"Cerrar Sesión"}
-              onClick={() => cerrarSesion(setAuth)}
-              />
-          </Link>
-              </>
-          )
-          : 
-          <h1>No Logueado</h1>}
+          {auth.autorizado ? (
+            <>
+              <div className="account">
+                <p>Perfil Zombie</p>
+                <Button
+                  className="perfil"
+                  buttonText={`${email}`}
+                  buttonImg={" "}
+                />
+              </div>
+              <Link to="/">
+                <Button
+                  className="alert padding"
+                  buttonText={"Cerrar Sesión"}
+                  onClick={() => cerrarSesion(setAuth)}
+                />
+              </Link>
+            </>
+          ) : (
+            <h1>No Logueado</h1>
+          )}
           <img
             src="src/images/hand.png"
             alt="HandZombie"
