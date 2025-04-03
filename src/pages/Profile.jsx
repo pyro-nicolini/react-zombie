@@ -2,11 +2,11 @@ import { useContext } from "react";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { userContext } from "../context/UserContext";
 import { cerrarSesion } from "../utilities/helper";
 
 export default function Profile() {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(userContext);
 
   const [user, setUser] = useState(null);
 

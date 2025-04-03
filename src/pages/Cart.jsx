@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import Button from "../components/Button";
 import { pricer } from "../utilities/helper";
 import { CartContext } from "../context/CartContext";
-import { AuthContext } from "../context/AuthContext";
+import { userContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
 
 export default function Cart({ cuponPromo }) {
@@ -22,7 +22,18 @@ export default function Cart({ cuponPromo }) {
     iva,
   } = useContext(CartContext);
 
-  const { auth } = useContext(AuthContext);
+  const { auth } = useContext(userContext);
+
+  // await fetch("http://localhost:5000/api/checkout", {
+  //   method: "POST",
+  //   headers: {
+  //   "Content-Type": "application/json",
+  //   Authorization: `Bearer token_jwt`,
+  //   },
+  //   body: JSON.stringify({
+  //   cart: carrito,
+  //   }),
+  //   });
 
   return (
     <div className="cart">
@@ -40,7 +51,7 @@ export default function Cart({ cuponPromo }) {
                 <Button
                   buttonText="➕"
                   className="addPizza"
-                  onClick={() => addPizza(pizza.id)} 
+                  onClick={() => addPizza(pizza.id)}
                 />
                 <p>{pizza.count}</p>
                 <Button
@@ -48,14 +59,14 @@ export default function Cart({ cuponPromo }) {
                   className="deletePizza"
                   onClick={() => deletePizza(pizza.id)}
                 />
+              </div>
+              <div>
                 {stock
                   .filter((item) => item.id === pizza.id)
                   .map((item) => (
-                    <div key={item.id}>
-                      <p>
-                        {item.stock > 0 ? `Quedan: ${item.stock}` : "Sin Stock"}
-                      </p>
-                    </div>
+                    <p key={item.id}>
+                      {item.stock > 0 ? `Quedan: ${item.stock}` : "Sin Stock"}
+                    </p>
                   ))}
               </div>
             </div>

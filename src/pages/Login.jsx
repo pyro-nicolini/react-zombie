@@ -2,65 +2,41 @@ import { useContext, useState } from "react";
 import Button from "../components/Button";
 import zom2 from "../images/zom2.png";
 import { useNavigate, Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import useInput from "../hooks/useInput";
+import { userContext } from "../context/UserContext";
 
 function LoginPage() {
-  const email = useInput("");
-  const password = useInput("");
-  const [error, setError] = useState("");
-  const [exito, setExito] = useState("");
-  const { auth, setAuth } = useContext(AuthContext);
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token");
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email.value,
-          password: password.value,
-        }),
-      });
-      const data = await response.json();
-
-      if (data?.error) {
-        setExito("");
-        setError(data.error);
-        return;
-      }
-      setError("");
-      setExito("Authentication successful!");
-
-      setAuth({
-        autorizado: true,
-        autenticado: { email: data.email },
-      });
-
-      localStorage.setItem("token", data.token);
-      setTimeout(() => {
-        navigate("/cart", { replace: true });
-      }, 1500);
-    } catch (e) {
-      console.error("Error in login process:", e);
-      setError("Error connecting to the server. Please try again.");
-    } finally {
-    }
-  };
+  const {  auth, setAuth, handleSubmitLogin, error, exito, email, password, pass2, loading  } = useContext(userContext);
 
   // useEffect(() => {
   //   console.log('Autorizado: ', auth.autorizado);
   //   console.log('Logueado con:', auth.autenticado);
   // }, [auth]);
 
+
+  const navigate = useNavigate();
+  
+  {loading && (
+    <div className="column">
+      <img src="../src/images/logo.png" className="spinner" alt="Cargando..." />
+      <p className="white" style={{ position: "relative", top: "-1rem" }}>
+        <strong>{"Cargando..."}</strong>
+      </p>
+    </div>
+  )}
+  {loading && (
+    <div className="column">
+      <img src="../src/images/logo.png" className="spinner" alt="Cargando..." />
+      <p className="white" style={{ position: "relative", top: "-1rem" }}>
+        <strong>{"Cargando..."}</strong>
+      </p>
+    </div>
+  )}
+  
+
   return (
-    <form onSubmit={handleSubmit} className="form">
+    
+    <form onSubmit={handleSubmitLogin} className="form">
+
       <div className="flex">
         <img src={zom2} alt="Zombie" className="zombie2" />
       </div>

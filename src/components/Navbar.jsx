@@ -5,13 +5,13 @@ import Promo from "./Promo";
 import { pricer } from "../utilities/helper";
 import { useContext } from "react";
 
-import { AuthContext } from "../context/AuthContext";
+import { userContext } from "../context/UserContext";
 import { CartContext } from "../context/CartContext";
 
 import { cerrarSesion } from "../utilities/helper";
 
 const Navbar = () => {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(userContext);
   const { autorizado, autenticado } = auth || {};
   const { totalisimo, promo } = useContext(CartContext);
 
@@ -62,11 +62,11 @@ const Navbar = () => {
           </NavLink>
           {autorizado ? (
             <>
-                <Button
-                  className="alert padding"
-                  buttonText={"Cerrar Sesión"}
-                  onClick={() => cerrarSesion(setAuth)}
-                />
+              <Button
+                className="alert padding"
+                buttonText={"Cerrar Sesión"}
+                onClick={() => cerrarSesion(setAuth)}
+              />
             </>
           ) : (
             <>

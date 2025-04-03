@@ -1,55 +1,26 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../components/Button";
 import zom1 from "../images/zom1.png";
 import { Link, useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
+import { userContext } from "../context/UserContext";
 
 function RegisterPage() {
-  const [error, setError] = useState("");
-  const [exito, setExito] = useState("");
-
-  const email = useInput("");
-  const password = useInput("");
-  const pass2 = useInput("");
-
+  const { auth, setAuth, handleSubmitRegister, error, exito, email, password, pass2, loading  } = useContext(userContext);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    if (pass2.value !== password.value) {
-      return setError("Las contraseñas no coinciden");
-    }
-
-    const response = await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
-    });
-    const data = await response.json();
-
-    if (data?.error) {
-      setExito("");
-      setError(data.error);
-      return;
-    }
-    setError("");
-    setExito("Authentication successful!");
-
-    localStorage.setItem("token", data.token);
-
-    setTimeout(() => {
-      navigate("/login", { replace: true });
-    }, 1500);
-  };
-
+  {loading && (
+    <div className="column">
+      <img src="../src/images/logo.png" className="spinner" alt="Cargando..." />
+      <p className="white" style={{ position: "relative", top: "-10rem" }}>
+        <strong>{"Cargando..."}</strong>
+      </p>
+    </div>
+  )}
+  
   return (
-    <form onSubmit={handleSubmit} className="form">
+    <form onSubmit={handleSubmitRegister} className="form">
       <div className="flex">
         <img src={zom1} alt="" className="zombie2" />
       </div>
@@ -62,7 +33,7 @@ function RegisterPage() {
         <input
           type="email"
           name="email"
-          {...email}
+          value={email.value} onChange={email.onChange}
           className="flex"
           placeholder="Email"
         />
@@ -73,7 +44,7 @@ function RegisterPage() {
         <input
           type="password"
           name="pass"
-          {...password}
+          value={password.value} onChange={password.onChange}
           className="flex"
           placeholder="contraseña"
         />
@@ -83,7 +54,7 @@ function RegisterPage() {
         <input
           type="password"
           name="pass2"
-          {...pass2}
+          value={pass2.value} onChange={pass2.onChange}
           className="flex"
           placeholder="Re-ingresar contraseña"
         />

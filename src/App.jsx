@@ -12,11 +12,11 @@ import AllPizzas from "./components/AllPizzas";
 import NotFound from "./pages/404";
 import CartProvider from "./context/CartContext";
 
-import { AuthContext } from "./context/AuthContext";
+import { userContext } from "./context/UserContext";
 import { useContext } from "react";
 
 function App() {
-  const { auth } = useContext(AuthContext);
+  const { auth } = useContext(userContext);
 
   const navigate = useNavigate();
   return (
@@ -26,14 +26,23 @@ function App() {
         <main className="main">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={ auth.autorizado ? <Profile /> : <LoginPage/>} />
+            <Route
+              path="/profile"
+              element={auth.autorizado ? <Profile /> : <LoginPage />}
+            />
             <Route path="/allpizzas" element={<AllPizzas />} />
             <Route path="/*" element={<NotFound />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={auth.autorizado ? <Home/> :<RegisterPage />} />
+            <Route
+              path="/register"
+              element={auth.autorizado ? <Home /> : <RegisterPage />}
+            />
             <Route path="/cart" element={<Cart cuponPromo={"movistar"} />} />
             <Route path="/pizzas/:id" element={<Pizza />} />
-            <Route path="/pagar" element={auth.autorizado ? <Pagar /> : <Cart/>} />
+            <Route
+              path="/pagar"
+              element={auth.autorizado ? <Pagar /> : <Cart />}
+            />
           </Routes>
         </main>
         <Footer
