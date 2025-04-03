@@ -1,22 +1,23 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import useInput from "../hooks/useInput";
 import { useNavigate } from "react-router-dom";
 
 export const userContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const navigate = useNavigate();
   const [auth, setAuth] = useState({
     autorizado: false,
     autenticado: { email: "" },
   });
-
-  const email = useInput("");
-  const password = useInput("");
-
+  const [user, setUser] = useState({});
   const [error, setError] = useState("");
   const [exito, setExito] = useState("");
   const [loading, setLoading] = useState(false);
+  const email = useInput("");
+  const password = useInput("");
+  const pass2 = useInput("");
+
+  const navigate = useNavigate();
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
@@ -33,7 +34,6 @@ const UserProvider = ({ children }) => {
         }),
       });
       const data = await response.json();
-
       if (data?.error) {
         setExito("");
         setError(data.error);
@@ -41,15 +41,12 @@ const UserProvider = ({ children }) => {
       }
       setError("");
       setExito("Authentication successful!");
-
       setAuth({
         autorizado: true,
         autenticado: { email: data.email },
       });
-
       localStorage.setItem("token", data.token);
-        setLoading(true);
-
+      setLoading(true);
       setTimeout(() => {
         setLoading(false);
         navigate("/cart", { replace: true });
@@ -63,17 +60,13 @@ const UserProvider = ({ children }) => {
         setExito("");
         email.reset();
         password.reset();
-  
       }, 2000);
       clearTimeout;
     }
   };
 
-  const pass2 = useInput("");
-
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
-
     if (pass2.value !== password.value) {
       return setError("Las contraseñas no coinciden");
     }
@@ -89,7 +82,6 @@ const UserProvider = ({ children }) => {
         }),
       });
       const data = await response.json();
-
       if (data?.error) {
         setExito("");
         setError(data.error);
@@ -97,41 +89,57 @@ const UserProvider = ({ children }) => {
       }
       setError("");
       setExito("Authentication successful!");
-
       localStorage.setItem("token", data.token);
-        setLoading(true);
-
+      setLoading(true);
       setTimeout(() => {
         setLoading(false);
         navigate("/login", { replace: true });
-      }, 2000);
+      }, 1300);
     } catch (e) {
       console.error("Error in register process:", e);
       setError("Error connecting to the server. Please try again.");
     } finally {
-      email.reset();
-      password.reset();
-      pass2.reset();
       setTimeout(() => {
+        email.reset();
+        password.reset();
+        pass2.reset();
         setError("");
         setExito("");
-      }, 2000);
+      }, 1300);
       clearTimeout;
     }
   };
 
+  const getProfile = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetch("http://localhost:5000/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data?.error) {
+            setUser(data); // aunque ya tengo el email, aquí verifico que esta el email en el backend
+          }
+        });
+    }
+  };
 
-  function cerrarSesion(setAuth) {
+  useEffect(() => {
+    getProfile();
+  }, [auth]);
+
+  function cerrarSesion() {
     localStorage.removeItem("token");
     localStorage.clear();
-    setAuth((prev) => ({
-      ...prev,
+    setAuth({
       autorizado: false,
       autenticado: null,
-    }));
+    });
   }
-  
-  
+
   return (
     <userContext.Provider
       value={{
@@ -142,6 +150,7 @@ const UserProvider = ({ children }) => {
         error,
         exito,
         email,
+        user,
         password,
         pass2,
         loading,

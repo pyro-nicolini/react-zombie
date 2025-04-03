@@ -24,43 +24,6 @@ const CartProvider = ({ children }) => {
         "20% OFF con MOVISTAR ❤️ Excluye promos, combos y Holy Cheese. Mínimo de compra $15.000, descuento máximo $12.000.*",
     },
   });
-  useEffect(() => {
-    if (carrito.length > 0) {
-      carro();
-    }
-  }, [carrito]);
-
-  async function carro() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Debe estar Logueado para terminar tú pedido.");
-      return;
-    }
-    try {
-      const response = await fetch("http://localhost:5000/api/checkouts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          cart: carrito,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error en la solicitud: ${response.statusText}`);
-      }
-      const data = await response.json();
-      data.cart = carrito;
-      setCartMsg('Producto agregado al carro')
-      setTimeout(() => {
-        setCartMsg('')
-      }, 1000)
-    } catch (error) {
-      console.error("Error al realizar el pedido:", error);
-    }
-  }
 
   const cantidad = useMemo(
     () => carrito.reduce((acc, pizza) => acc + pizza.count, 0),
@@ -178,6 +141,20 @@ const CartProvider = ({ children }) => {
     }
   }, [totalisimo]);
 
+
+  useEffect(() => {
+    if (carrito.length > 0) {
+      mensajeCarro();
+    }
+  }, [carrito]);
+
+  const mensajeCarro = () => {
+    setCartMsg('Producto agregado al carro')
+    setTimeout(() => {
+      setCartMsg('')
+    }, 1000)
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -198,6 +175,7 @@ const CartProvider = ({ children }) => {
         stock,
         aplicarCupon,
         cartMsg,
+        setCartMsg,
       }}
     >
       {children}

@@ -3,15 +3,20 @@ import { CartContext } from "../context/CartContext";
 import { pricer } from "../utilities/helper";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import logo from "../images/logo.png";
+
 
 function Pagar() {
   const { carrito, totalisimo, descuentoAplicado, neto, iva } =
     useContext(CartContext);
 
+
+    
   return (
     <div className="form">
       <div className="pagar white">
-        <h1>Confirmar Pedido</h1>
+        <img src={logo} alt="pizzaZombieLogo" className="navLogo2"/>
+        <h1>Pedido confirmado</h1>
         <ul>
           {carrito.map(
             (pizza) =>
@@ -22,7 +27,6 @@ function Pagar() {
               )
           )}
         </ul>
-
         <div className="resumen">
           {descuentoAplicado == 0 ? null : (
             <>
@@ -34,15 +38,7 @@ function Pagar() {
           <p>IVA (19%): {pricer(parseFloat(iva))}</p>
           <p>Total a pagar: {pricer(totalisimo)}</p>
         </div>
-
-        <div className="column" style={{ gap: "2rem" }}>
-          <Link to="/checkout">
-            <Button buttonText="Proceder al pago 💳" className="total" />
-          </Link>
-          <Link to="/cart">
-            <Button buttonText="Volver al carrito 🔙" className="form" />
-          </Link>
-        </div>
+          <h2>Gracias por su compra!</h2>
       </div>
     </div>
   );

@@ -5,23 +5,7 @@ import { Link } from "react-router-dom";
 import { userContext } from "../context/UserContext";
 
 export default function Profile() {
-  const { auth, setAuth,  } = useContext(userContext);
-
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      fetch("http://localhost:5000/api/auth/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => setUser(data));
-    }
-  }, []);
-
+  const { auth, setAuth, user, cerrarSesion  } = useContext(userContext);
 
   return (
     <>
@@ -45,7 +29,7 @@ export default function Profile() {
                 <Button
                   className="alert padding"
                   buttonText={"Cerrar Sesión"}
-                  onClick={() => cerrarSesion(setAuth)}
+                  onClick={() => cerrarSesion()}
                 />
               </Link>
             </>

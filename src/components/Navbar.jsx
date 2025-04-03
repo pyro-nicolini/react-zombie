@@ -64,7 +64,7 @@ const Navbar = () => {
               <Button
                 className="alert padding"
                 buttonText={"Cerrar Sesión"}
-                onClick={() => cerrarSesion(setAuth)}
+                onClick={() => cerrarSesion()}
               />
             </>
           ) : (
