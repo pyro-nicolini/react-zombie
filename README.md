@@ -22,4 +22,4 @@ _Hito 6:_ Integración de `useContext` y uso de Estados Globales
 
 _Hito 7:_ Complementando `ReactRouter`, uso de Params y designando rutas protegidas.
 
-_Hito 8:_ Validación con Json Web Token (JWT) desde el backEnd.
+_Hito 8:_ Validación con Json Web Token (JWT) desde el backEnd, inclusión de animación del Evento de pago.
