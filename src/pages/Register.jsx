@@ -6,7 +6,7 @@ import useInput from "../hooks/useInput";
 import { userContext } from "../context/UserContext";
 
 function RegisterPage() {
-  const { auth, setAuth, handleSubmitRegister, error, exito, email, password, pass2, loading  } = useContext(userContext);
+  const { handleSubmitRegister, error, exito, email, password, pass2, loading  } = useContext(userContext);
   const navigate = useNavigate();
   
   return (

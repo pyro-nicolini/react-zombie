@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import { userContext } from "../context/UserContext";
-import { cerrarSesion } from "../utilities/helper";
 
 export default function Profile() {
-  const { auth, setAuth } = useContext(userContext);
+  const { auth, setAuth, cerrarSesion } = useContext(userContext);
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -23,7 +22,6 @@ export default function Profile() {
     }
   }, []);
 
-  const email = auth.autenticado ? auth.autenticado.email : "";
 
   return (
     <>
@@ -39,7 +37,7 @@ export default function Profile() {
                 <p>Perfil Zombie</p>
                 <Button
                   className="perfil"
-                  buttonText={`${email}`}
+                  buttonText={`${user?.email}`}
                   buttonImg={" "}
                 />
               </div>

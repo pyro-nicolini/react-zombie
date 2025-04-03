@@ -119,6 +119,18 @@ const UserProvider = ({ children }) => {
       clearTimeout;
     }
   };
+
+
+  function cerrarSesion(setAuth) {
+    localStorage.removeItem("token");
+    localStorage.clear();
+    setAuth((prev) => ({
+      ...prev,
+      autorizado: false,
+      autenticado: null,
+    }));
+  }
+  
   
   return (
     <userContext.Provider
@@ -133,6 +145,7 @@ const UserProvider = ({ children }) => {
         password,
         pass2,
         loading,
+        cerrarSesion,
       }}
     >
       {children}

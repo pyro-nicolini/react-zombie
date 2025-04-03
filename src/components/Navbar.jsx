@@ -8,10 +8,9 @@ import { useContext } from "react";
 import { userContext } from "../context/UserContext";
 import { CartContext } from "../context/CartContext";
 
-import { cerrarSesion } from "../utilities/helper";
 
 const Navbar = () => {
-  const { auth, setAuth } = useContext(userContext);
+  const { auth, setAuth, cerrarSesion } = useContext(userContext);
   const { autorizado, autenticado } = auth || {};
   const { totalisimo, promo } = useContext(CartContext);
 
