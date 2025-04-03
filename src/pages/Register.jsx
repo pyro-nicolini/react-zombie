@@ -8,22 +8,25 @@ import { userContext } from "../context/UserContext";
 function RegisterPage() {
   const { auth, setAuth, handleSubmitRegister, error, exito, email, password, pass2, loading  } = useContext(userContext);
   const navigate = useNavigate();
-
-
-  {loading && (
-    <div className="column">
-      <img src="../src/images/logo.png" className="spinner" alt="Cargando..." />
-      <p className="white" style={{ position: "relative", top: "-10rem" }}>
-        <strong>{"Cargando..."}</strong>
-      </p>
-    </div>
-  )}
   
   return (
     <form onSubmit={handleSubmitRegister} className="form">
+       {loading && (
+    <div className="column">
+      <img
+        src="../src/images/logo.png"
+        className="spinner"
+        alt="Cargando..."
+      />
+      <p className="white" style={{ position: "relative", top: "-1rem" }}>
+        <strong>{"Invadiendo..."}</strong>
+      </p>
+    </div>
+  ) || (
       <div className="flex">
         <img src={zom1} alt="" className="zombie2" />
       </div>
+  )}
       <h3>🔐 Registrar Usuario</h3>
       {error && <div className="alert">{error}</div>}
       {exito && <div className="exito">{exito}</div>}

@@ -48,14 +48,12 @@ const UserProvider = ({ children }) => {
       });
 
       localStorage.setItem("token", data.token);
-      setTimeout(() => {
         setLoading(true);
-      }, 1500);
 
       setTimeout(() => {
         setLoading(false);
         navigate("/cart", { replace: true });
-      }, 2500);
+      }, 2000);
     } catch (e) {
       console.error("Error in login process:", e);
       setError("Error connecting to the server. Please try again.");
@@ -101,9 +99,7 @@ const UserProvider = ({ children }) => {
       setExito("Authentication successful!");
 
       localStorage.setItem("token", data.token);
-      setTimeout(() => {
         setLoading(true);
-      }, 1000);
 
       setTimeout(() => {
         setLoading(false);
@@ -123,26 +119,7 @@ const UserProvider = ({ children }) => {
       clearTimeout;
     }
   };
-
-  if (loading) {
-    return (
-      <>
-        {loading && (
-          <div className="column">
-            <img
-              src="../src/images/logo.png"
-              className="spinner"
-              alt="Cargando..."
-            />
-            <p className="white" style={{ position: "relative", top: "-1rem" }}>
-              <strong>{"Invadiendo..."}</strong>
-            </p>
-          </div>
-        )}
-      </>
-    );
-  }
-
+  
   return (
     <userContext.Provider
       value={{
@@ -155,6 +132,7 @@ const UserProvider = ({ children }) => {
         email,
         password,
         pass2,
+        loading,
       }}
     >
       {children}

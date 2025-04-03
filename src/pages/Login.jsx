@@ -7,39 +7,29 @@ import { userContext } from "../context/UserContext";
 function LoginPage() {
   const {  auth, setAuth, handleSubmitLogin, error, exito, email, password, pass2, loading  } = useContext(userContext);
 
-  // useEffect(() => {
-  //   console.log('Autorizado: ', auth.autorizado);
-  //   console.log('Logueado con:', auth.autenticado);
-  // }, [auth]);
-
-
   const navigate = useNavigate();
-  
-  {loading && (
-    <div className="column">
-      <img src="../src/images/logo.png" className="spinner" alt="Cargando..." />
-      <p className="white" style={{ position: "relative", top: "-1rem" }}>
-        <strong>{"Cargando..."}</strong>
-      </p>
-    </div>
-  )}
-  {loading && (
-    <div className="column">
-      <img src="../src/images/logo.png" className="spinner" alt="Cargando..." />
-      <p className="white" style={{ position: "relative", top: "-1rem" }}>
-        <strong>{"Cargando..."}</strong>
-      </p>
-    </div>
-  )}
-  
+
+ 
 
   return (
     
     <form onSubmit={handleSubmitLogin} className="form">
-
+       {loading && (
+    <div className="column">
+      <img
+        src="../src/images/logo.png"
+        className="spinner"
+        alt="Cargando..."
+      />
+      <p className="white" style={{ position: "relative", top: "-1rem" }}>
+        <strong>{"Invadiendo..."}</strong>
+      </p>
+    </div>
+  ) || ( 
       <div className="flex">
         <img src={zom2} alt="Zombie" className="zombie2" />
       </div>
+  )}
       <h3>🔓 Iniciar Sesión</h3>
       {error && <p className="alert">{error}</p>}
       {exito && <p className="exito">{exito}</p>}
@@ -48,7 +38,7 @@ function LoginPage() {
         <input
           type="email"
           name="email"
-          {...email}
+          value={email.value} onChange={email.onChange}
           className="flex"
           placeholder="Email"
         />
@@ -58,7 +48,7 @@ function LoginPage() {
         <input
           type="password"
           name="password"
-          {...password}
+          value={password.value} onChange={password.onChange}
           className="flex"
           placeholder="Contraseña"
         />
