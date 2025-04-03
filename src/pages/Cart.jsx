@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function Cart({ cuponPromo }) {
   const {
-    carro,
+    carrito,
     addPizza,
     totalisimo,
     deletePizza,
@@ -24,21 +24,10 @@ export default function Cart({ cuponPromo }) {
 
   const { auth } = useContext(userContext);
 
-  // await fetch("http://localhost:5000/api/checkout", {
-  //   method: "POST",
-  //   headers: {
-  //   "Content-Type": "application/json",
-  //   Authorization: `Bearer token_jwt`,
-  //   },
-  //   body: JSON.stringify({
-  //   cart: carrito,
-  //   }),
-  //   });
-
   return (
     <div className="cart">
       <h3>Detalle del pedido</h3>
-      {carro.map(
+      {carrito.map(
         (pizza) =>
           pizza.count > 0 && (
             <div key={pizza.id} className="cart-item">

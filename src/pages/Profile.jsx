@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { userContext } from "../context/UserContext";
 
 export default function Profile() {
-  const { auth, setAuth, cerrarSesion } = useContext(userContext);
+  const { auth, setAuth,  } = useContext(userContext);
 
   const [user, setUser] = useState({});
 

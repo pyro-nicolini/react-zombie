@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import { Link } from "react-router-dom";
 
 function Pagar() {
-  const { carro, totalisimo, descuentoAplicado, neto, iva } =
+  const { carrito, totalisimo, descuentoAplicado, neto, iva } =
     useContext(CartContext);
 
   return (
@@ -13,7 +13,7 @@ function Pagar() {
       <div className="pagar white">
         <h1>Confirmar Pedido</h1>
         <ul>
-          {carro.map(
+          {carrito.map(
             (pizza) =>
               pizza.count > 0 && (
                 <li key={pizza.id}>

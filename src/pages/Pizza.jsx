@@ -12,7 +12,7 @@ export default function Pizza() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const { addPizza, stock } = useContext(CartContext);
+  const { addPizza, stock, cartMsg } = useContext(CartContext);
 
   const getPizza = async (id) => {
     if (!id) return;
@@ -46,6 +46,8 @@ export default function Pizza() {
 
   return (
     <div>
+              {cartMsg && <strong className="exito modal">{cartMsg}</strong>}
+
       <div style={{ width: "20rem", margin: "auto" }}>
         <label htmlFor="pizzaSelect" className="white">
           Escoge tú favorita:
