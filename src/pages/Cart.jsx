@@ -35,10 +35,11 @@ const navigate = useNavigate();
   const { auth } = useContext(userContext);
 
   useEffect(() => {
-    if (carrito.length > 0) {
-      carro();
+    const token = localStorage.getItem("token");
+    if (carrito.length > 0 && token) {
+        carro();
     }
-  }, [carrito]);
+}, [carrito]);
 
 let msg2;
 
@@ -72,7 +73,7 @@ let msg2;
     } 
   }
 
-  let timeout1, timeout2, timeout3;
+  let timeout1, timeout2, timeout3, timeout4;
 
   function pagando() {
       setPagado('Los Zombies se están preparando');
@@ -84,9 +85,11 @@ let msg2;
           setImgPagando(giganton);
       }, 5000);
       timeout3 = setTimeout(() => {
-          setPagado('');
-          navigate("/pagar", { replace: true });
+        navigate("/pagar", { replace: true });
       }, 7500);
+      timeout4 = setTimeout(() => {
+        setPagado('');
+      }, 8000);
   }
   
   useEffect(() => {
@@ -94,6 +97,7 @@ let msg2;
           clearTimeout(timeout1);
           clearTimeout(timeout2);
           clearTimeout(timeout3);
+          clearTimeout(timeout4);
       };
   }, []);
   
