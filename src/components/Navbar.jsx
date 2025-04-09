@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../images/logo.png";
 import Button from "./Button";
 import Promo from "./Promo";
@@ -14,6 +14,8 @@ const Navbar = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const { autorizado, autenticado } = auth || {};
   const { totalisimo, promo } = useContext(CartContext);
+
+  const setActiveClass = ({ isActive }) => (isActive ? "active" : "navLink");
 
   const email = autenticado ? autenticado.email : "";
 
@@ -31,15 +33,15 @@ const Navbar = () => {
 
   return (
     <div className="fixed">
-      <Link to="/cart" style={{textDecoration: 'none',}}>
+      <NavLink to="/cart" style={{ textDecoration: "none" }}>
         <Promo promo={promo.movistar.promocion} />
-      </Link>
+      </NavLink>
       <nav className="nav" id="navbar">
-        <Link to="/">
+        <NavLink to="/">
           <img src={logo} alt="logo" className="navLogo" />
-        </Link>
+        </NavLink>
         {autorizado ? (
-          <Link to="/profile">
+          <NavLink to="/profile">
             <div className="account">
               <div className="flex">
                 <div className="online">
@@ -52,46 +54,37 @@ const Navbar = () => {
                 />
               </div>
             </div>
-          </Link>
+          </NavLink>
         ) : null}
-        <div className="menu">
-          <Link to="/" className="navLink">
-            <Button buttonText={"HOME"} className="navLink" />
-          </Link>
-          {autorizado ? (
-            <>
-              <Link to="/" onClick={() => cerrarSesion(setAuth)}>
-                <Button className="navLink red" buttonText={"Cerrar Sesión"} />
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/login">
-                <Button className="navLink" buttonText={"Iniciar Sesión"} />
-              </Link>
-              <Link to="/register">
-                <Button className="navLink" buttonText={"Registrar"} />
-              </Link>
-            </>
-          )}
-          <div className="info">
-            <Link to="/pizza/p001">
-              <Button className="navLink" buttonText={"Pizzas"} />
-            </Link>
-            <Link to="/404">
-              <Button className="navLink" buttonText={"NotFound"} />
-            </Link>
-            <Link to="/cart">
-              <Button className="navLink" buttonText={"Carrito"} />
-            </Link>
-          </div>
+       <div className="menu">
+  <NavLink to="/" className={setActiveClass}>HOME</NavLink>
+  {autorizado ? (
+    <>
+      <Button
+        className="navLink red"
+        buttonText={"Cerrar Sesión"}
+        onClick={() => cerrarSesion(setAuth)}
+      />
+    </>
+  ) : (
+    <>
+      <NavLink to="/login" className={setActiveClass}>Iniciar Sesión</NavLink>
+      <NavLink to="/register" className={setActiveClass}>Registrar</NavLink>
+    </>
+  )}
+  <div className="info">
+    <NavLink to="/pizzas/p001" className={setActiveClass}>Pizzas
+    </NavLink>
+    <NavLink to="/404" className={setActiveClass}>NotFound</NavLink>
+    <NavLink to="/cart" className={setActiveClass}>Carrito</NavLink>
+  </div>
         </div>
-        <Link to="/cart">
+        <NavLink to="/cart">
           <Button
             buttonText={`🛒 Total: ${pricer(totalisimo)}`}
             className="total"
           />
-        </Link>
+        </NavLink>
       </nav>
     </div>
   );

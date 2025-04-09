@@ -1,25 +1,26 @@
 import { useState, useEffect, useContext } from "react";
-import Button from "../../components/Button";
-import { CartContext } from "../../context/CartContext";
-import { pricer, capitalizer } from "../../utilities/helper";
+import { useParams, useNavigate } from "react-router-dom";
+import Button from "../components/Button";
+import { CartContext } from "../context/CartContext";
+import { pricer, capitalizer } from "../utilities/helper";
 
-export default function Pizza({}) {
-  const [optionId, setOptionId] = useState("p001");
+export default function Pizza() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [pizza, setPizza] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const { addPizza, stock } = useContext(CartContext);
 
-
-  const getPizza = async () => {
-    if (!optionId) return;
+  const getPizza = async (id) => {
+    if (!id) return;
     setLoading(true);
     setError(false);
     try {
-      const url_id = `http://localhost:5000/api/pizzas/${optionId}`;
-      const response = await fetch(url_id);
-      if (!response.ok) throw new Error("Error de respuesta de Pizza");
+      const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
+      if (!response.ok) throw new Error("Error al obtener la pizza");
       const data = await response.json();
       setPizza(data);
     } catch (e) {
@@ -31,17 +32,23 @@ export default function Pizza({}) {
   };
 
   useEffect(() => {
-    getPizza();
-  }, [optionId]);
+    getPizza(id);
+  }, [id]);
 
-  const pizzaStock = stock.find((p) => p.id.toLowerCase() === pizza?.id.toLowerCase());
+  const cambiosEnPizza = (e) => {
+    const idSelected = e.target.value;
+    navigate(`/pizzas/${idSelected}`);
+  };
+
+  const pizzaStock = stock.find((p) => p.id?.toLowerCase() === pizza?.id?.toLowerCase());
 
   return (
     <div>
-      <div style={{ width: "20rem", margin: "auto"}}>
-        <label htmlFor="optionId" className="white">Buscador de pizzas:</label>
-        <select value={optionId} onChange={(e) => setOptionId(e.target.value)}>
-          <option value="">Selecciona una pizza</option>
+      <div style={{ width: "20rem", margin: "auto" }}>
+        <label htmlFor="pizzaSelect" className="white">
+          Escoge tú favorita:
+        </label>
+        <select id="pizzaSelect" value={id} onChange={cambiosEnPizza}>
           <option value="p001">Napolitana</option>
           <option value="p002">Española</option>
           <option value="p003">Salame</option>
@@ -59,14 +66,16 @@ export default function Pizza({}) {
           </p>
         </div>
       )}
+
       {error && <h2 className="white">Error: los Zombiez se comieron al repartidor</h2>}
+
       {!loading && pizza && (
         <div key={pizza.id} className="card2">
           <div className="cardDiv2">
             <img className="cardImg2" src={pizza.img} alt={pizza.name} />
             <h2 className="cardPrice2">{pricer(pizza.price)}</h2>
             <Button
-              buttonText={pizzaStock && pizzaStock.stock > 0 ? "Agregar al carrito" : "Sin Stock"}
+              buttonText={pizzaStock?.stock > 0 ? "Agregar al carrito" : "Sin Stock"}
               className="cardAdd"
               onClick={() => addPizza(pizza.id)}
             />

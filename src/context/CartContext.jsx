@@ -23,6 +23,8 @@ const CartProvider = ({ children }) => {
     },
   });
 
+
+
   const cantidad = useMemo(
     () => carro.reduce((acc, pizza) => acc + pizza.count, 0),
     [carro]
@@ -54,6 +56,7 @@ const CartProvider = ({ children }) => {
       const stockDisponible = pizzaEnCarrito
         ? pizza.stock - pizzaEnCarrito.count
         : pizza.stock;
+
       return { id: pizza.id, stock: stockDisponible };
     });
 
@@ -123,6 +126,22 @@ const CartProvider = ({ children }) => {
       setTotalConDescuento(0);
     }
   }
+
+  const [neto, setNeto] = useState(0);
+  const [iva, setIva] = useState(0);
+
+  useEffect(() => {
+    const total = parseFloat(totalisimo); 
+
+    if (!isNaN(total)) {
+      const netoCalculado = total / 1.19; 
+            const ivaCalculado = netoCalculado * 0.19;
+
+      setNeto(netoCalculado.toFixed(2));
+      setIva(ivaCalculado.toFixed(2)); 
+    }
+  }, [totalisimo]);
+
   
 
   return (
@@ -139,6 +158,8 @@ const CartProvider = ({ children }) => {
         cuponMsg,
         promo,
         setCupon,
+        neto,
+        iva,
         setTotalisimo,
         stock,
         aplicarCupon,

@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import Button from "../components/Button";
 import { pricer } from "../utilities/helper";
 import { CartContext } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Cart({ cuponPromo }) {
   const {
@@ -16,22 +18,11 @@ export default function Cart({ cuponPromo }) {
     cuponMsg,
     aplicarCupon,
     setCupon,
+    neto,
+    iva,
   } = useContext(CartContext);
 
-  const [neto, setNeto] = useState(0);
-  const [iva, setIva] = useState(0);
-
-  useEffect(() => {
-    const total = parseFloat(totalisimo); 
-
-    if (!isNaN(total)) {
-      const netoCalculado = total / 1.19; 
-            const ivaCalculado = netoCalculado * 0.19;
-
-      setNeto(netoCalculado.toFixed(2));
-      setIva(ivaCalculado.toFixed(2)); 
-    }
-  }, [totalisimo]);
+  const { auth } = useContext(AuthContext);
 
   return (
     <div className="cart">
@@ -49,7 +40,7 @@ export default function Cart({ cuponPromo }) {
                 <Button
                   buttonText="➕"
                   className="addPizza"
-                  onClick={() => addPizza(pizza.id)}  // la función agregar pizza ahora es condicional con el stock
+                  onClick={() => addPizza(pizza.id)} 
                 />
                 <p>{pizza.count}</p>
                 <Button
@@ -67,7 +58,7 @@ export default function Cart({ cuponPromo }) {
                     </div>
                   ))}
               </div>
-            </div>     
+            </div>
           )
       )}
       <div className="column" style={{ width: "90%" }}>
@@ -101,14 +92,40 @@ export default function Cart({ cuponPromo }) {
         </div>
         <div>
           <div>
-          <p>Neto: {pricer(parseFloat(neto))}</p>
-          <p>Iva: {pricer(parseFloat(iva))}</p>
+            <p>Neto: {pricer(parseFloat(neto))}</p>
+            <p>Iva: {pricer(parseFloat(iva))}</p>
           </div>
-            <p>Total: {pricer(totalisimo)}</p>
+          <p>Total: {pricer(totalisimo)}</p>
         </div>
       </div>
-
-      <Button buttonText="PAGAR 🍕" className="total" />
+      <div className="column" style={{ gap: "1rem" }}>
+        {cantidad === 0 ? (
+          <>
+            <p className="white">Debes agregar productos</p>
+            <Link to="/pagar">
+              <Button buttonText="PAGAR 🍕" className="form" disabled={true} />
+            </Link>
+          </>
+        ) : (
+          <>
+            {!auth.autorizado && (
+              <p className="white">Debes iniciar sesión para comprar</p>
+            )}
+            <Link to="/pagar">
+              <Button
+                buttonText="PAGAR 🍕"
+                className="form"
+                disabled={!auth.autorizado}
+              />
+            </Link>
+            {!auth.autorizado && (
+              <Link to="/login">
+                <Button buttonText="Inicia Sesión 🔒" className="alert" />
+              </Link>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
