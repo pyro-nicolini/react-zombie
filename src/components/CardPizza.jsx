@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 function CardPizza({ name, price, ingredients, img2, desc, img, onClick1, idx, botonAnadir = 'Añadir 🍕', id}) {
 
+
+
   const pizzaEmojis = [
     "🧀", // Mozzarella
     "🍅", // Tomates

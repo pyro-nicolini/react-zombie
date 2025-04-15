@@ -12,7 +12,7 @@ export default function Pizza() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const { addPizza, stock } = useContext(CartContext);
+  const { addPizza, stock, cartMsg } = useContext(CartContext);
 
   const getPizza = async (id) => {
     if (!id) return;
@@ -40,10 +40,14 @@ export default function Pizza() {
     navigate(`/pizzas/${idSelected}`);
   };
 
-  const pizzaStock = stock.find((p) => p.id?.toLowerCase() === pizza?.id?.toLowerCase());
+  const pizzaStock = stock.find(
+    (p) => p.id?.toLowerCase() === pizza?.id?.toLowerCase()
+  );
 
   return (
     <div>
+              {cartMsg && <strong className="exito modal">{cartMsg}</strong>}
+
       <div style={{ width: "20rem", margin: "auto" }}>
         <label htmlFor="pizzaSelect" className="white">
           Escoge tú favorita:
@@ -60,14 +64,20 @@ export default function Pizza() {
 
       {loading && (
         <div className="column">
-          <img src="../src/images/logo.png" className="spinner" alt="Cargando..." />
+          <img
+            src="../src/images/logo.png"
+            className="spinner"
+            alt="Cargando..."
+          />
           <p className="white" style={{ position: "relative", top: "-1rem" }}>
             <strong>{"Invadiendo..."}</strong>
           </p>
         </div>
       )}
 
-      {error && <h2 className="white">Error: los Zombiez se comieron al repartidor</h2>}
+      {error && (
+        <h2 className="white">Error: los Zombiez se comieron al repartidor</h2>
+      )}
 
       {!loading && pizza && (
         <div key={pizza.id} className="card2">
@@ -75,7 +85,9 @@ export default function Pizza() {
             <img className="cardImg2" src={pizza.img} alt={pizza.name} />
             <h2 className="cardPrice2">{pricer(pizza.price)}</h2>
             <Button
-              buttonText={pizzaStock?.stock > 0 ? "Agregar al carrito" : "Sin Stock"}
+              buttonText={
+                pizzaStock?.stock > 0 ? "Agregar al carrito" : "Sin Stock"
+              }
               className="cardAdd"
               onClick={() => addPizza(pizza.id)}
             />

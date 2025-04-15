@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/Register";
 import LoginPage from "./pages/Login";
@@ -12,50 +12,46 @@ import AllPizzas from "./components/AllPizzas";
 import NotFound from "./pages/404";
 import CartProvider from "./context/CartContext";
 
-import { AuthContext } from "./context/AuthContext"; // provider movidos en Main.jsx
+import { userContext } from "./context/UserContext";
 import { useContext } from "react";
 
 function App() {
-  const { auth } = useContext(AuthContext);
+  const { auth } = useContext(userContext);
 
+  const navigate = useNavigate();
   return (
-      <CartProvider>
-        <div className="app">
-          <Navbar />
-          <main className="main">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route
-                path="/profile"
-                element={
-                  auth.autorizado ? <Profile /> : <Navigate to="/login" />
-                }
-                />
-              <Route path="/allpizzas" element={<AllPizzas />} />
-              <Route path="/404" element={<NotFound />} />
-              <Route path="/*" element={<NotFound />} />
-              <Route
-                path="/login"
-                element={auth.autorizado ? <Navigate to="/" /> : <LoginPage />}
-                />
-              <Route
-                path="/register"
-                element={
-                  auth.autorizado ? <Navigate to="/" /> : <RegisterPage />
-                }
-                />
-              <Route path="/cart" element={<Cart cuponPromo={"movistar"} />} />
-              <Route path="/pizzas/:id" element={<Pizza />} />
-              <Route path="/pagar" element={<Pagar />} />
-            </Routes>
-          </main>
-          <Footer
-            footerTextA={"© 2025 -"}
-            footerLink={"Zombie Pizza"}
-            footerTextB={"- Derechos reservados"}
+    <CartProvider>
+      <div className="app">
+        <Navbar />
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/profile"
+              element={auth.autorizado ? <Profile /> : <LoginPage />}
             />
-        </div>
-            </CartProvider>
+            <Route path="/allpizzas" element={<AllPizzas />} />
+            <Route path="/*" element={<NotFound />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/register"
+              element={auth.autorizado ? <Home /> : <RegisterPage />}
+            />
+            <Route path="/cart" element={<Cart cuponPromo={"movistar"} />} />
+            <Route path="/pizzas/:id" element={<Pizza />} />
+            <Route
+              path="/pagar"
+              element={auth.autorizado ? <Pagar /> : <Cart />}
+            />
+          </Routes>
+        </main>
+        <Footer
+          footerTextA={"© 2025 -"}
+          footerLink={"Zombie Pizza"}
+          footerTextB={"- Derechos reservados"}
+        />
+      </div>
+    </CartProvider>
   );
 }
 

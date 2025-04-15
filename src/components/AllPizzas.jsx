@@ -7,7 +7,7 @@ export default function AllPizzas() {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const { addPizza, stock } = useContext(CartContext);
+  const { addPizza, stock, cartMsg } = useContext(CartContext);
 
   const getData = async () => {
     setLoading(true);
@@ -61,6 +61,7 @@ export default function AllPizzas() {
       )}
 
       <div className="pizzas">
+        {cartMsg && <strong className="exito modal">{cartMsg}</strong>}
         {!loading &&
           pizzas.map((pizza) => {
             const pizzaStock = stock.find(

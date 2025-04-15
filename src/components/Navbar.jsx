@@ -1,17 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../images/logo.png";
 import Button from "./Button";
 import Promo from "./Promo";
 import { pricer } from "../utilities/helper";
 import { useContext } from "react";
 
-import { AuthContext } from "../context/AuthContext";
+import { userContext } from "../context/UserContext";
 import { CartContext } from "../context/CartContext";
 
-import { cerrarSesion } from "../utilities/helper";
 
 const Navbar = () => {
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth, cerrarSesion } = useContext(userContext);
   const { autorizado, autenticado } = auth || {};
   const { totalisimo, promo } = useContext(CartContext);
 
@@ -56,28 +55,36 @@ const Navbar = () => {
             </div>
           </NavLink>
         ) : null}
-       <div className="menu">
-  <NavLink to="/" className={setActiveClass}>HOME</NavLink>
-  {autorizado ? (
-    <>
-      <Button
-        className="navLink red"
-        buttonText={"Cerrar Sesión"}
-        onClick={() => cerrarSesion(setAuth)}
-      />
-    </>
-  ) : (
-    <>
-      <NavLink to="/login" className={setActiveClass}>Iniciar Sesión</NavLink>
-      <NavLink to="/register" className={setActiveClass}>Registrar</NavLink>
-    </>
-  )}
-  <div className="info">
-    <NavLink to="/pizzas/p001" className={setActiveClass}>Pizzas
-    </NavLink>
-    <NavLink to="/404" className={setActiveClass}>NotFound</NavLink>
-    <NavLink to="/cart" className={setActiveClass}>Carrito</NavLink>
-  </div>
+        <div className="menu">
+          <NavLink to="/" className={setActiveClass}>
+            HOME
+          </NavLink>
+          {autorizado ? (
+            <>
+              <Button
+                className="alert padding"
+                buttonText={"Cerrar Sesión"}
+                onClick={() => cerrarSesion()}
+              />
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" className={setActiveClass}>
+                Iniciar Sesión
+              </NavLink>
+              <NavLink to="/register" className={setActiveClass}>
+                Registrar
+              </NavLink>
+            </>
+          )}
+          <div className="info">
+            <NavLink to="/pizzas/p001" className={setActiveClass}>
+              Pizzas
+            </NavLink>
+            <NavLink to="/cart" className={setActiveClass}>
+              Carrito
+            </NavLink>
+          </div>
         </div>
         <NavLink to="/cart">
           <Button

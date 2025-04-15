@@ -4,7 +4,7 @@ body {
   padding: 0;
   font-family: "Poppins", sans-serif;
   width: 100%;
-  background: radial-gradient(#58003b, #58003b, #000000);
+  background: radial-gradient(#013c94, #154e36, #000105);
   background-attachment: fixed;
 }
 .app {
@@ -70,7 +70,6 @@ body {
   width: auto;
   height: 5rem;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
   transform: rotate(0deg) scale(1.2);
   filter: drop-shadow(0px 0px 5px #7b00ff);
 }
@@ -81,26 +80,23 @@ body {
 
 .navLogo:hover,
 .navLogo2:hover {
-  transform: scale(1.3);
+  transform: scale(1.1);
 }
 .navLink {
   color: #ffffff;
   background-color: transparent;
-  transition: all 0.5s ease-in-out;
   text-transform: uppercase;
   text-decoration: none;
+  font-size: 1rem;
 }
 .navLink:hover {
-  transform: scale(1.1);
-  background-color: #ecb23e;
-  text-shadow: 2px 1px 3px #000000;
-  transition: all 0.2s ease-in-out;
-  padding: .1rem .4rem;
   border-radius: .5rem;
 }
 
 .active {
-  color: rgb(43, 233, 43);
+  transform: scale(1.2);
+  padding: .1rem .4rem;
+  color: #ffd20b;
   text-decoration: none;
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
@@ -149,7 +145,7 @@ body {
 .perfil {
   display: flex;
   gap: 0.3rem;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   padding: 0.4rem;
   background-color: #8400ff;
   color: rgb(255, 255, 255);
@@ -186,6 +182,8 @@ body {
   justify-content: center;
   align-items: center;
   gap: 0.3rem;
+  text-transform: lowercase;
+  font-size: 0.7rem;
 }
 .icon {
   height: 0.7rem;
@@ -221,6 +219,8 @@ body {
   justify-content: space-evenly;
   width: 100%;
   padding-top: 2rem;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%)
 }
 .hero {
   width: 100%;
@@ -236,6 +236,8 @@ body {
   margin: 0 auto;
   padding: 3rem 0;
   gap: 2rem;
+
+
 }
 
 .error404 {
@@ -770,6 +772,7 @@ h3 {
   background-color: #680075;
   border-radius: 0.5rem;
   padding: 0 0.5rem;
+  
 }
 .cart-item img {
   width: 3.5rem;
@@ -925,6 +928,7 @@ h3 {
   .account {
     flex-direction: column;
   }
+  
 }
 
 @media (max-width: 480px) {
@@ -936,6 +940,11 @@ h3 {
   .form {
     max-width: 19rem;
   }
+.cart-item {
+  flex-direction: column;
+  flex-wrap: wrap !important;
+}
+
   .info {
     display: none;
   }
@@ -945,4 +954,14 @@ h3 {
   .menu {
     gap: 1rem;
   }
+}
+
+strong {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  font-weight: 400;
+  font-size: 1rem !important;
+  text-transform: capitalize;
 }

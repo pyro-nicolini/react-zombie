@@ -1,16 +1,18 @@
 import { createContext, useState, useEffect, useMemo } from "react";
 import { pizzasJS } from "../data/pizzas";
+import { createBrowserRouter } from "react-router-dom";
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cuponMsg, setCuponMsg] = useState("");
+  const [cartMsg, setCartMsg] = useState('')
   const [listaDeProductos, setListaDeProductos] = useState(pizzasJS);
   const [cupon, setCupon] = useState("");
   const [stock, setStock] = useState([]);
   const [totalConDescuento, setTotalConDescuento] = useState(0);
   const [totalisimo, setTotalisimo] = useState(0);
-  const [carro, setCarro] = useState([]);
+  const [carrito, setCarrito] = useState([]);
   const [promo, setPromo] = useState({
     aplicado: false,
     movistar: {
@@ -23,16 +25,14 @@ const CartProvider = ({ children }) => {
     },
   });
 
-
-
   const cantidad = useMemo(
-    () => carro.reduce((acc, pizza) => acc + pizza.count, 0),
-    [carro]
+    () => carrito.reduce((acc, pizza) => acc + pizza.count, 0),
+    [carrito]
   );
 
   const total = useMemo(
-    () => carro.reduce((acc, pizza) => acc + pizza.price * pizza.count, 0),
-    [carro]
+    () => carrito.reduce((acc, pizza) => acc + pizza.price * pizza.count, 0),
+    [carrito]
   );
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const CartProvider = ({ children }) => {
     } else if (promo.aplicado) {
       setTotalConDescuento(calcularDescuento(total));
     }
-  }, [carro, total, promo.aplicado]);
+  }, [carrito, total, promo.aplicado]);
 
   useEffect(() => {
     const nuevoTotal = total - totalConDescuento;
@@ -52,7 +52,7 @@ const CartProvider = ({ children }) => {
 
   useEffect(() => {
     const updatedStock = listaDeProductos.map((pizza) => {
-      const pizzaEnCarrito = carro.find((item) => item.id === pizza.id);
+      const pizzaEnCarrito = carrito.find((item) => item.id === pizza.id);
       const stockDisponible = pizzaEnCarrito
         ? pizza.stock - pizzaEnCarrito.count
         : pizza.stock;
@@ -61,19 +61,19 @@ const CartProvider = ({ children }) => {
     });
 
     setStock(updatedStock);
-  }, [carro, listaDeProductos]);
+  }, [carrito, listaDeProductos]);
 
   function addPizza(id) {
-    setCarro((prevPizzas) => {
+    setCarrito((prevPizzas) => {
       const pizzaEncontrada = listaDeProductos.find(
         (pizza) => pizza.id.toLowerCase() === id.toLowerCase()
       );
       if (!pizzaEncontrada) return prevPizzas;
-  
+
       const pizzaEnCarrito = prevPizzas.find(
         (pizza) => pizza.id.toLowerCase() === id.toLowerCase()
       );
-  
+
       if (pizzaEnCarrito) {
         if (pizzaEnCarrito.count < pizzaEncontrada.stock) {
           return prevPizzas.map((pizza) =>
@@ -85,14 +85,13 @@ const CartProvider = ({ children }) => {
           return prevPizzas;
         }
       }
-  
+
       return [...prevPizzas, { ...pizzaEncontrada, count: 1 }];
     });
   }
-  
 
   function deletePizza(id) {
-    setCarro((prevPizzas) =>
+    setCarrito((prevPizzas) =>
       prevPizzas
         .map((pizza) =>
           pizza.id.toLowerCase() === id.toLowerCase()
@@ -131,23 +130,35 @@ const CartProvider = ({ children }) => {
   const [iva, setIva] = useState(0);
 
   useEffect(() => {
-    const total = parseFloat(totalisimo); 
+    const total = parseFloat(totalisimo);
 
     if (!isNaN(total)) {
-      const netoCalculado = total / 1.19; 
-            const ivaCalculado = netoCalculado * 0.19;
+      const netoCalculado = total / 1.19;
+      const ivaCalculado = netoCalculado * 0.19;
 
       setNeto(netoCalculado.toFixed(2));
-      setIva(ivaCalculado.toFixed(2)); 
+      setIva(ivaCalculado.toFixed(2));
     }
   }, [totalisimo]);
 
-  
+
+  useEffect(() => {
+    if (carrito.length > 0) {
+      mensajeCarro();
+    }
+  }, [carrito]);
+
+  const mensajeCarro = () => {
+    setCartMsg('Producto agregado al carro')
+    setTimeout(() => {
+      setCartMsg('')
+    }, 1000)
+  }
 
   return (
     <CartContext.Provider
       value={{
-        carro,
+        carrito,
         totalisimo,
         cantidad,
         addPizza,
@@ -163,6 +174,8 @@ const CartProvider = ({ children }) => {
         setTotalisimo,
         stock,
         aplicarCupon,
+        cartMsg,
+        setCartMsg,
       }}
     >
       {children}

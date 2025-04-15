@@ -1,78 +1,38 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Button from "../components/Button";
 import zom2 from "../images/zom2.png";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { controlCambios } from "../utilities/helper";
 import { Link } from "react-router-dom";
+import { userContext } from "../context/UserContext";
 
 function LoginPage() {
-  const { auth, setAuth } = useContext(AuthContext);
-  const { email = "", pass = "", error, exito } = auth.input || {};
+  const {
+    handleSubmitLogin,
+    error,
+    exito,
+    email,
+    password,
+    loading,
+  } = useContext(userContext);
 
-  const navigate = useNavigate();
-
-  const validarLogin = (e) => {
-    e.preventDefault();
-
-    if (!email?.trim() || !pass?.trim()) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "Todos los campos son obligatorios",
-          exito: "",
-        },
-      }));
-    }
-
-    if (pass.length < 6) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "La contraseña debe tener al menos 6 caracteres",
-          exito: "",
-        },
-      }));
-    }
-
-    const usuarioEncontrado = auth.users.find(
-      (user) => user.email === email && user.pass === pass
-    );
-
-    if (!usuarioEncontrado) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "Usuario y/o contraseña no válidos",
-          exito: "",
-        },
-      }));
-    }
-
-    setAuth((prev) => ({
-      ...prev,
-      autorizado: true,
-      autenticado: usuarioEncontrado,
-      input: {
-        email: "",
-        pass: "",
-        error: "",
-        exito: `Inicio de sesión exitoso`,
-      },
-    }));
-
-    alert(`¡Bienvenido, ${email}!`);
-    navigate("/", { replace: true });
-  };
 
   return (
-    <form onSubmit={validarLogin} className="form">
-      <div className="flex">
-        <img src={zom2} alt="" className="zombie2" />
-      </div>
+    <form onSubmit={handleSubmitLogin} className="form">
+      {(loading && (
+        <div className="column">
+          <img
+            src="../src/images/logo.png"
+            className="spinner"
+            alt="Cargando..."
+          />
+          <p className="white" style={{ position: "relative", top: "-1rem" }}>
+            <strong>{"Invadiendo..."}</strong>
+          </p>
+        </div>
+      )) || (
+        <div className="flex">
+          <img src={zom2} alt="Zombie" className="zombie2" />
+        </div>
+      )}
       <h3>🔓 Iniciar Sesión</h3>
       {error && <p className="alert">{error}</p>}
       {exito && <p className="exito">{exito}</p>}
@@ -81,8 +41,8 @@ function LoginPage() {
         <input
           type="email"
           name="email"
-          value={email}
-          onChange={(e) => controlCambios(e, setAuth)}
+          value={email.value}
+          onChange={email.onChange}
           className="flex"
           placeholder="Email"
         />
@@ -91,24 +51,20 @@ function LoginPage() {
         <label>Contraseña:</label>
         <input
           type="password"
-          name="pass"
-          value={pass}
-          onChange={(e) => controlCambios(e, setAuth)}
+          name="password"
+          value={password.value}
+          onChange={password.onChange}
           className="flex"
-          placeholder="contraseña"
+          placeholder="Contraseña"
         />
       </div>
       <div className="column gap">
-        <Button
-          type="submit"
-          className={`logBtn`}
-          buttonText={"Iniciar Sesión"}
-        />
+        <Button type="submit" className="logBtn" buttonText="Iniciar Sesión" />
         <Link to="/register" className="link">
-            ¿Olvidaste tu contraseña?
+          ¿Olvidaste tu contraseña?
         </Link>
         <Link to="/register" className="link">
-            Crea una Cuenta
+          Crea una Cuenta
         </Link>
       </div>
     </form>

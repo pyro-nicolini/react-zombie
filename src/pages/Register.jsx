@@ -1,84 +1,32 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Button from "../components/Button";
 import zom1 from "../images/zom1.png";
-import {AuthContext} from "../context/AuthContext";
-import { controlCambios } from "../utilities/helper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useInput from "../hooks/useInput";
+import { userContext } from "../context/UserContext";
 
 function RegisterPage() {
-  const { auth, setAuth } = useContext(AuthContext)
-  const { email = "", pass = "", pass2 = "", error, exito } = auth.input || {};
-
-
-  const validarRegistro = (e) => {
-    e.preventDefault();
-
-    if (!email?.trim() || !pass?.trim() || !pass2?.trim()) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "Todos los campos son obligatorios",
-          exito: "",
-        },
-      }));
-    }
-
-    if (pass !== pass2) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "Las contraseñas no coinciden",
-          exito: "",
-        },
-      }));
-    }
-
-    if (pass.length < 6) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "La contraseña debe tener al menos 6 caracteres",
-          exito: "",
-        },
-      }));
-    }
-
-    const usuarioEncontrado = auth.users.find((user) => user.email === email);
-
-    if (usuarioEncontrado) {
-      return setAuth((prev) => ({
-        ...prev,
-        input: {
-          ...prev.input,
-          error: "El email ya está registrado",
-          exito: "",
-        },
-      }));
-    }
-
-    setAuth((prev) => ({
-      ...prev,
-      users: [...prev.users, { email, pass }],
-      input: {
-        email: "",
-        pass: "",
-        pass2: "",
-        error: "",
-        exito: "Usuario creado exitosamente",
-      },
-    }));
-
-    alert(`${email} creado exitosamente`);
-  };
-
+  const { handleSubmitRegister, error, exito, email, password, pass2, loading  } = useContext(userContext);
+  const navigate = useNavigate();
+  
   return (
-    <form onSubmit={validarRegistro} className="form">
+    <form onSubmit={handleSubmitRegister} className="form">
+       {loading && (
+    <div className="column">
+      <img
+        src="../src/images/logo.png"
+        className="spinner"
+        alt="Cargando..."
+      />
+      <p className="white" style={{ position: "relative", top: "-1rem" }}>
+        <strong>{"Invadiendo..."}</strong>
+      </p>
+    </div>
+  ) || (
       <div className="flex">
         <img src={zom1} alt="" className="zombie2" />
       </div>
+  )}
       <h3>🔐 Registrar Usuario</h3>
       {error && <div className="alert">{error}</div>}
       {exito && <div className="exito">{exito}</div>}
@@ -88,8 +36,7 @@ function RegisterPage() {
         <input
           type="email"
           name="email"
-          value={email}
-          onChange={(e) => controlCambios(e, setAuth)}
+          value={email.value} onChange={email.onChange}
           className="flex"
           placeholder="Email"
         />
@@ -100,8 +47,7 @@ function RegisterPage() {
         <input
           type="password"
           name="pass"
-          value={pass}
-          onChange={(e) => controlCambios(e, setAuth)}
+          value={password.value} onChange={password.onChange}
           className="flex"
           placeholder="contraseña"
         />
@@ -111,8 +57,7 @@ function RegisterPage() {
         <input
           type="password"
           name="pass2"
-          value={pass2}
-          onChange={(e) => controlCambios(e, setAuth)}
+          value={pass2.value} onChange={pass2.onChange}
           className="flex"
           placeholder="Re-ingresar contraseña"
         />
@@ -120,9 +65,10 @@ function RegisterPage() {
       <div className="column space gap">
         <Button type="submit" className={`logBtn`} buttonText={"Registrar"} />
         <p style={{ fontSize: "0.9rem" }}>¿Ya tienes una cuenta?</p>
-        <Link to="/login" className="link"> Iniciar Sesión
+        <Link to="/login" className="link">
+          {" "}
+          Iniciar Sesión
         </Link>
-
       </div>
     </form>
   );
