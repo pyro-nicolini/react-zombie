@@ -8,6 +8,8 @@ import walkin from "../images/walkin.webp";
 import giganton from "../images/giganton.gif";
 
 
+let msg2;
+let timeout1, timeout2, timeout3, timeout4;
 
 
 export default function Cart({ cuponPromo }) {
@@ -41,7 +43,6 @@ const navigate = useNavigate();
     }
 }, [carrito]);
 
-let msg2;
 
   async function carro() {
     const token = localStorage.getItem("token");
@@ -73,20 +74,19 @@ let msg2;
     } 
   }
 
-  let timeout1, timeout2, timeout3, timeout4;
 
   function pagando() {
       setPagado('Los Zombies se están preparando');
       setImgPagando(walkin);
   
-      timeout1 = setTimeout(() => setPagado('Van marchando a tu casa'), 2500);
+      timeout1 = setTimeout(() => setPagado('Van marchando a tu casa'), 2000);
       timeout2 = setTimeout(() => {
           setPagado(msg2);
           setImgPagando(giganton);
-      }, 5000);
+      }, 4000);
       timeout3 = setTimeout(() => {
         navigate("/pagar", { replace: true });
-      }, 7500);
+      }, 7000);
       timeout4 = setTimeout(() => {
         setPagado('');
       }, 8000);
